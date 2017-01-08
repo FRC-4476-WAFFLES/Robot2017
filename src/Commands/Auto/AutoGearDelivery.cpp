@@ -1,13 +1,13 @@
-#include "AutoDoNothing.h"
+#include "AutoGearDelivery.h"
 #include "Commands/Misc/WaitTime.h"
 #include "Commands/Drive/DriveAuto.h"
-#include "Commands/Auto/ShootAuto.h"
-#include "Commands/Shooter/Intake.h"
-#include "Commands/Shooter/ExtentionOut.h"
 
-AutoDoNothing::AutoDoNothing()
+
+AutoGearDelivery::AutoGearDelivery()
 {
 	SetTimeout(15.0);
+	//TODO: Make this not magic numbers
+	AddSequential(new DriveAuto(3000,0,30));
 	AddSequential(new WaitTime(1.0));
 
 }

@@ -13,6 +13,7 @@ private:
 	Victor* LeftMotorBack;
 
 	Encoder* DriveEncoder;
+	Encoder* DriveEncoder2;
 	ADXRS450_Gyro* gyro;
 public:
 	DriveSubsystem();

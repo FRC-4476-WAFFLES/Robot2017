@@ -18,6 +18,7 @@ DriveSubsystem::DriveSubsystem():
 
 	 gyro = new ADXRS450_Gyro();
 	 DriveEncoder = new Encoder(DRIVE_ENCODER_A , DRIVE_ENCODER_B);
+	 DriveEncoder2 = new Encoder(DRIVE_ENCODER_C, DRIVE_ENCODER_D);
 }
 
 void DriveSubsystem::InitDefaultCommand()
@@ -44,7 +45,8 @@ void DriveSubsystem::Drive(double left, double right)
 
 double DriveSubsystem::driveEncoder()
 {
-	return DriveEncoder->Get();
+
+	return (DriveEncoder->Get() + DriveEncoder2->Get())/2.0;
 }
 void DriveSubsystem::ReZero(){
 	resetGyro();
