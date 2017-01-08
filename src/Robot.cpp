@@ -4,6 +4,10 @@ class Robot: public IterativeRobot
 {
 private:
 	LiveWindow *lw = LiveWindow::GetInstance();
+	Talon *Motor7;
+	Talon *Motor6;
+	Talon *Motor5;
+	Talon *Motor4;
 	Joystick *LeftJoystick;
 	Joystick *RightJoystick;
 	RobotDrive *DriveBase;
@@ -13,6 +17,14 @@ private:
 		LeftJoystick = new Joystick(0);
 		RightJoystick = new Joystick(1);
 		DriveBase = new RobotDrive(0,1,2,3);
+		DriveBase->SetInvertedMotor(RobotDrive::kFrontLeftMotor,true);
+		DriveBase->SetInvertedMotor(RobotDrive::kFrontRightMotor,true);
+		DriveBase->SetInvertedMotor(RobotDrive::kRearLeftMotor,true);
+		DriveBase->SetInvertedMotor(RobotDrive::kRearRightMotor,true);
+		Motor7 = new Talon(7);
+		Motor6 = new Talon(6);
+		Motor5 = new Talon(5);
+		Motor4 = new Talon(4);
 	}
 
 
