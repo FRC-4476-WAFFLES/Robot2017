@@ -7,10 +7,7 @@
 class DriveSubsystem: public Subsystem
 {
 private:
-	Victor* RightMotorFront;
-	Victor* LeftMotorFront;
-	Victor* RightMotorBack;
-	Victor* LeftMotorBack;
+	RobotDrive* DriveBase;
 
 	Encoder* DriveEncoder;
 	Encoder* DriveEncoder2;

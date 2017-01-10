@@ -11,10 +11,9 @@
  */
  
 // PID Motors
-constexpr int DRIVE_MOTOR_RIGHT_FRONT = 0;
-constexpr int DRIVE_MOTOR_RIGHT_BACK = 1;
-constexpr int DRIVE_MOTOR_LEFT_FRONT = 2;
-constexpr int DRIVE_MOTOR_LEFT_BACK = 3;
+constexpr int SHOOTER_TURRET = 4;
+constexpr int SHOOTER_ROLLER = 5;
+constexpr int INTAKE_ROLLER = 6;
 
 
 // Analog Inputs

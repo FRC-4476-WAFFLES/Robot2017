@@ -11,10 +11,12 @@
 DriveSubsystem::DriveSubsystem():
 		Subsystem("DriveSubsystem")
 {
-	 RightMotorFront = new Victor(DRIVE_MOTOR_RIGHT_FRONT);
-	 RightMotorBack = new  Victor(DRIVE_MOTOR_RIGHT_BACK);
-	 LeftMotorFront = new Victor(DRIVE_MOTOR_LEFT_FRONT);
-	 LeftMotorBack = new Victor(DRIVE_MOTOR_LEFT_BACK);
+	 DriveBase = new RobotDrive(0,1,2,3);
+
+	 DriveBase->SetInvertedMotor(RobotDrive::kFrontLeftMotor,true);
+	 DriveBase->SetInvertedMotor(RobotDrive::kFrontRightMotor,true);
+	 DriveBase->SetInvertedMotor(RobotDrive::kRearLeftMotor,true);
+	 DriveBase->SetInvertedMotor(RobotDrive::kRearRightMotor,true);
 
 	 gyro = new ADXRS450_Gyro();
 	 DriveEncoder = new Encoder(DRIVE_ENCODER_A , DRIVE_ENCODER_B);
@@ -37,10 +39,7 @@ void DriveSubsystem::resetGyro(){
 
 void DriveSubsystem::Drive(double left, double right)
 {
-	RightMotorFront->SetSpeed(right);
-	LeftMotorFront->SetSpeed(-left);
-	RightMotorBack->SetSpeed(right);
-	LeftMotorBack->SetSpeed(-left);
+	DriveBase->TankDrive(left,right,false);
 }
 
 double DriveSubsystem::driveEncoder()

@@ -4,6 +4,7 @@
 #include <string>
 #include <mutex>
 #include "Subsystems/DriveSubsystem.h"
+#include "Subsystems/ShooterSubsystem.h"
 #include "OI.h"
 #include "WPILib.h"
 
@@ -23,6 +24,7 @@ public:
 	// Create a single static instance of all of your subsystems
 	static std::unique_ptr<DriveSubsystem> drive;
 	static std::unique_ptr<OI> oi;
+	static std::unique_ptr<ShooterSubsystem> shooter;
 
 };
 

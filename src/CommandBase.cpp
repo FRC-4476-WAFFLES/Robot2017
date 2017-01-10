@@ -9,6 +9,7 @@
 // Initialize a single static instance of all of your subsystems to NULL
 std::unique_ptr<OI> CommandBase::oi;
 std::unique_ptr<DriveSubsystem> CommandBase::drive;
+std::unique_ptr<ShooterSubsystem> CommandBase::shooter;
 // Empty constructors
 CommandBase::CommandBase(const std::string &name) :
 		Command(name)
