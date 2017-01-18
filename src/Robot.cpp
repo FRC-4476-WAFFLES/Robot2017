@@ -38,7 +38,7 @@ private:
 
 	void TeleopPeriodic()
 	{
-
+		frc::Scheduler::GetInstance()->Run();
 
 	}
 
