@@ -7,6 +7,7 @@
 #include <Commands/Drive/DriveOperator.h>
 #include "DriveSubsystem.h"
 #include "../RobotMap.h"
+#include <math.h>
 
 DriveSubsystem::DriveSubsystem():
 		Subsystem("DriveSubsystem")
@@ -23,32 +24,55 @@ DriveSubsystem::DriveSubsystem():
 	 DriveEncoder2 = new Encoder(DRIVE_ENCODER_C, DRIVE_ENCODER_D);
 }
 
-void DriveSubsystem::InitDefaultCommand()
-{
+void DriveSubsystem::InitDefaultCommand() {
 	// When no other commands are running, we do operator control
 	SetDefaultCommand(new DriveOperator());
 }
 
-double DriveSubsystem::GetGyro() {
+double DriveSubsystem::distance() {
+	return (DriveEncoder->Get() + DriveEncoder2->Get())/2.0;
+}
+
+double DriveSubsystem::angle() {
 	return gyro->GetAngle();
 }
 
-void DriveSubsystem::resetGyro(){
+void DriveSubsystem::zero_sensors() {
 	gyro->Reset();
-}
-
-void DriveSubsystem::Drive(double left, double right)
-{
-	DriveBase->TankDrive(left,right,false);
-}
-
-double DriveSubsystem::driveEncoder()
-{
-
-	return (DriveEncoder->Get() + DriveEncoder2->Get())/2.0;
-}
-void DriveSubsystem::ReZero(){
-	resetGyro();
 	DriveEncoder->Reset();
 }
 
+void DriveSubsystem::drive(Joystick* left, Joystick* right) {
+	auto curve = drive_curves::cheesy_curve;
+	drive(curve(left->GetRawAxis(1)), curve(right->GetRawAxis(1)));
+}
+
+void DriveSubsystem::drive(double left, double right) {
+	DriveBase->TankDrive(left,right,false);
+}
+
+void DriveSubsystem::prints() {
+	SmartDashboard::PutNumber("drive.angle()", angle());
+	SmartDashboard::PutNumber("drive.distance()", distance());
+}
+
+namespace drive_curves {
+	double nocurve(double x) {
+		return x;
+	}
+
+	template<int Degree>
+	double exponential(double x) {
+		return pow(x, Degree);
+	}
+
+	double cheesy_curve(double x) {
+		if(fabs(x) < 0.01 ) {
+		    return 0.0;
+		} else if(x < 0.0) {
+			return cheesy_curve(-x);
+		} else {
+			return 4.5504 * pow(x, 4) + -5.9762 * pow(x, 3) + 2.5895 * pow(x, 2) + -0.0869 * x + 0.0913;
+		}
+	}
+}

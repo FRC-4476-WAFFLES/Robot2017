@@ -34,7 +34,7 @@ void DriveAuto::Initialize() {
 
 void DriveAuto::Execute() {
 	// Calculate the error on the distance traveled
-	double distanceError = drive->driveEncoder() - distance;
+	double distanceError = drive->distance() - distance;
 
 	// Make sure the distance error does not exceed 100%
 	if(distanceError > 1.0) {
@@ -45,25 +45,25 @@ void DriveAuto::Execute() {
 	}
 
 	// Calculate the difference between the current angle and the desired angle
-	double angleError = angle - drive->GetGyro();
+	double angleError = angle - drive->angle();
 
 	// Set the motors to run
-	drive->Drive(0.1*angleError - speed*distanceError, 0.1*angleError - speed*distanceError);
+	drive->drive(0.1*angleError - speed*distanceError, 0.1*angleError - speed*distanceError);
 }
 
 // Returns true when the distance is within 200 and the angle is within 5 degrees
 bool DriveAuto::IsFinished() {
-	double distanceError = drive->driveEncoder() - distance;
-	double angleError = angle - drive->GetGyro();
+	double distanceError = drive->distance() - distance;
+	double angleError = angle - drive->angle();
 	return distanceError < 200 && distanceError > -200 && angleError < 5.0 && angleError > -5.0;
 }
 
 // Stop the motors when this command ends
 void DriveAuto::End() {
-	drive->Drive(0.0, 0.0);
+	drive->drive(0.0, 0.0);
 }
 
 // Stop the motors when this command is interrupted by another
 void DriveAuto::Interrupted() {
-	drive->Drive(0.0, 0.0);
+	drive->drive(0.0, 0.0);
 }

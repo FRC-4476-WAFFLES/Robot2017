@@ -28,11 +28,5 @@ void CommandBase::init()
 
 // Print out some useful information about each subsystem
 void CommandBase::prints() {
-
-  SmartDashboard::PutNumber("drive.Gyro", drive->GetGyro());
-  SmartDashboard::PutNumber("drive.encoder.ticks", drive->driveEncoder());
-
-  int time_remaining = ceil(DriverStation::GetInstance().GetMatchTime() / 15);
-  time_remaining = std::max(0, time_remaining - 1);
-  SmartDashboard::PutNumber("Time Left", time_remaining);
+  if(drive != nullptr) drive->prints();
 }

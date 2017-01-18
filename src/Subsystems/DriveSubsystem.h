@@ -15,12 +15,20 @@ private:
 public:
 	DriveSubsystem();
 	void InitDefaultCommand();
-	double GetGyro();
-	void Drive (Joystick* left, Joystick* right);
-	void Drive (double left, double right);
-	void resetGyro();
-	double driveEncoder();
-	void ReZero();
+	double distance();
+	double angle();
+	void zero_sensors();
+
+	void drive(Joystick* left, Joystick* right);
+	void drive(double left, double right);
+	void prints();
 };
+
+namespace drive_curves {
+	double nocurve(double x);
+	template<int Degree>
+	double exponential(double x);
+	double cheesy_curve(double x);
+}
 
 #endif
