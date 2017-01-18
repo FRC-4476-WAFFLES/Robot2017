@@ -43,7 +43,7 @@ void DriveSubsystem::zero_sensors() {
 }
 
 void DriveSubsystem::drive(Joystick* left, Joystick* right) {
-	auto curve = drive_curves::cheesy_curve;
+	auto curve = drive_curves::nocurve;
 	drive(curve(left->GetRawAxis(1)), curve(right->GetRawAxis(1)));
 }
 
