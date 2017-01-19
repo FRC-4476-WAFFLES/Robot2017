@@ -6,13 +6,11 @@
 class ShooterSubsystem: public Subsystem
 {
 private:
-	Victor* Rollers;
+	TalonSRX* Rollers;
 	Victor* Turret;
 public:
 	ShooterSubsystem();
 	void InitDefaultCommand();
-
-
 };
 
 

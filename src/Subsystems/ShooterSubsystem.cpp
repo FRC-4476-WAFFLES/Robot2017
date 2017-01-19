@@ -10,7 +10,7 @@ ShooterSubsystem::ShooterSubsystem():
 		Subsystem("ShooterSubsystem")
 {
 	 Turret = new Victor(SHOOTER_TURRET);
-	 Rollers = new Victor(SHOOTER_ROLLER);
+	 Rollers = new TalonSRX(SHOOTER_ROLLER);
 }
 
 void ShooterSubsystem::InitDefaultCommand()
