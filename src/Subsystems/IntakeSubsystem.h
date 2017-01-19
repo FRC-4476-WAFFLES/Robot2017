@@ -6,11 +6,11 @@
 class IntakeSubsystem: public Subsystem
 {
 private:
-	Victor* IntakeRollers;
+
 public:
 	IntakeSubsystem();
 	void InitDefaultCommand();
-
+	Victor* IntakeRollers;
 
 };
 

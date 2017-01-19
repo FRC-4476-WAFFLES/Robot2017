@@ -36,8 +36,8 @@ void ShooterSubsystem::InitDefaultCommand()
 }
 
 void ShooterSubsystem::SetSpeed(double RPM){
-	Rollers->ApplyControlMode(CANTalon::kSpeedMode);
-	Rollers->SetSetpoint(RPM); /* 1500 RPM in either direction */
+	Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
+	Rollers->SetSetpoint(RPM);
 }
 
 

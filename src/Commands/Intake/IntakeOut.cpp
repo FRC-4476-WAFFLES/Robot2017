@@ -1,46 +1,46 @@
-#include "IntakeDefault.h"
-
+#include <Commands/Intake/IntakeOut.h>
 
 
 // Allows the driver to drive the robot by making the speed of the robot = the Y axis value
 
 // needs the undivided attention of the drive subsystem
-IntakeDefault::IntakeDefault():
-	CommandBase("IntakeDefault")
+IntakeOut::IntakeOut():
+	CommandBase("IntakeOut")
 {
 	Requires(intake.get());
 }
 
 // Called just before this Command runs the first time
-void IntakeDefault::Initialize()
+void IntakeOut::Initialize()
 {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 //makes the speed of the robot = the Y axis value of the joysticks
-void IntakeDefault::Execute()
+void IntakeOut::Execute()
 {
-
+	intake->IntakeRollers->SetSpeed(-0.7258);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 // never ends
-bool IntakeDefault::IsFinished()
+bool IntakeOut::IsFinished()
 {
 	return false;
 }
 
 // Called once after isFinished returns true
 //stops the drive motor
-void IntakeDefault::End()
+void IntakeOut::End()
 {
+	intake->IntakeRollers->SetSpeed(0.0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 //stops the drive motors when .....see above....
-void IntakeDefault::Interrupted()
+void IntakeOut::Interrupted()
 {
 
 }
