@@ -16,6 +16,7 @@ public:
 	CANTalon* Rollers_Slave;
 	CANTalon* Load;
 	Victor* Turret;
+	static constexpr float ShotSpeed = 100;
 };
 
 

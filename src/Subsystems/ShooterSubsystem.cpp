@@ -32,6 +32,7 @@ ShooterSubsystem::ShooterSubsystem():
 	 Rollers_Slave->SetControlMode(CANSpeedController::kFollower);
 	 Rollers_Slave->Set(SHOOTER_ROLLER);
 
+
 }
 
 void ShooterSubsystem::InitDefaultCommand()
