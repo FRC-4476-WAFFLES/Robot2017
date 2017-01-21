@@ -9,13 +9,18 @@
 IntakeSubsystem::IntakeSubsystem():
 		Subsystem("IntakeSubsystem")
 {
-	 IntakeRollers = new Victor(INTAKE_ROLLER);
+	 IntakeRollers = new VictorSP(INTAKE_ROLLER);
+	 BallConveyor = new TalonSRX(BALL_CONVEYOR);
 }
 
 void IntakeSubsystem::InitDefaultCommand()
 {
 	// When no other commands are running, we do operator control
 	SetDefaultCommand(new IntakeDefault());
+}
+
+void IntakeSubsystem::Execute(){
+
 }
 
 

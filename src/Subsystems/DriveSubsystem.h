@@ -7,11 +7,17 @@
 class DriveSubsystem: public Subsystem
 {
 private:
-	RobotDrive* DriveBase;
+
 
 	Encoder* DriveEncoder;
 	Encoder* DriveEncoder2;
 	ADXRS450_Gyro* gyro;
+	Victor* DriveRight1;
+	Victor* DriveRight2;
+	Victor* DriveRight3;
+	Victor* DriveLeft1;
+	Victor* DriveLeft2;
+	Victor* DriveLeft3;
 public:
 	DriveSubsystem();
 	void InitDefaultCommand();

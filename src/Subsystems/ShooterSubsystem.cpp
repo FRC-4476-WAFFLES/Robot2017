@@ -12,6 +12,8 @@ ShooterSubsystem::ShooterSubsystem():
 {
 	 Turret = new Victor(SHOOTER_TURRET);
 	 Rollers = new CANTalon(SHOOTER_ROLLER);
+	 Rollers_Slave = new CANTalon(SHOOTER_ROLLER_SLAVE);
+	 Load = new CANTalon(SHOOTER_LOAD);
 
 	 //CANTALLON SETUP//
 	 Rollers->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
@@ -26,6 +28,9 @@ ShooterSubsystem::ShooterSubsystem():
 	 Rollers->SetP(0.22);
 	 Rollers->SetI(0);
 	 Rollers->SetD(0);
+
+	 Rollers_Slave->SetControlMode(CANSpeedController::kFollower);
+	 Rollers_Slave->Set(SHOOTER_ROLLER);
 
 }
 

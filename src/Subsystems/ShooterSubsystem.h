@@ -7,12 +7,15 @@
 class ShooterSubsystem: public Subsystem
 {
 private:
-	CANTalon* Rollers;
-	Victor* Turret;
+
 public:
 	ShooterSubsystem();
 	void InitDefaultCommand();
 	void SetSpeed(double RPM);
+	CANTalon* Rollers;
+	CANTalon* Rollers_Slave;
+	CANTalon* Load;
+	Victor* Turret;
 };
 
 

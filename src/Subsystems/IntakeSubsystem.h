@@ -10,7 +10,9 @@ private:
 public:
 	IntakeSubsystem();
 	void InitDefaultCommand();
-	Victor* IntakeRollers;
+	void Execute();
+	VictorSP* IntakeRollers;
+	TalonSRX* BallConveyor;
 
 };
 

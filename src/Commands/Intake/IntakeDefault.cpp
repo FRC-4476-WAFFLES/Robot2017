@@ -1,4 +1,5 @@
 #include "IntakeDefault.h"
+#include "IntakeIn.h"
 
 
 
@@ -21,6 +22,12 @@ void IntakeDefault::Initialize()
 //makes the speed of the robot = the Y axis value of the joysticks
 void IntakeDefault::Execute()
 {
+	intake->IntakeRollers->SetSpeed(0.0);
+	intake->BallConveyor->SetSpeed(0.0);
+	//TODO add button
+	if(false){
+		Scheduler::GetInstance()->AddCommand(new IntakeIn);
+	}
 
 }
 
@@ -42,5 +49,7 @@ void IntakeDefault::End()
 //stops the drive motors when .....see above....
 void IntakeDefault::Interrupted()
 {
+	intake->IntakeRollers->SetSpeed(0.0);
+	intake->BallConveyor->SetSpeed(0.0);
 
 }

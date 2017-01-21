@@ -11,6 +11,7 @@ std::unique_ptr<OI> CommandBase::oi;
 std::unique_ptr<DriveSubsystem> CommandBase::drive;
 std::unique_ptr<ShooterSubsystem> CommandBase::shooter;
 std::unique_ptr<IntakeSubsystem> CommandBase::intake;
+std::unique_ptr<GearSubsystem> CommandBase::gear;
 // Empty constructors
 CommandBase::CommandBase(const std::string &name) :
 		Command(name)

@@ -1,17 +1,14 @@
 #pragma once
 
 #include "CommandBase.h"
-#include "WPILib.h"
 
-class IntakeIn: public CommandBase
-{
+class GearDefault : public CommandBase {
 public:
-	IntakeIn();
+	GearDefault();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
 	void End();
 	void Interrupted();
-
 };
 
