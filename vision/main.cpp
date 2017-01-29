@@ -22,27 +22,48 @@ timespec start, end;
 void draw_largest();
 //2 4 4 1'3"
 
-int main(int, char**)
-{
+int setup() {
   cap.open(0);
   cap.set(CAP_PROP_FRAME_WIDTH, 640);
   cap.set(CAP_PROP_FRAME_HEIGHT, 360);
   cap.set(CAP_PROP_EXPOSURE, -100);
   cap.set(CAP_PROP_AUTO_EXPOSURE, 0);
   cap.read(img); // Discard first frame
+}
+
+int main(int, char**)
+{
+  setup();
 
   if(!cap.isOpened())
     return -1;
 
-  img = imread("out.png", CV_LOAD_IMAGE_COLOR);
-  for(int x=0; true; x++) {
-    cap.read(img);
-    cvtColor(img, hsv, CV_BGR2HSV);
-    inRange(hsv, Scalar(55,143,84), Scalar(95,255,254), thresh);
-    findContours(thresh, contours, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-    draw_largest();
-    //printf("Done!%d\n", contours.size());
-    imwrite("/tmp/out.png", img);
+  // TODO: server stuff
+}
+
+RunResult process_frame() {
+  cap.read(img);
+  cvtColor(img, hsv, CV_BGR2HSV);
+  inRange(hsv, Scalar(55,143,84), Scalar(95,255,254), thresh);
+  findContours(thresh, contours, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
+  return
+  // draw_largest();
+  //printf("Done!%d\n", contours.size());
+  // imwrite("/tmp/out.png", img);
+  return find_data();
+}
+
+RunResult find_data() {
+  double unadjusted_distance = 6008*pow(max(bound.size.width, bound.size.height), -0.938);
+  double real_distance = unadjusted_distance *
+    (1+0.000003*pow(bound.center.x - 640.0/2.0, 2.0)
+      +0.000002*pow(bound.center.y - 360.0/2.0, 2.0));
+  double turret_angle = (bound.center.x - 640.0/2.0)*(28.0/320.0);
+  return RunResult {
+    true,
+    turret_angle,
+    real_distance,
+    0.0, // TODO: time the vision stuff
   }
 }
 
@@ -63,15 +84,5 @@ void draw_largest() {
     Point2f rect_points[4]; bound.points( rect_points );
     for(int j = 0; j < 4; j++)
       line( img,rect_points[j], rect_points[(j+1)%4], Scalar(0,0,255),1,8);
-    printf("Width: %f\n", bound.size.width);
-    printf("Height: %f\n", bound.size.height);
-    //printf("middle:%d\n",bound.width/2+bound.x);
-    double unadjusted_distance = 6008*pow(max(bound.size.width, bound.size.height), -0.938);
-    double real_distance = unadjusted_distance *
-      (1+0.000003*pow(bound.center.x - 640.0/2.0, 2.0)
-        +0.000002*pow(bound.center.y - 360.0/2.0, 2.0));
-    printf("distance: %f\n", real_distance);
-    double turret_angle = (bound.center.x - 640.0/2.0)*(28.0/320.0);
-    printf("angle: %f\n",turret_angle);
   }
 }
