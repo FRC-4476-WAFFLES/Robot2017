@@ -11,11 +11,12 @@
  */
  
 // PWM Motors
-constexpr int SHOOTER_TURRET = 4;
+
 constexpr int INTAKE_ROLLER = 6;
 constexpr int BALL_CONVEYOR = 7;
-constexpr int GEAR = 8;
-constexpr int SHOOTER_LOAD = 9;
+constexpr int GEAR_LEFT = 8;
+constexpr int GEAR_RIGHT = 9;
+
 
 constexpr int DRIVE_RIGHT_1 = 0;
 constexpr int DRIVE_RIGHT_2 = 1;
@@ -27,7 +28,8 @@ constexpr int DRIVE_LEFT_3 = 5;
 // CAN Motors
 constexpr int SHOOTER_ROLLER = 0;
 constexpr int SHOOTER_ROLLER_SLAVE = 1;
-
+constexpr int SHOOTER_TURRET = 2;
+constexpr int SHOOTER_LOAD = 3;
 // Analog Inputs
 
 // Digital Inputs

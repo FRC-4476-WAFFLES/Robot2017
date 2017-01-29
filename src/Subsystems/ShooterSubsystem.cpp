@@ -10,7 +10,7 @@
 ShooterSubsystem::ShooterSubsystem():
 		Subsystem("ShooterSubsystem")
 {
-	 Turret = new Victor(SHOOTER_TURRET);
+	 Turret = new CANTalon(SHOOTER_TURRET);
 	 Rollers = new CANTalon(SHOOTER_ROLLER);
 	 Rollers_Slave = new CANTalon(SHOOTER_ROLLER_SLAVE);
 	 Load = new CANTalon(SHOOTER_LOAD);

@@ -10,7 +10,10 @@ private:
 public:
 	GearSubsystem();
 	void InitDefaultCommand();
-	Servo* Gear;
+	void Open();
+	void Closed();
+	Servo* GearLeft;
+	Servo*GearRight;
 };
 
 

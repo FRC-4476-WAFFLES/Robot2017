@@ -71,5 +71,7 @@ void draw_largest() {
       (1+0.000003*pow(bound.center.x - 640/2, 2)
         +0.000002*pow(bound.center.y - 360/2, 2));
     printf("distance: %f\n", real_distance);
+    double turret_angle = (bound.center.x - 640/2)*(28/320);
+    printf("angle: %f\n",turret_angle);
   }
 }

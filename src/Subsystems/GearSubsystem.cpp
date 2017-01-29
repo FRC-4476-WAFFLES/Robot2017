@@ -9,7 +9,8 @@
 GearSubsystem::GearSubsystem():
 		Subsystem("GearSubsystem")
 {
-	Gear = new Servo(GEAR);
+	GearLeft = new Servo(GEAR_LEFT);
+	GearRight = new Servo(GEAR_RIGHT);
 }
 
 void GearSubsystem::InitDefaultCommand()
@@ -18,7 +19,14 @@ void GearSubsystem::InitDefaultCommand()
 	SetDefaultCommand(new GearDefault());
 }
 
+void GearSubsystem::Open(){
+	GearLeft->SetAngle(180);
+	GearRight->SetAngle(0);
+}
 
-
+void GearSubsystem::Closed(){
+	GearLeft->SetAngle(0);
+	GearRight->SetAngle(180);
+}
 
 

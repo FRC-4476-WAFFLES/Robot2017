@@ -14,6 +14,11 @@ void GearDefault::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void GearDefault::Execute() {
+	if(oi->operatorController->GetRawButton(OI::BumperTopRight)){
+		gear->Open();
+	}else{
+		gear->Closed();
+	}
 
 }
 
