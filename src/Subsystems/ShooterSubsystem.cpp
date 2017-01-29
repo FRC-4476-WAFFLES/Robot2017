@@ -6,6 +6,7 @@
 #include "ShooterSubsystem.h"
 #include "../RobotMap.h"
 #include "CANTalon.h"
+#include "vision/run_result.hpp"
 
 ShooterSubsystem::ShooterSubsystem():
 		Subsystem("ShooterSubsystem")
