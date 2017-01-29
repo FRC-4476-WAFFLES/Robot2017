@@ -1,88 +1,114 @@
-#include <opencv2/opencv.hpp>
+#include <fcntl.h>
+#include <string.h>
+#include <stdlib.h>
+#include <errno.h>
 #include <stdio.h>
-#include <time.h>
+#include <netinet/in.h>
+#include <resolv.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 #include <unistd.h>
-#include <algorithm>
-#include "run_result.hpp"
+#include <pthread.h>
+#include "vision.hpp"
 
-using namespace cv;
+void* SocketHandler(void*);
 
-/// Cam horizontal FOV = 53.13degree
-/// 12" = 12"
-/// 24" = 24"
-/// 33" = 32"
-
-/// v4l2-ctl -d /dev/video1 -c exposure_auto=1 -c exposure_absolute=5
-
-Mat img, hsv, thresh;
-VideoCapture cap;
-std::vector<std::vector<Point>> contours;
-timespec start, end;
-
-void draw_largest();
-//2 4 4 1'3"
-
-int setup() {
-  cap.open(0);
-  cap.set(CAP_PROP_FRAME_WIDTH, 640);
-  cap.set(CAP_PROP_FRAME_HEIGHT, 360);
-  cap.set(CAP_PROP_EXPOSURE, -100);
-  cap.set(CAP_PROP_AUTO_EXPOSURE, 0);
-  cap.read(img); // Discard first frame
-}
-
-int main(int, char**)
-{
-  setup();
-
-  if(!cap.isOpened())
+int main(int argv, char** argc){
+	setup();
+	if(!cap.isOpened())
     return -1;
 
-  // TODO: server stuff
+
+	int host_port= 8080;
+
+	struct sockaddr_in my_addr;
+
+	int hsock;
+	int * p_int ;
+
+	socklen_t addr_size = 0;
+	int* csock;
+	sockaddr_in sadr;
+	pthread_t thread_id=0;
+
+
+	hsock = socket(AF_INET, SOCK_STREAM, 0);
+	if(hsock == -1){
+		printf("Error initializing socket %d\n", errno);
+		goto FINISH;
+	}
+
+	p_int = (int*)malloc(sizeof(int));
+	*p_int = 1;
+
+	if( (setsockopt(hsock, SOL_SOCKET, SO_REUSEADDR, (char*)p_int, sizeof(int)) == -1 )||
+		(setsockopt(hsock, SOL_SOCKET, SO_KEEPALIVE, (char*)p_int, sizeof(int)) == -1 ) ){
+		printf("Error setting options %d\n", errno);
+		free(p_int);
+		goto FINISH;
+	}
+	free(p_int);
+
+	my_addr.sin_family = AF_INET ;
+	my_addr.sin_port = htons(host_port);
+
+	memset(&(my_addr.sin_zero), 0, 8);
+	my_addr.sin_addr.s_addr = INADDR_ANY ;
+
+	if( bind( hsock, (sockaddr*)&my_addr, sizeof(my_addr)) == -1 ){
+		fprintf(stderr,"Error binding to socket, make sure nothing else is listening on this port %d\n",errno);
+		goto FINISH;
+	}
+	if(listen( hsock, 10) == -1 ){
+		fprintf(stderr, "Error listening %d\n",errno);
+		goto FINISH;
+	}
+
+	//Now lets do the server stuff
+
+	addr_size = sizeof(sockaddr_in);
+
+	while(true){
+		printf("waiting for a connection\n");
+		csock = (int*)malloc(sizeof(int));
+		if((*csock = accept( hsock, (sockaddr*)&sadr, &addr_size))!= -1){
+			printf("---------------------\nReceived connection from %s\n",inet_ntoa(sadr.sin_addr));
+			pthread_create(&thread_id,0,&SocketHandler, (void*)csock );
+			pthread_detach(thread_id);
+		}
+		else{
+			fprintf(stderr, "Error accepting %d\n", errno);
+		}
+	}
+
+FINISH:
+;
 }
 
-RunResult process_frame() {
-  cap.read(img);
-  cvtColor(img, hsv, CV_BGR2HSV);
-  inRange(hsv, Scalar(55,143,84), Scalar(95,255,254), thresh);
-  findContours(thresh, contours, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-  return
-  // draw_largest();
-  //printf("Done!%d\n", contours.size());
-  // imwrite("/tmp/out.png", img);
-  return find_data();
-}
+void* SocketHandler(void* lp){
+    int *csock = (int*)lp;
 
-RunResult find_data() {
-  double unadjusted_distance = 6008*pow(max(bound.size.width, bound.size.height), -0.938);
-  double real_distance = unadjusted_distance *
-    (1+0.000003*pow(bound.center.x - 640.0/2.0, 2.0)
-      +0.000002*pow(bound.center.y - 360.0/2.0, 2.0));
-  double turret_angle = (bound.center.x - 640.0/2.0)*(28.0/320.0);
-  return RunResult {
-    true,
-    turret_angle,
-    real_distance,
-    0.0, // TODO: time the vision stuff
-  }
-}
+	 char buffer[1024];
+	 int buffer_len = 1024;
+	int bytecount;
 
-void draw_largest() {
-  double largest_area = 0.0;
-  int largest_contour_index = -1;
-  for(uint32_t i = 0; i<contours.size(); i++) // iterate through each contour.
-  {
-    double a=contourArea(contours[i],false);  //  Find the area of contour
-    if(a>largest_area){
-      largest_area=a;
-      largest_contour_index=i;                //Store the index of largest contour
-    }
-  }
-  drawContours(img, contours, -1, Scalar(255, 0, 0), 1);
-  if(largest_contour_index != -1) {
-    auto bound = minAreaRect(contours[largest_contour_index]);
-    Point2f rect_points[4]; bound.points( rect_points );
-    for(int j = 0; j < 4; j++)
-      line( img,rect_points[j], rect_points[(j+1)%4], Scalar(0,0,255),1,8);
-  }
+	memset(buffer, 0, buffer_len);
+	if((bytecount = recv(*csock, buffer, buffer_len, 0))== -1){
+		fprintf(stderr, "Error receiving data %d\n", errno);
+		goto FINISH;
+	}
+	printf("Received bytes %d\nReceived string \"%s\"\n", bytecount, buffer);
+	strcat(buffer, " SERVER ECHO");
+
+	if((bytecount = send(*csock, buffer, strlen(buffer), 0))== -1){
+		fprintf(stderr, "Error sending data %d\n", errno);
+		goto FINISH;
+	}
+
+	printf("Sent bytes %d\n", bytecount);
+
+
+FINISH:
+	free(csock);
+    return 0;
 }
