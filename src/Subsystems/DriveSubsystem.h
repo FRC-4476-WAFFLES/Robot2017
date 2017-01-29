@@ -7,8 +7,6 @@
 class DriveSubsystem: public Subsystem
 {
 private:
-
-
 	Encoder* DriveEncoder;
 	Encoder* DriveEncoder2;
 	ADXRS450_Gyro* gyro;
@@ -24,7 +22,6 @@ public:
 	double distance();
 	double angle();
 	void zero_sensors();
-
 	void drive(Joystick* left, Joystick* right);
 	void drive(double left, double right);
 	void prints();

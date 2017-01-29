@@ -26,6 +26,7 @@ void CommandBase::init()
   drive.reset(new DriveSubsystem());
   shooter.reset(new ShooterSubsystem());
   intake.reset(new IntakeSubsystem());
+  gear.reset(new GearSubsystem());
 
   oi.reset(new OI());
 }
@@ -33,4 +34,7 @@ void CommandBase::init()
 // Print out some useful information about each subsystem
 void CommandBase::prints() {
   if(drive != nullptr) drive->prints();
+//  if(intake != nullptr) intake->prints();
+//  if(shooter != nullptr) shooter->prints();
+//  if(gear != nullptr) gear->prints();
 }

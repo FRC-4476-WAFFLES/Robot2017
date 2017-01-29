@@ -20,13 +20,10 @@ void DriveOperator::Initialize()
 //makes the speed of the robot = the Y axis value of the joysticks
 void DriveOperator::Execute()
 {
-	double controllerLeft = Preferences::GetInstance()->GetDouble("Speed",0.0); //+ oi.get()->operatorController->GetRawAxis(1) / 3.7;
-	//double controllerRight = oi.get()->joystickRight->GetY(); // + oi.get()->operatorController->GetRawAxis(3) / 3.7;
-	if (oi.get()->joystickLeft->GetRawButton(1)){
-		drive->drive(controllerLeft,controllerLeft);
-	}else{
-		drive->drive(0.0,0.0);
-	}
+	double controllerLeft = oi.get()->joystickLeft->GetRawAxis(1);
+	printf("Here%f\n", controllerLeft);
+	double controllerRight = oi.get()->joystickRight->GetRawAxis(1);
+	drive->drive(controllerLeft,controllerRight);
 }
 
 // Make this return true when this Command no longer needs to run execute()

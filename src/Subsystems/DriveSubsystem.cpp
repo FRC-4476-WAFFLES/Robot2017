@@ -19,10 +19,9 @@ DriveSubsystem::DriveSubsystem():
 	DriveRight2 = new Victor(DRIVE_RIGHT_2);
 	DriveRight3 = new Victor(DRIVE_RIGHT_3);
 
-
-	 gyro = new ADXRS450_Gyro();
-	 DriveEncoder = new Encoder(DRIVE_ENCODER_A , DRIVE_ENCODER_B);
-	 DriveEncoder2 = new Encoder(DRIVE_ENCODER_C, DRIVE_ENCODER_D);
+	gyro = new ADXRS450_Gyro();
+	DriveEncoder = new Encoder(DRIVE_ENCODER_A , DRIVE_ENCODER_B);
+	DriveEncoder2 = new Encoder(DRIVE_ENCODER_C, DRIVE_ENCODER_D);
 }
 
 void DriveSubsystem::InitDefaultCommand() {
@@ -64,6 +63,9 @@ void DriveSubsystem::prints() {
 
 namespace drive_curves {
 	double nocurve(double x) {
+		if(fabs(x) < 0.01) {
+			return 0.0;
+		}
 		return x;
 	}
 

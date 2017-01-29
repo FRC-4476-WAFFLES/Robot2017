@@ -12,8 +12,8 @@ OI::OI()
 	// Process operator interface input here.
 
 	// Joystick port declarations
-	joystickLeft = new Joystick(0);
-	joystickRight = new Joystick(1);
+	joystickRight = new Joystick(0);
+	joystickLeft = new Joystick(1);
 	operatorController = new Joystick(2);
 
 	Button* temp;

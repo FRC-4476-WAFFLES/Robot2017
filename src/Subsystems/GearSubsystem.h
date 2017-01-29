@@ -11,7 +11,6 @@ public:
 	GearSubsystem();
 	void InitDefaultCommand();
 	Servo* Gear;
-
 };
 
 

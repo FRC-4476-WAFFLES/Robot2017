@@ -2,7 +2,7 @@
  * GearSubsystem is a class that keeps references to each of the
  * drive motors and drive encoder.
  */
-#include <Commands/Intake/IntakeDefault.h>
+#include <Commands/Gear/GearDefault.h>
 #include "GearSubsystem.h"
 #include "../RobotMap.h"
 
@@ -15,7 +15,7 @@ GearSubsystem::GearSubsystem():
 void GearSubsystem::InitDefaultCommand()
 {
 	// When no other commands are running, we do operator control
-	SetDefaultCommand(new IntakeDefault());
+	SetDefaultCommand(new GearDefault());
 }
 
 

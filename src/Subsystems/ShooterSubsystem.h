@@ -7,7 +7,6 @@
 class ShooterSubsystem: public Subsystem
 {
 private:
-
 public:
 	ShooterSubsystem();
 	void InitDefaultCommand();

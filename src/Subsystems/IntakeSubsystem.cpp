@@ -19,10 +19,4 @@ void IntakeSubsystem::InitDefaultCommand()
 	SetDefaultCommand(new IntakeDefault());
 }
 
-void IntakeSubsystem::Execute(){
-
-}
-
-
-
 
