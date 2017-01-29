@@ -46,6 +46,7 @@ RunResult process_frame() {
 }
 
 RunResult find_data() {
+  auto bound = minAreaRect(contours[largest_contour_index]);
   double unadjusted_distance = 6008*pow(max(bound.size.width, bound.size.height), -0.938);
   double real_distance = unadjusted_distance *
     (1+0.000003*pow(bound.center.x - 640.0/2.0, 2.0)

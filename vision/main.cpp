@@ -87,8 +87,10 @@ FINISH:
 
 void* SocketHandler(void* lp){
     int *csock = (int*)lp;
+    RunResult send_data = process_frame();
 
 	 char buffer[1024];
+	 char* response= to_bytes(&send_data);
 	 int buffer_len = 1024;
 	int bytecount;
 
@@ -100,7 +102,7 @@ void* SocketHandler(void* lp){
 	printf("Received bytes %d\nReceived string \"%s\"\n", bytecount, buffer);
 	strcat(buffer, " SERVER ECHO");
 
-	if((bytecount = send(*csock, buffer, strlen(buffer), 0))== -1){
+	if((bytecount = send(*csock, response, 32, 0))== -1){
 		fprintf(stderr, "Error sending data %d\n", errno);
 		goto FINISH;
 	}
