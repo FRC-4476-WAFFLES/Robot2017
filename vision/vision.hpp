@@ -1,80 +1,57 @@
+#pragma once
+
 #include <opencv2/opencv.hpp>
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
 #include <algorithm>
+#include <shared_mutex>
+#include <thread>
 #include "run_result.hpp"
 
-using namespace cv;
+class Vision {
+public:
+  // devid is the id of the camera (for example /dev/video0 = 0)
+  Vision(int devid);
 
-/// Cam horizontal FOV = 53.13degree
-/// 12" = 12"
-/// 24" = 24"
-/// 33" = 32"
+  // Runs the main loop on a seperate thread. Will use minimal cpu while
+  // get and get_blocking aren't being called.
+  void main_loop();
 
-/// v4l2-ctl -d /dev/video1 -c exposure_auto=1 -c exposure_absolute=5
+  // Returns the most recent RunResult
+  RunResult get();
 
-Mat img, hsv, thresh;
-VideoCapture cap;
-std::vector<std::vector<Point>> contours;
-timespec start, end;
+  // Wait for the next RunResult
+  RunResult get_blocking();
+private:
+  std::thread thread;
 
-void draw_largest();
-//2 4 4 1'3"
+  cv::Mat img, hsv, thresh;
+  cv::VideoCapture cap;
+  std::vector<std::vector<cv::Point>> contours;
+  timespec start, end;
 
-int setup() {
-  cap.open(0);
-  cap.set(CAP_PROP_FRAME_WIDTH, 640);
-  cap.set(CAP_PROP_FRAME_HEIGHT, 360);
-  cap.set(CAP_PROP_EXPOSURE, -100);
-  cap.set(CAP_PROP_AUTO_EXPOSURE, 0);
-  cap.read(img); // Discard first frame
-}
+  // The device id of the camera
+  int devid;
 
+  // Used for sending the results back to the caller.
+  std::condition_variable wait_for_next;
+  std::mutex last_result_mutex;
+  timespec last_result_capture;
+  RunResult last_result;
 
+  // Used for waiting if our results are not being used.
+  std::condition_variable wait_for_consumers;
+  std::mutex is_being_observed_mutex;
+  int32_t is_being_observed = INT_MIN + 1;
 
-RunResult process_frame() {
-  cap.read(img);
-  cvtColor(img, hsv, CV_BGR2HSV);
-  inRange(hsv, Scalar(55,143,84), Scalar(95,255,254), thresh);
-  findContours(thresh, contours, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
-  return
-  // draw_largest();
-  //printf("Done!%d\n", contours.size());
-  // imwrite("/tmp/out.png", img);
-  return find_data();
-}
+  // Does all of the vision processing and returns a RunResult
+  RunResult process_frame();
 
-RunResult find_data() {
-  double unadjusted_distance = 6008*pow(max(bound.size.width, bound.size.height), -0.938);
-  double real_distance = unadjusted_distance *
-    (1+0.000003*pow(bound.center.x - 640.0/2.0, 2.0)
-      +0.000002*pow(bound.center.y - 360.0/2.0, 2.0));
-  double turret_angle = (bound.center.x - 640.0/2.0)*(28.0/320.0);
-  return RunResult {
-    true,
-    turret_angle,
-    real_distance,
-    0.0, // TODO: time the vision stuff
-  }
-}
+  // Produces a RunResult, assumes that image processing has already been done
+  RunResult find_data();
+  void draw_largest();
 
-void draw_largest() {
-  double largest_area = 0.0;
-  int largest_contour_index = -1;
-  for(uint32_t i = 0; i<contours.size(); i++) // iterate through each contour.
-  {
-    double a=contourArea(contours[i],false);  //  Find the area of contour
-    if(a>largest_area){
-      largest_area=a;
-      largest_contour_index=i;                //Store the index of largest contour
-    }
-  }
-  drawContours(img, contours, -1, Scalar(255, 0, 0), 1);
-  if(largest_contour_index != -1) {
-    auto bound = minAreaRect(contours[largest_contour_index]);
-    Point2f rect_points[4]; bound.points( rect_points );
-    for(int j = 0; j < 4; j++)
-      line( img,rect_points[j], rect_points[(j+1)%4], Scalar(0,0,255),1,8);
-  }
-}
+  // Tells the main loop that its data is being used and it should continue.
+  void am_listening();
+};

@@ -8,107 +8,61 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <pthread.h>
+#include <thread>
 #include "vision.hpp"
+#include "run_result.hpp"
 
-void* SocketHandler(void*);
+constexpr int ONE = 1;
+constexpr int HOST_PORT = 8080;
 
-int main(int argv, char** argc){
-	setup();
-	if(!cap.isOpened())
-    return -1;
+void SocketHandler(int csock, Vision* vision) {
+  while(true) {
+    // Request the next frame
+    RunResult result = vision->get_blocking();
+    printf("%f\n", result.angle);
+    char* bytes_to_send = to_bytes(&result);
 
-
-	int host_port= 8080;
-
-	struct sockaddr_in my_addr;
-
-	int hsock;
-	int * p_int ;
-
-	socklen_t addr_size = 0;
-	int* csock;
-	sockaddr_in sadr;
-	pthread_t thread_id=0;
-
-
-	hsock = socket(AF_INET, SOCK_STREAM, 0);
-	if(hsock == -1){
-		printf("Error initializing socket %d\n", errno);
-		goto FINISH;
-	}
-
-	p_int = (int*)malloc(sizeof(int));
-	*p_int = 1;
-
-	if( (setsockopt(hsock, SOL_SOCKET, SO_REUSEADDR, (char*)p_int, sizeof(int)) == -1 )||
-		(setsockopt(hsock, SOL_SOCKET, SO_KEEPALIVE, (char*)p_int, sizeof(int)) == -1 ) ){
-		printf("Error setting options %d\n", errno);
-		free(p_int);
-		goto FINISH;
-	}
-	free(p_int);
-
-	my_addr.sin_family = AF_INET ;
-	my_addr.sin_port = htons(host_port);
-
-	memset(&(my_addr.sin_zero), 0, 8);
-	my_addr.sin_addr.s_addr = INADDR_ANY ;
-
-	if( bind( hsock, (sockaddr*)&my_addr, sizeof(my_addr)) == -1 ){
-		fprintf(stderr,"Error binding to socket, make sure nothing else is listening on this port %d\n",errno);
-		goto FINISH;
-	}
-	if(listen( hsock, 10) == -1 ){
-		fprintf(stderr, "Error listening %d\n",errno);
-		goto FINISH;
-	}
-
-	//Now lets do the server stuff
-
-	addr_size = sizeof(sockaddr_in);
-
-	while(true){
-		printf("waiting for a connection\n");
-		csock = (int*)malloc(sizeof(int));
-		if((*csock = accept( hsock, (sockaddr*)&sadr, &addr_size))!= -1){
-			printf("---------------------\nReceived connection from %s\n",inet_ntoa(sadr.sin_addr));
-			pthread_create(&thread_id,0,&SocketHandler, (void*)csock );
-			pthread_detach(thread_id);
-		}
-		else{
-			fprintf(stderr, "Error accepting %d\n", errno);
-		}
-	}
-
-FINISH:
-;
+    // Send the frame
+    if(send(csock, bytes_to_send, sizeof(RunResult), MSG_NOSIGNAL) == -1) {
+      fprintf(stderr, "Disconnect: %d\n", errno);
+      return;
+    }
+  }
 }
 
-void* SocketHandler(void* lp){
-    int *csock = (int*)lp;
+int main(int argv, char** argc) {
+  // Ignore SIGPIPE on connection die
+  signal(SIGPIPE, SIG_IGN);
 
-	 char buffer[1024];
-	 int buffer_len = 1024;
-	int bytecount;
+  // Setup camera and check that it worked
+  Vision vision(1);
+  vision.main_loop();
 
-	memset(buffer, 0, buffer_len);
-	if((bytecount = recv(*csock, buffer, buffer_len, 0))== -1){
-		fprintf(stderr, "Error receiving data %d\n", errno);
-		goto FINISH;
-	}
-	printf("Received bytes %d\nReceived string \"%s\"\n", bytecount, buffer);
-	strcat(buffer, " SERVER ECHO");
+  // Open the socket
+  struct sockaddr_in my_addr = {};
+  my_addr.sin_family = AF_INET;
+  my_addr.sin_port = htons(HOST_PORT);
+  my_addr.sin_addr.s_addr = INADDR_ANY;
 
-	if((bytecount = send(*csock, buffer, strlen(buffer), 0))== -1){
-		fprintf(stderr, "Error sending data %d\n", errno);
-		goto FINISH;
-	}
+  int hsock = socket(AF_INET, SOCK_STREAM, 0);
 
-	printf("Sent bytes %d\n", bytecount);
+  if(hsock == -1)
+    return 2;
+  if((setsockopt(hsock, SOL_SOCKET, SO_REUSEADDR, &ONE, sizeof(int)) == -1)||
+     (setsockopt(hsock, SOL_SOCKET, SO_KEEPALIVE, &ONE, sizeof(int)) == -1))
+    return 3;
+  if(bind(hsock, (sockaddr*)&my_addr, sizeof(my_addr)) == -1)
+    return 4;
+  if(listen(hsock, 10) == -1)
+    return 5;
 
-
-FINISH:
-	free(csock);
-    return 0;
+  while(true) {
+    int csock = accept(hsock, nullptr, nullptr);
+    if(csock != -1) {
+      fprintf(stderr, "Connection!\n");
+      std::thread(SocketHandler, csock, &vision).detach();
+    } else {
+      fprintf(stderr, "Error accepting %d\n", errno);
+    }
+  }
 }
