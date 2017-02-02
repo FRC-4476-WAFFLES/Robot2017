@@ -11,6 +11,7 @@ public:
 	ShooterSubsystem();
 	void InitDefaultCommand();
 	void SetSpeed(double RPM);
+	void SetTurret(double TurretAngle);
 	CANTalon* Rollers;
 	CANTalon* Rollers_Slave;
 	CANTalon* Load;
