@@ -64,6 +64,7 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.1104744751.2094170440" name="vision.hpp" rcbsApplicability="disable" resourcePath="src/vision/vision.hpp" toolsToInvoke=""/>
 					<fileInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.1104744751.1858332882" name="CameraClient.h" rcbsApplicability="disable" resourcePath="src/CustomSensors/CameraClient.h" toolsToInvoke="">
 						<tool customBuildStep="true" id="org.eclipse.cdt.managedbuilder.ui.rcbs.1898965889" name="Resource Custom Build Step">
 							<inputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.inputtype.234752997" name="Resource Custom Build Step Input Type">
@@ -73,7 +74,7 @@
 						</tool>
 					</fileInfo>
 					<sourceEntries>
-						<entry excluding="src/CustomSensors/CameraClient.h|src/CustomSensors/CameraClient.cpp|src/vision|vision" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/vision/vision.hpp|src/vision/vision.cpp|src/vision/main.cpp|src/vision/Client|vision" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
