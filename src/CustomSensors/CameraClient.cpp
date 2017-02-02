@@ -11,7 +11,7 @@
 #include "CameraClient.h"
 #include "vision/run_result.hpp"
 CameraClient::CameraClient(){
-	control_loop = std::make_unique<Notifier>(&CameraClient::RunRecieve,this);
+	//control_loop = std::make_unique<Notifier>(&CameraClient::RunRecieve,this);
 	char* Machine = to_bytes(&converted);
 	int host_port= 8080;
 	const char* host_name="127.0.0.1";

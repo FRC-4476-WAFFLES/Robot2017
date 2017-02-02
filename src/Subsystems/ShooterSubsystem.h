@@ -13,13 +13,16 @@ public:
 	void InitDefaultCommand();
 	void SetSpeed(double RPM);
 	void SetTurret(double TurretAngle);
+	void CameraNetworkTable();
 	CANTalon* Rollers;
 	CANTalon* Rollers_Slave;
 	CANTalon* Load;
 	CANTalon* Turret;
 	static constexpr float ShotSpeed = 100;
+	std::shared_ptr<NetworkTable> table;
 
 	CameraClient* Cam;
+
 };
 
 
