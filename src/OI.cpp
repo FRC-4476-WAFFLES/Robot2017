@@ -4,7 +4,7 @@
 
 #include "OI.h"
 #include "Commands/SemiAuto/DriveBackAirship.h"
-
+#include "Commands/SemiAuto/DriveBackLoadStation.h"
 OI::OI()
 {
 	/*
@@ -18,8 +18,16 @@ OI::OI()
 	joystickLeft = new Joystick(1);
 	operatorController = new Joystick(2);
 
+<<<<<<< HEAD
 
 	Button* test_button = new JoystickButton(joystickRight,3);
 	test_button->WhenReleased(new DriveBackAirship);
 
+=======
+	Button* Airship = new JoystickButton(joystickRight,3);
+	Airship->WhenReleased(new DriveBackAirship);
+
+	Button* Load = new JoystickButton(joystickLeft,3);
+	Load->WhenReleased(new DriveBackLoadStation);
+>>>>>>> origin/master
 }

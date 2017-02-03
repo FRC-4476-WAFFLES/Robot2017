@@ -6,7 +6,6 @@
 AutoGearDelivery::AutoGearDelivery()
 {
 	SetTimeout(15.0);
-	//TODO: Make this not magic numbers
-	AddSequential(new DriveAuto(3000, 0, 0.3));
+	AddSequential(new DriveAuto(5.5, 0, 0.3));
 	AddSequential(new WaitTime(1.0));
 }

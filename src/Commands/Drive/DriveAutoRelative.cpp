@@ -39,7 +39,7 @@ void DriveAutoRelative::Initialize() {
 
 void DriveAutoRelative::Execute() {
 	// Calculate the error on the distance traveled
-		double distanceError = (drive->distance() - distance)*0.01;
+		double distanceError = (drive->distance() - distance)*0.7683;
 
 		// Make sure the distance error does not exceed 100%
 		if(distanceError > 1.0) {
@@ -60,7 +60,7 @@ void DriveAutoRelative::Execute() {
 bool DriveAutoRelative::IsFinished() {
 	double distanceError = drive->distance() - distance;
 	double angleError = angle - drive->angle();
-	return distanceError < 20 && distanceError > -20 && angleError < 5.0 && angleError > -5.0;
+	return distanceError < 0.20 && distanceError > -0.20 && angleError < 5.0 && angleError > -5.0;
 }
 
 // Stop the motors when this command ends
