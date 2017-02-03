@@ -28,7 +28,7 @@ private:
 
 	void AutonomousPeriodic()
 	{
-
+		CommandBase::prints();
 	}
 
 	void TeleopInit()
@@ -39,11 +39,16 @@ private:
 	void TeleopPeriodic()
 	{
 		frc::Scheduler::GetInstance()->Run();
+		CommandBase::prints();
 	}
 
 	void TestPeriodic()
 	{
 		lw->Run();
+	}
+	void DisabledPeriodic()
+	{
+		CommandBase::prints();
 	}
 };
 

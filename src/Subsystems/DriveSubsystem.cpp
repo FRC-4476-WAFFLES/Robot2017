@@ -5,6 +5,7 @@
 
 
 #include <Commands/Drive/DriveOperator.h>
+#include "Commands/Drive/DriveAuto.h"
 #include "DriveSubsystem.h"
 #include "../RobotMap.h"
 #include <math.h>
@@ -26,7 +27,7 @@ DriveSubsystem::DriveSubsystem():
 
 void DriveSubsystem::InitDefaultCommand() {
 	// When no other commands are running, we do operator control
-	SetDefaultCommand(new DriveOperator());
+	SetDefaultCommand(new DriveAuto(0,0));
 }
 
 double DriveSubsystem::distance() {
