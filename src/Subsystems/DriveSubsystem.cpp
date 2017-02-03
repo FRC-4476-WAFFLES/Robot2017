@@ -32,7 +32,7 @@ void DriveSubsystem::InitDefaultCommand() {
 }
 
 double DriveSubsystem::distance() {
-	return (DriveEncoder->Get() - DriveEncoder2->Get())/2.0;
+	return ((DriveEncoder->Get() - DriveEncoder2->Get())/2.0)/76.83333333;
 }
 
 double DriveSubsystem::angle() {
@@ -59,13 +59,13 @@ void DriveSubsystem::drive(double left, double right) {
 }
 
 void DriveSubsystem::prints() {
-	SmartDashboard::PutNumber("drive.angle()", angle());
-	SmartDashboard::PutNumber("drive.distance()", distance());
+	SmartDashboard::PutNumber("drive.angle(degrees)", angle());
+	SmartDashboard::PutNumber("drive.distance(feet)", distance());
 }
 
 namespace drive_curves {
 	double nocurve(double x) {
-		if(fabs(x) < 0.5) {
+		if(fabs(x) < 0.1) {
 			return 0.0;
 		}
 		return x;
