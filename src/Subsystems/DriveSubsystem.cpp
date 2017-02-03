@@ -9,6 +9,7 @@
 #include "DriveSubsystem.h"
 #include "../RobotMap.h"
 #include <math.h>
+#include "CustomSensors/ADIS16448_IMU.h"
 
 DriveSubsystem::DriveSubsystem():
 		Subsystem("DriveSubsystem")
@@ -20,7 +21,7 @@ DriveSubsystem::DriveSubsystem():
 	DriveRight2 = new Victor(DRIVE_RIGHT_2);
 	DriveRight3 = new Victor(DRIVE_RIGHT_3);
 
-	gyro = new ADXRS450_Gyro();
+	gyro = new ADIS16448_IMU;
 	DriveEncoder = new Encoder(DRIVE_ENCODER_A , DRIVE_ENCODER_B);
 	DriveEncoder2 = new Encoder(DRIVE_ENCODER_C, DRIVE_ENCODER_D);
 }
@@ -31,11 +32,11 @@ void DriveSubsystem::InitDefaultCommand() {
 }
 
 double DriveSubsystem::distance() {
-	return (DriveEncoder->Get() + DriveEncoder2->Get())/2.0;
+	return (DriveEncoder->Get() - DriveEncoder2->Get())/2.0;
 }
 
 double DriveSubsystem::angle() {
-	return gyro->GetAngle();
+	return gyro->GetAngleZ();
 }
 
 void DriveSubsystem::zero_sensors() {

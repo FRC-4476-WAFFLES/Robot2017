@@ -34,7 +34,7 @@ void DriveAuto::Initialize() {
 
 void DriveAuto::Execute() {
 	// Calculate the error on the distance traveled
-	double distanceError = drive->distance() - distance;
+	double distanceError = (drive->distance() - distance)*0.01;
 
 	// Make sure the distance error does not exceed 100%
 	if(distanceError > 1.0) {
@@ -48,14 +48,14 @@ void DriveAuto::Execute() {
 	double angleError = angle - drive->angle();
 
 	// Set the motors to run
-	drive->drive(0.1*angleError - speed*distanceError, 0.1*angleError - speed*distanceError);
+	drive->drive(0.01*angleError + speed*distanceError, -0.01*angleError + speed*distanceError);
 }
 
 // Returns true when the distance is within 200 and the angle is within 5 degrees
 bool DriveAuto::IsFinished() {
 	double distanceError = drive->distance() - distance;
 	double angleError = angle - drive->angle();
-	return distanceError < 200 && distanceError > -200 && angleError < 5.0 && angleError > -5.0;
+	return distanceError < 0.00 && distanceError > 0.00 && angleError < 5.0 && angleError > -5.0;
 }
 
 // Stop the motors when this command ends

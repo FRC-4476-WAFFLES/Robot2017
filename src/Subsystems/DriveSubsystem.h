@@ -3,13 +3,14 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "CustomSensors/ADIS16448_IMU.h"
 
 class DriveSubsystem: public Subsystem
 {
 private:
 	Encoder* DriveEncoder;
 	Encoder* DriveEncoder2;
-	ADXRS450_Gyro* gyro;
+	ADIS16448_IMU* gyro;
 	Victor* DriveRight1;
 	Victor* DriveRight2;
 	Victor* DriveRight3;
