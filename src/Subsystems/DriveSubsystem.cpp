@@ -28,7 +28,7 @@ DriveSubsystem::DriveSubsystem():
 
 void DriveSubsystem::InitDefaultCommand() {
 	// When no other commands are running, we do operator control
-	SetDefaultCommand(new DriveAuto(0,0));
+	SetDefaultCommand(new DriveOperator());
 }
 
 double DriveSubsystem::distance() {
@@ -65,7 +65,7 @@ void DriveSubsystem::prints() {
 
 namespace drive_curves {
 	double nocurve(double x) {
-		if(fabs(x) < 0.01) {
+		if(fabs(x) < 0.5) {
 			return 0.0;
 		}
 		return x;
