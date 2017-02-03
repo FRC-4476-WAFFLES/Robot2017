@@ -3,7 +3,6 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "CANTalon.h"
-#include "CustomSensors/CameraClient.h"
 
 class ShooterSubsystem: public Subsystem
 {
@@ -20,9 +19,6 @@ public:
 	CANTalon* Turret;
 	static constexpr float ShotSpeed = 100;
 	std::shared_ptr<NetworkTable> table;
-
-	CameraClient* Cam;
-
 };
 
 
