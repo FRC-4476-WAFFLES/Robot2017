@@ -1,14 +1,22 @@
 #include "WPILib.h"
 #include "CommandBase.h"
+#include "Commands/Auto/AutoDoNothing.h"
+#include "Commands/Auto/AutoGearDelivery.h"
 
 class Robot: public IterativeRobot
 {
 private:
 	LiveWindow *lw = LiveWindow::GetInstance();
+	Command* autonomousCommand;
+	SendableChooser<Command*>* chooser;
 
 	void RobotInit()
 	{
 		CommandBase::init();
+		chooser = new SendableChooser<Command*>();
+		chooser->AddDefault("Nothing Auto", new AutoDoNothing());
+		chooser->AddObject("Gear Delivery Auto", new AutoGearDelivery());
+		SmartDashboard::PutData("Auto Modes", chooser);
 	}
 
 
@@ -23,17 +31,22 @@ private:
 	 */
 	void AutonomousInit()
 	{
+		autonomousCommand = (Command*) chooser->GetSelected();
+		//		//starts the selected command
+				autonomousCommand->Start();
 
 	}
 
 	void AutonomousPeriodic()
 	{
+		frc::Scheduler::GetInstance()->Run();
 		CommandBase::prints();
 	}
 
 	void TeleopInit()
 	{
-
+		if (autonomousCommand != NULL)
+			autonomousCommand->Cancel();
 	}
 
 	void TeleopPeriodic()
