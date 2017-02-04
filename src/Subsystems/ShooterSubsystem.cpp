@@ -11,7 +11,8 @@
 ShooterSubsystem::ShooterSubsystem():
 		Subsystem("ShooterSubsystem")
 {
-	 table = NetworkTable::GetTable("CameraTable");
+	NetworkTable::SetUpdateRate(0.05);
+	table = NetworkTable::GetTable("CameraTable");
 	 Turret = new CANTalon(SHOOTER_TURRET);
 	 Rollers = new CANTalon(SHOOTER_ROLLER);
 	 Rollers_Slave = new CANTalon(SHOOTER_ROLLER_SLAVE);
@@ -63,8 +64,13 @@ void ShooterSubsystem::SetTurret(double TurretAngle){
 }
 
 void ShooterSubsystem::CameraNetworkTable(){
-	double x = table->GetNumber("X",0.0);
-	double y = table->GetNumber("Y",0.0);
+	SmartDashboard::PutNumber("Angle", table->GetNumber("Angle", 0.0));
+	SmartDashboard::PutNumber("Distance", table->GetNumber("Distance",0.0));
+}
+
+void ShooterSubsystem::prints(){
+	SmartDashboard::PutNumber("Angle", table->GetNumber("Angle",0.0));
+	SmartDashboard::PutNumber("Distance", table->GetNumber("Distance",0.0));
 
 }
 

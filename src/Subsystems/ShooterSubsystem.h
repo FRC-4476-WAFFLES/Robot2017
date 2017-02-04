@@ -13,6 +13,7 @@ public:
 	void SetSpeed(double RPM);
 	void SetTurret(double TurretAngle);
 	void CameraNetworkTable();
+	void prints();
 	CANTalon* Rollers;
 	CANTalon* Rollers_Slave;
 	CANTalon* Load;

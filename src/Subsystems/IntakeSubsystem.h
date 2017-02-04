@@ -10,6 +10,7 @@ private:
 public:
 	IntakeSubsystem();
 	void InitDefaultCommand();
+	void ContinuosIntake();
 	VictorSP* IntakeRollers;
 	TalonSRX* BallConveyor;
 };

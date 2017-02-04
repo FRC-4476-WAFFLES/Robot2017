@@ -35,6 +35,6 @@ void CommandBase::init()
 void CommandBase::prints() {
   if(drive != nullptr) drive->prints();
 //  if(intake != nullptr) intake->prints();
-//  if(shooter != nullptr) shooter->prints();
+  if(shooter != nullptr) shooter->prints();
 //  if(gear != nullptr) gear->prints();
 }
