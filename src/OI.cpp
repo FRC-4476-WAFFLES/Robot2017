@@ -18,13 +18,13 @@ OI::OI()
 	joystickLeft = new Joystick(1);
 	operatorController = new Joystick(2);
 
-	Button* test_button = new JoystickButton(joystickRight,3);
-	test_button->WhenReleased(new DriveBackAirship);
+	Button* Airship1 = new JoystickButton(joystickRight,11);
+	Airship1->WhenReleased(new DriveBackAirship);
+	Button* Airship2 = new JoystickButton(joystickRight,10);
+	Airship2->WhenReleased(new DriveBackAirship);
 
-
-	Button* Airship = new JoystickButton(joystickRight,3);
-	Airship->WhenReleased(new DriveBackAirship);
-
-	Button* Load = new JoystickButton(joystickLeft,3);
-	Load->WhenReleased(new DriveBackLoadStation);
+	Button* Load1 = new JoystickButton(joystickLeft,6);
+	Load1->WhenReleased(new DriveBackLoadStation);
+	Button* Load2 = new JoystickButton(joystickLeft,7);
+	Load2->WhenReleased(new DriveBackLoadStation);
 }
