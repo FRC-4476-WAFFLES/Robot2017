@@ -1,46 +1,60 @@
-#include "DriveOperator.h"
+#include <Commands/Shooter/TurretTest.h>
 
 
 // Allows the driver to drive the robot by making the speed of the robot = the Y axis value
 
 // needs the undivided attention of the drive subsystem
-DriveOperator::DriveOperator():
-	CommandBase("DriveAuto")
+TurretTest::TurretTest():
+	CommandBase("TurretTest")
 {
-	Requires(drive.get());
+	Requires(shooter.get());
 }
 
 // Called just before this Command runs the first time
-void DriveOperator::Initialize()
+void TurretTest::Initialize()
 {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 //makes the speed of the robot = the Y axis value of the joysticks
-void DriveOperator::Execute()
+void TurretTest::Execute()
 {
-	drive->drive(oi.get()->joystickLeft, oi.get()->joystickRight);
+	shooter->Load->Set(0.0);
+	shooter->SetSpeed(0.0);
+
+	if(oi->BumperBottomLeft){
+		shooter->SetTurret(-15.0);
+	}else if(oi->BumperBottomRight){
+		shooter->SetTurret(15.0);
+	}else{
+		shooter->SetTurret(0.0);
+	}
+
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
 // never ends
-bool DriveOperator::IsFinished()
+bool TurretTest::IsFinished()
 {
 	return false;
 }
 
 // Called once after isFinished returns true
 //stops the drive motor
-void DriveOperator::End()
+void TurretTest::End()
 {
-	drive->drive(0.0, 0.0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 //stops the drive motors when .....see above....
-void DriveOperator::Interrupted()
+void TurretTest::Interrupted()
 {
-	drive->drive(0.0, 0.0);
+
 }
+
+
+
+

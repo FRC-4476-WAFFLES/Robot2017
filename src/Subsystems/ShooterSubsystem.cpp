@@ -7,6 +7,7 @@
 #include "../RobotMap.h"
 #include "CANTalon.h"
 #include "vision/run_result.hpp"
+#include "Commands/Shooter/TurretTest.h"
 
 ShooterSubsystem::ShooterSubsystem():
 		Subsystem("ShooterSubsystem")
@@ -50,12 +51,16 @@ ShooterSubsystem::ShooterSubsystem():
 void ShooterSubsystem::InitDefaultCommand()
 {
 	// When no other commands are running, we do operator control
-	SetDefaultCommand(new ShooterDefault());
+	SetDefaultCommand(new TurretTest());
 }
 
 void ShooterSubsystem::SetSpeed(double RPM){
 	Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
 	Rollers->SetSetpoint(RPM);
+}
+
+void ShooterSubsystem::AngleIntrepreter(){
+	SetTurret(Turret->GetEncPosition() + table->GetNumber("Angle",0.0));
 }
 
 void ShooterSubsystem::SetTurret(double TurretAngle){

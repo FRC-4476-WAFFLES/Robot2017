@@ -46,7 +46,14 @@ void DriveSubsystem::zero_sensors() {
 
 void DriveSubsystem::drive(Joystick* left, Joystick* right) {
 	auto curve = drive_curves::nocurve;
-	drive(curve(left->GetRawAxis(1)), curve(right->GetRawAxis(1)));
+	double left_value = left->GetRawAxis(1);
+	double right_value = right->GetRawAxis(1);
+	double avg = (left_value + right_value) / 2.0;
+	if(fabs(left_value - right_value) > fabs(avg * 0.1)) {
+		left_value = avg;
+		right_value = avg;
+	}
+	drive(curve(right_value), curve(left_value));
 }
 
 void DriveSubsystem::drive(double left, double right) {
@@ -58,6 +65,31 @@ void DriveSubsystem::drive(double left, double right) {
 	DriveLeft3->SetSpeed(-left);
 }
 
+void DriveSubsystem::auto_drive(double distanceTarget, double angleTarget, double speed) {
+	// Calculate the error on the distance traveled
+	double distanceError = (distance() - distanceTarget)*0.76;
+
+	// Make sure the distance error does not exceed 100%
+	if(distanceError > 1.0) {
+		distanceError = 1.0;
+	}
+	if(distanceError < -1.0) {
+		distanceError = -1.0;
+	}
+
+	// Calculate the difference between the current angle and the desired angle
+	double angleError = angleTarget - angle();
+
+	// Set the motors to run
+	drive(0.01*angleError + speed*distanceError, -0.01*angleError + speed*distanceError);
+}
+
+bool DriveSubsystem::on_target(double distanceTarget, double angleTarget) {
+	double distanceError = distance() - distanceTarget;
+	double angleError = angleTarget - angle();
+	return distanceError < 0.20 && distanceError > -0.20 && angleError < 5.0 && angleError > -5.0;
+}
+
 void DriveSubsystem::prints() {
 	SmartDashboard::PutNumber("drive.angle(degrees)", angle());
 	SmartDashboard::PutNumber("drive.distance(feet)", distance());
@@ -65,7 +97,7 @@ void DriveSubsystem::prints() {
 
 namespace drive_curves {
 	double nocurve(double x) {
-		if(fabs(x) < 0.1) {
+		if(fabs(x) < 0.05) {
 			return 0.0;
 		}
 		return x;
@@ -77,12 +109,39 @@ namespace drive_curves {
 	}
 
 	double cheesy_curve(double x) {
-		if(fabs(x) < 0.01 ) {
+		if(fabs(x) < 0.05 ) {
 		    return 0.0;
 		} else if(x < 0.0) {
-			return cheesy_curve(-x);
+			return -cheesy_curve(-x);
 		} else {
 			return 4.5504 * pow(x, 4) + -5.9762 * pow(x, 3) + 2.5895 * pow(x, 2) + -0.0869 * x + 0.0913;
 		}
+	}
+
+	double bezier(double t, std::vector<double> p){
+		double oldT = t;
+		if(p.size() == 2)
+			return p[0] + (p[1] - p[0])*t;
+
+		if(0 > t || t > 1)
+			t = -t;
+		if(p.size() <2)
+			fprintf(stderr, "Too few points given");
+
+		auto d = p;
+
+		for(int i = d.size(); i > 0; i--)
+			for (int j = 1; j < i; j++)
+				d[j-1] = bezier(t, std::vector<double>{d[j-1], d[j]});
+
+		if(oldT < 0){
+			return -d[0];
+		}else{
+			return d[0];
+		}
+	}
+
+	double bezier_1114(double x) {
+		return drive_curves::bezier(x, std::vector<double>{0, 0.54, -0.07, 1});
 	}
 }

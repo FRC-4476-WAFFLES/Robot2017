@@ -17,11 +17,15 @@ private:
 	Victor* DriveLeft1;
 	Victor* DriveLeft2;
 	Victor* DriveLeft3;
+
+	double lastSpeed;
 public:
 	DriveSubsystem();
 	void InitDefaultCommand();
 	double distance();
 	double angle();
+	void auto_drive(double distance, double angle, double speed);
+	bool on_target(double distance, double angle);
 	void zero_sensors();
 	void drive(Joystick* left, Joystick* right);
 	void drive(double left, double right);
@@ -33,6 +37,7 @@ namespace drive_curves {
 	template<int Degree>
 	double exponential(double x);
 	double cheesy_curve(double x);
+	double bezier_1114(double x);
 }
 
 #endif

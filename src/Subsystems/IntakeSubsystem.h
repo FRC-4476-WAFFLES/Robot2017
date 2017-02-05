@@ -12,7 +12,7 @@ public:
 	void InitDefaultCommand();
 	void ContinuosIntake();
 	VictorSP* IntakeRollers;
-	TalonSRX* BallConveyor;
+	VictorSP* BallConveyor;
 };
 
 

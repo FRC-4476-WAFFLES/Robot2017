@@ -38,29 +38,11 @@ void DriveAutoRelative::Initialize() {
 }
 
 void DriveAutoRelative::Execute() {
-	// Calculate the error on the distance traveled
-		double distanceError = (drive->distance() - distance)*0.7683;
-
-		// Make sure the distance error does not exceed 100%
-		if(distanceError > 1.0) {
-			distanceError = 1.0;
-		}
-		if(distanceError < -1.0) {
-			distanceError = -1.0;
-		}
-
-		// Calculate the difference between the current angle and the desired angle
-		double angleError = angle - drive->angle();
-
-		// Set the motors to run
-		drive->drive(0.01*angleError + speed*distanceError, -0.01*angleError + speed*distanceError);
+	drive->auto_drive(distance, angle, speed);
 }
 
-// Returns true when the distance is within 200 and the angle is within 5 degrees
 bool DriveAutoRelative::IsFinished() {
-	double distanceError = drive->distance() - distance;
-	double angleError = angle - drive->angle();
-	return distanceError < 0.20 && distanceError > -0.20 && angleError < 5.0 && angleError > -5.0;
+	return drive->on_target(distance, angle);
 }
 
 // Stop the motors when this command ends

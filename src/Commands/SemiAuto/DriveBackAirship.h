@@ -4,7 +4,7 @@
 
 class DriveBackAirship : public CommandGroup {
 public:
-	DriveBackAirship();
+	DriveBackAirship(bool right);
 };
 
 

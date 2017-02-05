@@ -11,6 +11,7 @@ public:
 	ShooterSubsystem();
 	void InitDefaultCommand();
 	void SetSpeed(double RPM);
+	void AngleIntrepreter();
 	void SetTurret(double TurretAngle);
 	void CameraNetworkTable();
 	void prints();
