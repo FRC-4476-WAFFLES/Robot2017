@@ -51,7 +51,7 @@ ShooterSubsystem::ShooterSubsystem():
 void ShooterSubsystem::InitDefaultCommand()
 {
 	// When no other commands are running, we do operator control
-	SetDefaultCommand(new TurretTest());
+	SetDefaultCommand(new ShooterDefault);
 }
 
 void ShooterSubsystem::SetSpeed(double RPM){
