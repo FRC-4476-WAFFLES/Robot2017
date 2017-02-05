@@ -33,11 +33,11 @@ ShooterSubsystem::ShooterSubsystem():
      Turret->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 
      //PID things
-     Rollers->SelectProfileSlot(0);
-     Rollers->SetF(0.1097);
-	 Rollers->SetP(0.22);
-	 Rollers->SetI(0);
-	 Rollers->SetD(0);
+//     Rollers->SelectProfileSlot(0);
+//     Rollers->SetF(0.1097);
+//	 Rollers->SetP(0.22);
+//	 Rollers->SetI(0);
+//	 Rollers->SetD(0);
 
      Turret->SelectProfileSlot(0);
      Turret->SetP(0.0022);
@@ -56,7 +56,8 @@ void ShooterSubsystem::InitDefaultCommand()
 
 void ShooterSubsystem::SetSpeed(double RPM){
 	Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
-	Rollers->SetSetpoint(RPM);
+//	Rollers->SetSetpoint(RPM);
+	Rollers->Set(RPM);
 }
 
 void ShooterSubsystem::AngleIntrepreter(){
@@ -64,8 +65,8 @@ void ShooterSubsystem::AngleIntrepreter(){
 }
 
 void ShooterSubsystem::SetTurret(double TurretAngle){
-	Turret->SetTalonControlMode(CANTalon::kPositionMode);
-	Turret->SetSetpoint(TurretAngle);
+//	Turret->SetTalonControlMode(CANTalon::kPositionMode);
+//	Turret->SetSetpoint(TurretAngle);
 }
 
 void ShooterSubsystem::CameraNetworkTable(){

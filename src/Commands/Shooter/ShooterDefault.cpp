@@ -20,9 +20,20 @@ void ShooterDefault::Initialize()
 //makes the speed of the robot = the Y axis value of the joysticks
 void ShooterDefault::Execute()
 {
-	shooter->Load->Set(0.0);
-	shooter->Rollers->Set(0.0);
 	shooter->Turret->Set(0.0);
+	//shooter->Rollers->Set(0.0);
+	if(oi->operatorController->GetRawButton(oi->A)){
+	shooter->Load->Set(1.0);
+
+	}else{
+		shooter->Load->Set(0.0);
+	}
+	if(oi->operatorController->GetRawButton(oi->B)){
+	shooter->Rollers->Set(Preferences::GetInstance()->GetDouble("Shot_Speed", 0.0));
+
+	}else{
+		shooter->Rollers->Set(0.0);
+	}
 
 }
 

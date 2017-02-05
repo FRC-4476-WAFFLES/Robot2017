@@ -26,10 +26,10 @@ constexpr int GEAR_LEFT = 8;
 constexpr int GEAR_RIGHT = 9;
 
 // CAN Motors
-constexpr int SHOOTER_ROLLER = 0;
-constexpr int SHOOTER_ROLLER_SLAVE = 1;
-constexpr int SHOOTER_TURRET = 2;
-constexpr int SHOOTER_LOAD = 3;
+constexpr int SHOOTER_ROLLER = 3;
+constexpr int SHOOTER_ROLLER_SLAVE = 4;
+constexpr int SHOOTER_TURRET = 1;
+constexpr int SHOOTER_LOAD = 2;
 // Analog Inputs
 
 // Digital Inputs
