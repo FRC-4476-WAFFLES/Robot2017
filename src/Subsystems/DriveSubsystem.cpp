@@ -49,9 +49,10 @@ void DriveSubsystem::drive(Joystick* left, Joystick* right) {
 	double left_value = left->GetRawAxis(1);
 	double right_value = right->GetRawAxis(1);
 	double avg = (left_value + right_value) / 2.0;
-	if(fabs(left_value - right_value) > fabs(avg * 0.1)) {
-		left_value = avg;
-		right_value = avg;
+	double test = fabs(left_value - right_value)/fabs(avg)/Preferences::GetInstance()->GetDouble("Drive_Straight_Limit", 2.7);
+	if(test < 1.0) {
+		left_value = left_value * test + avg * (1.0 - test);
+		right_value = right_value * test + avg * (1.0 - test);
 	}
 	drive(curve(right_value), curve(left_value));
 }

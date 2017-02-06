@@ -17,7 +17,7 @@ void IntakeDefault::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeDefault::Execute() {
-	intake->BallConveyor->SetSpeed(oi->operatorController->GetRawAxis(1));
+//	intake->BallConveyor->SetSpeed(oi->operatorController->GetRawAxis(1));
 //	if((oi.get()->joystickLeft->GetRawAxis(1) > 0.1 && oi.get()->joystickRight->GetRawAxis(1) > 0.1) || oi->joystickLeft->GetRawButton(1)){
 //		intake->IntakeRollers->SetSpeed(0.7258);
 //		intake->BallConveyor->SetSpeed(1.0);
