@@ -18,7 +18,7 @@ private:
 	Victor* DriveLeft2;
 	Victor* DriveLeft3;
 
-	double lastSpeed;
+//	double lastSpeed;
 public:
 	DriveSubsystem();
 	void InitDefaultCommand();

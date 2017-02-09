@@ -6,6 +6,8 @@
 class OI
 {
 public:
+	static bool DriveDeadzone(double x);
+	bool DriveActive();
 	enum OperatorButton {
 		X=1,
 		A=2,

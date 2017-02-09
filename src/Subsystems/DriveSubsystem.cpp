@@ -10,6 +10,7 @@
 #include "../RobotMap.h"
 #include <math.h>
 #include "CustomSensors/ADIS16448_IMU.h"
+#include "OI.h"
 
 DriveSubsystem::DriveSubsystem():
 		Subsystem("DriveSubsystem")
@@ -106,7 +107,7 @@ void DriveSubsystem::prints() {
 
 namespace drive_curves {
 	double nocurve(double x) {
-		if(fabs(x) < 0.05) {
+		if(OI::DriveDeadzone(x)) {
 			return 0.0;
 		}
 		return x;
@@ -118,7 +119,7 @@ namespace drive_curves {
 	}
 
 	double cheesy_curve(double x) {
-		if(fabs(x) < 0.05 ) {
+		if(OI::DriveDeadzone(x)) {
 		    return 0.0;
 		} else if(x < 0.0) {
 			return -cheesy_curve(-x);

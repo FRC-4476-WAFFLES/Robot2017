@@ -5,6 +5,7 @@
 class DriveBackAirship : public CommandGroup {
 public:
 	DriveBackAirship(bool right);
+	void Execute();
 };
 
 
