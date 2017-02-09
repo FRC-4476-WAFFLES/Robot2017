@@ -5,6 +5,10 @@
 #include "OI.h"
 #include "Commands/SemiAuto/DriveBackAirship.h"
 #include "Commands/SemiAuto/DriveBackLoadStation.h"
+#include "Commands/Shooter/ShooterShoot.h"
+#include "Commands/Shooter/ShooterPrep.h"
+#include "Commands/Intake/IntakeIn.h"
+#include "Commands/Intake/IntakeOut.h"
 #include <math.h>
 OI::OI()
 {
@@ -36,6 +40,16 @@ OI::OI()
 	Load2->WhenReleased(new DriveBackAirship(false));
 	Load3->WhenReleased(new DriveBackAirship(true));
 	Load4->WhenReleased(new DriveBackAirship(true));
+
+	Button* Shoot = new JoystickButton(operatorController, OperatorButton::BumperTopRight);
+	Shoot->WhileHeld(new ShooterShoot());
+	Button* SpeedUp = new JoystickButton(operatorController, OperatorButton::B);
+	SpeedUp->ToggleWhenPressed(new ShooterPrep());
+
+	Button* Intake = new JoystickButton(operatorController, OperatorButton::A);
+	Intake->WhileHeld(new IntakeIn());
+	Button* Outtake = new JoystickButton(operatorController, OperatorButton::Y);
+	Outtake->WhileHeld(new IntakeOut());
 }
 
 bool OI::DriveDeadzone(double x){

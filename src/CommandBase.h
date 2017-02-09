@@ -7,6 +7,7 @@
 #include "Subsystems/ShooterSubsystem.h"
 #include "Subsystems/IntakeSubsystem.h"
 #include "Subsystems/GearSubsystem.h"
+#include "Subsystems/TurretSubsystem.h"
 #include "OI.h"
 #include "WPILib.h"
 
@@ -29,6 +30,7 @@ public:
 	static std::unique_ptr<ShooterSubsystem> shooter;
 	static std::unique_ptr<IntakeSubsystem> intake;
 	static std::unique_ptr<GearSubsystem> gear;
+	static std::unique_ptr<TurretSubsystem> turret;
 
 };
 

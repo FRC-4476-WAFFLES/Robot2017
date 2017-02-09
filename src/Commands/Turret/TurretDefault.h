@@ -3,13 +3,14 @@
 #include "CommandBase.h"
 #include "WPILib.h"
 
-class TurretTest: public CommandBase
+class TurretDefault: public CommandBase
 {
 public:
-	TurretTest();
+	TurretDefault();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
 	void End();
 	void Interrupted();
 };
+

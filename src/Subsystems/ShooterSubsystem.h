@@ -11,16 +11,10 @@ public:
 	ShooterSubsystem();
 	void InitDefaultCommand();
 	void SetSpeed(double RPM);
-	void AngleIntrepreter();
-	void SetTurret(double TurretAngle);
-	void CameraNetworkTable();
-	void prints();
 	CANTalon* Rollers;
 	CANTalon* Rollers_Slave;
 	CANTalon* Load;
-	CANTalon* Turret;
 	static constexpr float ShotSpeed = 100;
-	std::shared_ptr<NetworkTable> table;
 };
 
 

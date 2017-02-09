@@ -14,10 +14,8 @@ DriveBackAirship::DriveBackAirship(bool right) {
 	//-153.6666666666667
 }
 void DriveBackAirship::Execute(){
-
 	if(CommandBase::oi->DriveActive()){
 		Scheduler::GetInstance()->Remove(this);
 		Scheduler::GetInstance()->AddCommand(new DriveOperator);
-
 	}
 }

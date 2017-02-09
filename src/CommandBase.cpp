@@ -12,6 +12,7 @@ std::unique_ptr<DriveSubsystem> CommandBase::drive;
 std::unique_ptr<ShooterSubsystem> CommandBase::shooter;
 std::unique_ptr<IntakeSubsystem> CommandBase::intake;
 std::unique_ptr<GearSubsystem> CommandBase::gear;
+std::unique_ptr<TurretSubsystem> CommandBase::turret;
 // Empty constructors
 CommandBase::CommandBase(const std::string &name) :
 		Command(name)
@@ -27,6 +28,7 @@ void CommandBase::init()
   shooter.reset(new ShooterSubsystem());
   intake.reset(new IntakeSubsystem());
   gear.reset(new GearSubsystem());
+  turret.reset(new TurretSubsystem());
 
   oi.reset(new OI());
 }
@@ -35,6 +37,6 @@ void CommandBase::init()
 void CommandBase::prints() {
   if(drive != nullptr) drive->prints();
 //  if(intake != nullptr) intake->prints();
-  if(shooter != nullptr) shooter->prints();
+  if(shooter != nullptr) turret->prints();
 //  if(gear != nullptr) gear->prints();
 }
