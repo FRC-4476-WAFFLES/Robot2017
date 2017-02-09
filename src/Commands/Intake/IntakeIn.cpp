@@ -23,7 +23,7 @@ void IntakeIn::Initialize()
 void IntakeIn::Execute()
 {
 	intake->IntakeRollers->SetSpeed(0.7258);
-	intake->BallConveyor->SetSpeed(0.85);
+	intake->BallConveyor->Set(-0.85);
 	//TODO add button
 	if(false){
 		Scheduler::GetInstance()->AddCommand(new IntakeDefault);
@@ -42,7 +42,7 @@ bool IntakeIn::IsFinished()
 void IntakeIn::End()
 {
 	intake->IntakeRollers->SetSpeed(0.0);
-	intake->BallConveyor->SetSpeed(0.0);
+	intake->BallConveyor->Set(0.0);
 }
 
 // Called when another command which requires one or more of the same

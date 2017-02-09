@@ -13,7 +13,7 @@ public:
 	void SetSpeed(double RPM);
 	CANTalon* Rollers;
 	CANTalon* Rollers_Slave;
-	CANTalon* Load;
+	VictorSP* Load;
 	static constexpr float ShotSpeed = 100;
 };
 

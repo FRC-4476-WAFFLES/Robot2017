@@ -21,7 +21,7 @@ void ShooterPrep::Initialize()
 void ShooterPrep::Execute()
 {
 	shooter->Load->Set(0.0);
-	shooter->SetSpeed(shooter->ShotSpeed);
+	shooter->Rollers->Set(-1.0);
 
 }
 

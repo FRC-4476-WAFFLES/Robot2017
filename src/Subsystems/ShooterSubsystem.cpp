@@ -13,16 +13,16 @@ ShooterSubsystem::ShooterSubsystem():
 
 	 Rollers = new CANTalon(SHOOTER_ROLLER);
 	 Rollers_Slave = new CANTalon(SHOOTER_ROLLER_SLAVE);
-	 Load = new CANTalon(SHOOTER_LOAD);
+	 Load = new VictorSP(SHOOTER_LOAD);
 
 	 //CANTALLON SETUP//
-	 Rollers->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-	 Rollers->SetSensorDirection(false);
+//	 Rollers->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
+//	 Rollers->SetSensorDirection(false);
 
 
 	 //peak outputs
-     Rollers->ConfigNominalOutputVoltage(+0.0f, -0.0f);
-     Rollers->ConfigPeakOutputVoltage(+12.0f, 0.0f);
+//     Rollers->ConfigNominalOutputVoltage(+0.0f, -0.0f);
+//     Rollers->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 
 
 

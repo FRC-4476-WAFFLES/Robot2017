@@ -44,7 +44,7 @@ OI::OI()
 	Button* Shoot = new JoystickButton(operatorController, OperatorButton::BumperTopRight);
 	Shoot->WhileHeld(new ShooterShoot());
 	Button* SpeedUp = new JoystickButton(operatorController, OperatorButton::B);
-	SpeedUp->ToggleWhenPressed(new ShooterPrep());
+	SpeedUp->WhileHeld(new ShooterPrep());
 
 	Button* Intake = new JoystickButton(operatorController, OperatorButton::A);
 	Intake->WhileHeld(new IntakeIn());

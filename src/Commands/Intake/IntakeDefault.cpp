@@ -25,7 +25,8 @@ void IntakeDefault::Execute() {
 //		intake->IntakeRollers->SetSpeed(0.0);
 //		intake->BallConveyor->SetSpeed(0.0);
 //	}
-
+	intake->IntakeRollers->SetSpeed(0);
+	intake->BallConveyor->Set(0);
 }
 
 // Make this return true when this Command no longer needs to run execute()

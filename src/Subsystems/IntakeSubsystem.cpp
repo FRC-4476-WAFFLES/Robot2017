@@ -10,7 +10,7 @@ IntakeSubsystem::IntakeSubsystem():
 		Subsystem("IntakeSubsystem")
 {
 	 IntakeRollers = new VictorSP(INTAKE_ROLLER);
-	 BallConveyor = new VictorSP(BALL_CONVEYOR);
+	 BallConveyor = new CANTalon(BALL_CONVEYOR);
 }
 
 void IntakeSubsystem::InitDefaultCommand()

@@ -19,8 +19,8 @@ constexpr int DRIVE_LEFT_1 = 3;
 constexpr int DRIVE_LEFT_2 = 4;
 constexpr int DRIVE_LEFT_3 = 5;
 
-constexpr int BALL_CONVEYOR = 6;
 constexpr int INTAKE_ROLLER = 7;
+constexpr int SHOOTER_LOAD = 6;
 
 constexpr int GEAR_LEFT = 8;
 constexpr int GEAR_RIGHT = 9;
@@ -28,8 +28,8 @@ constexpr int GEAR_RIGHT = 9;
 // CAN Motors
 constexpr int SHOOTER_ROLLER = 3;
 constexpr int SHOOTER_ROLLER_SLAVE = 4;
-constexpr int SHOOTER_TURRET = 1;
-constexpr int SHOOTER_LOAD = 2;
+constexpr int SHOOTER_TURRET = 2;
+constexpr int BALL_CONVEYOR = 1;
 // Analog Inputs
 
 // Digital Inputs
