@@ -31,11 +31,7 @@ TurretSubsystem::TurretSubsystem():
 void TurretSubsystem::InitDefaultCommand()
 {
 	// When no other commands are running, we do operator control
-	SetDefaultCommand(new TurretDefault());
-}
-
-void TurretSubsystem::Fudge(){
-	TurretFudge();
+	SetDefaultCommand(new TurretFudge());
 }
 
 void TurretSubsystem::AngleIntrepreter(){
@@ -49,6 +45,12 @@ void TurretSubsystem::prints(){
 
 }
 
-void TurretSubsystem::SetTurret(float Angle){
+void TurretSubsystem::SetAngle(double angle){
+	Turret->SetTalonControlMode(CANTalon::kPositionMode);
+	Turret->Set(angle);
+}
 
+void TurretSubsystem::SetPower(double power) {
+	Turret->SetControlMode(CANTalon::kPercentVbus);
+	Turret->Set(power);
 }

@@ -11,8 +11,8 @@ public:
 	TurretSubsystem();
 	void InitDefaultCommand();
 	void AngleIntrepreter();
-	void Fudge();
-	void SetTurret(float Angle);
+	void SetAngle(double angle);
+	void SetPower(double power);
 	void prints();
 	CANTalon* Turret;
 	std::shared_ptr<NetworkTable> table;

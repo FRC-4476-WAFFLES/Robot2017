@@ -20,8 +20,8 @@ void ShooterShoot::Initialize()
 //makes the speed of the robot = the Y axis value of the joysticks
 void ShooterShoot::Execute()
 {
-	shooter->Load->Set(-1.0);
-	shooter->Rollers->Set(-1.0);
+	shooter->RunLoad();
+	shooter->SetPower(-1.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
