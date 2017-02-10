@@ -12,8 +12,11 @@ public:
 	void InitDefaultCommand();
 	void Open();
 	void Closed();
+	void Toggle();
+	void Persist();
 	Servo* GearLeft;
 	Servo*GearRight;
+	bool is_open = false;
 };
 
 

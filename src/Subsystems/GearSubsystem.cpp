@@ -29,4 +29,14 @@ void GearSubsystem::Closed(){
 	GearRight->SetAngle(180);
 }
 
+void GearSubsystem::Toggle(){
+	is_open = !is_open;
+}
 
+void GearSubsystem::Persist(){
+	if(is_open){
+		Open();
+	}else{
+		Closed();
+	}
+}
