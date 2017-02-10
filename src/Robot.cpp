@@ -17,6 +17,7 @@ private:
 		chooser->AddDefault("Nothing Auto", new AutoDoNothing());
 		chooser->AddObject("Gear Delivery Auto", new AutoGearDelivery());
 		SmartDashboard::PutData("Auto Modes", chooser);
+		printf("running");
 	}
 
 

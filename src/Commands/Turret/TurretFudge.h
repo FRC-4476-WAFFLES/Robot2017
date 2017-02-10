@@ -1,15 +1,16 @@
 #pragma once
 
 #include "CommandBase.h"
+#include "WPILib.h"
 
-class GearDefault : public CommandBase {
+class TurretFudge: public CommandBase
+{
 public:
-	GearDefault();
+	TurretFudge();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
 	void End();
 	void Interrupted();
-	int Toggle = 0;
 };
 

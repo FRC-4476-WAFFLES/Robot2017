@@ -18,7 +18,7 @@ void GearSubsystem::InitDefaultCommand()
 	// When no other commands are running, we do operator control
 	SetDefaultCommand(new GearDefault());
 }
-
+//TODO get numbers
 void GearSubsystem::Open(){
 	GearLeft->SetAngle(180);
 	GearRight->SetAngle(0);

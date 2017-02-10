@@ -22,7 +22,6 @@ void ShooterShoot::Execute()
 {
 	shooter->Load->Set(-1.0);
 	shooter->Rollers->Set(-1.0);
-
 }
 
 // Make this return true when this Command no longer needs to run execute()

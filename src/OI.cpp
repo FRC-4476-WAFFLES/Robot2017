@@ -9,6 +9,7 @@
 #include "Commands/Shooter/ShooterPrep.h"
 #include "Commands/Intake/IntakeIn.h"
 #include "Commands/Intake/IntakeOut.h"
+#include "Commands/Gear/GearDefault.h"
 #include <math.h>
 OI::OI()
 {
@@ -50,6 +51,8 @@ OI::OI()
 	Intake->WhileHeld(new IntakeIn());
 	Button* Outtake = new JoystickButton(operatorController, OperatorButton::Y);
 	Outtake->WhileHeld(new IntakeOut());
+
+
 }
 
 bool OI::DriveDeadzone(double x){

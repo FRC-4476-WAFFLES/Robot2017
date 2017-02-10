@@ -5,6 +5,7 @@
 class DriveBackLoadStation : public CommandGroup {
 public:
 	DriveBackLoadStation();
+	void Execute();
 };
 
 

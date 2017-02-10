@@ -21,6 +21,7 @@ void TurretDefault::Initialize()
 void TurretDefault::Execute()
 {
 	turret->SetTurret(0.0);
+	turret->Fudge();
 }
 
 // Make this return true when this Command no longer needs to run execute()

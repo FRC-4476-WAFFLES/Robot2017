@@ -4,6 +4,7 @@
 GearDefault::GearDefault():
 	CommandBase("GearDeafault")
 {
+
 	Requires(gear.get());
 }
 
@@ -14,12 +15,11 @@ void GearDefault::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void GearDefault::Execute() {
-	if(oi->operatorController->GetRawButton(OI::BumperTopRight)){
-		gear->Open();
-	}else{
-		gear->Closed();
-	}
 
+	if(Toggle == 0 && oi->Start){
+		gear->Closed();
+		Toggle = 1;
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

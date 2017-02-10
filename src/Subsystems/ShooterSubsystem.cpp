@@ -42,12 +42,12 @@ void ShooterSubsystem::InitDefaultCommand()
 	SetDefaultCommand(new ShooterDefault);
 }
 
-void ShooterSubsystem::SetSpeed(double RPM){
-	Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
-//	Rollers->SetSetpoint(RPM);
-	Rollers->Set(RPM);
-}
-
+//void ShooterSubsystem::SetSpeed(double RPM){
+//	Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
+////	Rollers->SetSetpoint(RPM);
+//	Rollers->Set(RPM);
+//}
+//
 
 
 

@@ -3,6 +3,7 @@
  * drive motors and drive encoder.
  */
 #include <Commands/Turret/TurretDefault.h>
+#include "Commands/Turret/TurretFudge.h"
 #include "IntakeSubsystem.h"
 #include "../RobotMap.h"
 #include "CANTalon.h"
@@ -31,6 +32,10 @@ void TurretSubsystem::InitDefaultCommand()
 {
 	// When no other commands are running, we do operator control
 	SetDefaultCommand(new TurretDefault());
+}
+
+void TurretSubsystem::Fudge(){
+	TurretFudge();
 }
 
 void TurretSubsystem::AngleIntrepreter(){

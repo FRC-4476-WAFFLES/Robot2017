@@ -10,7 +10,7 @@ private:
 public:
 	ShooterSubsystem();
 	void InitDefaultCommand();
-	void SetSpeed(double RPM);
+//	void SetSpeed(double RPM);
 	CANTalon* Rollers;
 	CANTalon* Rollers_Slave;
 	VictorSP* Load;

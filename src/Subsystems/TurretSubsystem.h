@@ -11,6 +11,7 @@ public:
 	TurretSubsystem();
 	void InitDefaultCommand();
 	void AngleIntrepreter();
+	void Fudge();
 	void SetTurret(float Angle);
 	void prints();
 	CANTalon* Turret;
