@@ -23,7 +23,7 @@ void IntakeIn::Initialize()
 void IntakeIn::Execute()
 {
 	intake->IntakeRollers->SetSpeed(0.7258);
-	intake->BallConveyor->Set(-0.85);
+	intake->BallConveyor->Set(-1.0);
 	//TODO add button
 	if(false){
 		Scheduler::GetInstance()->AddCommand(new IntakeDefault);
