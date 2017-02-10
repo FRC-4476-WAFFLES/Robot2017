@@ -22,9 +22,9 @@ void TurretFudge::Execute()
 {
 	//slow
 	if(!OI::DriveDeadzone(oi->operatorController->GetRawAxis(0))){
-		turret->SetTurret((oi->operatorController->GetRawAxis(0))*0.25);
+		turret->SetPower((oi->operatorController->GetRawAxis(0))*0.25);
 	}else if(!OI::DriveDeadzone(oi->operatorController->GetRawAxis(2))){//fast
-		turret->SetTurret((oi->operatorController->GetRawAxis(2))*0.5);
+		turret->SetPower((oi->operatorController->GetRawAxis(2))*0.5);
 	}
 }
 

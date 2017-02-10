@@ -51,8 +51,6 @@ OI::OI()
 	Intake->WhileHeld(new IntakeIn());
 	Button* Outtake = new JoystickButton(operatorController, OperatorButton::Y);
 	Outtake->WhileHeld(new IntakeOut());
-
-
 }
 
 bool OI::DriveDeadzone(double x){
