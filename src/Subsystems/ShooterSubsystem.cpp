@@ -42,6 +42,16 @@ void ShooterSubsystem::InitDefaultCommand()
 	SetDefaultCommand(new ShooterDefault);
 }
 
+double ShooterSubsystem::ramp(double Target) {
+	if(Rollers->Get() == Target){
+		return Target;
+	}else if(Rollers->Get() < Target){
+		return Rollers->Get() + 0.1;
+	}else{
+		return Target;
+	}
+}
+
 void ShooterSubsystem::SetSpeed(double RPM){
 	Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
 	Rollers->Set(RPM);
@@ -59,6 +69,7 @@ void ShooterSubsystem::RunLoad() {
 void ShooterSubsystem::StopLoad() {
 	Load->Set(0.0);
 }
+
 
 
 
