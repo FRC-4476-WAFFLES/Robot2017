@@ -15,6 +15,7 @@ public:
 	void RunLoad();
 	void StopLoad();
 	double ramp(double Target);
+	void prints();
 	CANTalon* Rollers;
 	CANTalon* Rollers_Slave;
 	VictorSP* Load;

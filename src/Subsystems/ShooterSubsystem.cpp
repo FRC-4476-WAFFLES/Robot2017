@@ -70,6 +70,11 @@ void ShooterSubsystem::StopLoad() {
 	Load->Set(0.0);
 }
 
-
+void ShooterSubsystem::prints(){
+	SmartDashboard::PutNumber("Shooter Encoder",Rollers->GetEncPosition());
+	SmartDashboard::PutNumber("Shooter Velocity",Rollers->GetEncVel());
+	SmartDashboard::PutBoolean("Left Switch", Rollers->IsFwdLimitSwitchClosed());
+	SmartDashboard::PutBoolean("Shooter", Rollers->IsRevLimitSwitchClosed());
+}
 
 
