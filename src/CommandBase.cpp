@@ -39,5 +39,6 @@ void CommandBase::prints() {
 //  if(intake != nullptr) intake->prints();
   if(turret != nullptr) turret->prints();
   if(shooter != nullptr && shooter->GetCurrentCommand() != nullptr) SmartDashboard::PutString("Shooter_State", shooter->GetCurrentCommand()->GetName());
-//  if(gear != nullptr) gear->prints();
+  if(shooter != nullptr) shooter->prints();
+  //  if(gear != nullptr) gear->prints();
 }

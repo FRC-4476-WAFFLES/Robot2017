@@ -12,23 +12,19 @@ GearAuto::GearAuto() :
 
 // Called just before this Command runs the first time
 void GearAuto::Initialize() {
-
 	t.Reset();
 	t.Start();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void GearAuto::Execute() {
-
-	gear->Open();
-
+	gear->is_open = true;
+	gear->Persist();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool GearAuto::IsFinished() {
-
-	return
-	t.HasPeriodPassed(0.75);
+	return t.HasPeriodPassed(0.4);
 
 }
 

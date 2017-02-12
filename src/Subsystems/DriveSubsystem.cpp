@@ -58,26 +58,49 @@ void DriveSubsystem::drive(Joystick* left, Joystick* right) {
 	double left_value = left->GetRawAxis(1);
 	double right_value = right->GetRawAxis(1);
 	double avg = (left_value + right_value) / 2.0;
-	double test = fabs(left_value - right_value)/fabs(avg)/Preferences::GetInstance()->GetDouble("Drive_Straight_Limit", 2.7);
+	double test = fabs(left_value - right_value)/fabs(avg)/Preferences::GetInstance()->GetDouble("Drive_Straight_Limit", 1.7);
 	if(test < 1.0) {
 		left_value = left_value * test + avg * (1.0 - test);
 		right_value = right_value * test + avg * (1.0 - test);
 	}
-	drive(curve(right_value), curve(left_value));
+	drive(curve(right_value), curve(left_value), false);
 }
 
-void DriveSubsystem::drive(double left, double right) {
+double ramp(double last, double target) {
+	const double step = 0.1;
+	if(last < target) {
+		if(last + step > target) {
+			return target;
+		} else {
+			return last + step;
+		}
+	} else {
+		if(last - step < target) {
+			return target;
+		} else {
+			return last - step;
+		}
+	}
+}
+
+void DriveSubsystem::drive(double left, double right, bool do_ramp) {
+	if(do_ramp) {
+		left = ramp(left, last_left);
+		right = ramp(right, last_right);
+	}
 	DriveRight1->SetSpeed(right);
 	DriveRight2->SetSpeed(right);
 	DriveRight3->SetSpeed(right);
 	DriveLeft1->SetSpeed(-left);
 	DriveLeft2->SetSpeed(-left);
 	DriveLeft3->SetSpeed(-left);
+	last_right = right;
+	last_left = left;
 }
 
 void DriveSubsystem::auto_drive(double distanceTarget, double angleTarget, double speed) {
 	// Calculate the error on the distance traveled
-	double distanceError = (distance() - distanceTarget)*0.76;
+	double distanceError = (distance() - distanceTarget)*1.5;
 
 	// Make sure the distance error does not exceed 100%
 	if(distanceError > 1.0) {
@@ -91,7 +114,7 @@ void DriveSubsystem::auto_drive(double distanceTarget, double angleTarget, doubl
 	double angleError = angleTarget - angle();
 
 	// Set the motors to run
-	drive(0.01*angleError + speed*distanceError, -0.01*angleError + speed*distanceError);
+	drive(0.012*angleError + speed*distanceError, -0.012*angleError + speed*distanceError, true);
 }
 
 bool DriveSubsystem::on_target(double distanceTarget, double angleTarget) {

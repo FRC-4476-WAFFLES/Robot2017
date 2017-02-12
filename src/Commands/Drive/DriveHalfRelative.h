@@ -7,23 +7,13 @@ private:
 	double angle;
 	double angleRelative;
 	double speed;
-	int side;
+	double percent_right;
 public:
-	DriveHalfRelative(double angle, int side);
-	DriveHalfRelative(double angle, double speed, int side);
+	DriveHalfRelative(double angle, double percent_right);
+	DriveHalfRelative(double angle, double speed, double percent_right);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
 	void End();
 	void Interrupted();
 };
-
-
-
-
-
-
-
-
-
-

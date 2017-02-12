@@ -47,10 +47,10 @@ bool DriveAutoRelative::IsFinished() {
 
 // Stop the motors when this command ends
 void DriveAutoRelative::End() {
-	drive->drive(0.0, 0.0);
+	drive->drive(0.0, 0.0, false);
 }
 
 // Stop the motors when this command is interrupted by another
 void DriveAutoRelative::Interrupted() {
-	drive->drive(0.0, 0.0);
+	drive->drive(0.0, 0.0, false);
 }

@@ -4,7 +4,7 @@
 
 #include "DriveHalfRelative.h"
 
-DriveHalfRelative::DriveHalfRelative(double angle, int side):
+DriveHalfRelative::DriveHalfRelative(double angle, double percent_right):
 	CommandBase("DriveAuto")
 {
 	// We need the drive subsystem to not be doing anything else
@@ -13,11 +13,11 @@ DriveHalfRelative::DriveHalfRelative(double angle, int side):
 	// Remember distance and angle for later
 	this->angleRelative = angle;
 	this->angle = 0;
-	this->speed = 0.5;
-	this->side = side;
+	this->speed = 1.0;
+	this->percent_right = percent_right;
 }
 
-DriveHalfRelative::DriveHalfRelative(double angle, double speed, int side):
+DriveHalfRelative::DriveHalfRelative(double angle, double speed, double percent_right):
 			CommandBase("DriveAuto")
 {
 	// We need the drive subsystem to not be doing anything else
@@ -27,7 +27,7 @@ DriveHalfRelative::DriveHalfRelative(double angle, double speed, int side):
 	this->angleRelative = angle;
 	this->angle = angle;
 	this->speed = speed;
-	this->side = side;
+	this->percent_right = percent_right;
 }
 
 void DriveHalfRelative::Initialize() {
@@ -35,25 +35,10 @@ void DriveHalfRelative::Initialize() {
 }
 
 void DriveHalfRelative::Execute() {
-
 	// Calculate the difference between the current angle and the desired angle
 	double angleError = angle - drive->angle();
 
-	//1=right, 2=left
-	if(side == 1){
-		drive->drive(0.0, -0.01*angleError);
-	}else if(side == 2){
-		drive->drive(0.01*angleError, 0.0);
-	}else{
-		drive->drive(0.0, 0.0);
-	}
-
-
-	// Calculate the difference between the current angle and the desired angle
-
-
-	// Set the motors to run
-//	drive->drive(0.01*angleError, -0.01*angleError);
+	drive->drive(0.03 * angleError * (1.0 - percent_right), -0.03 * angleError * percent_right, true);
 }
 
 // Returns true when the distance is within 200 and the angle is within 5 degrees
@@ -64,10 +49,10 @@ bool DriveHalfRelative::IsFinished() {
 
 // Stop the motors when this command ends
 void DriveHalfRelative::End() {
-	drive->drive(0.0, 0.0);
+	drive->drive(0.0, 0.0, false);
 }
 
 // Stop the motors when this command is interrupted by another
 void DriveHalfRelative::Interrupted() {
-	drive->drive(0.0, 0.0);
+	drive->drive(0.0, 0.0, false);
 }

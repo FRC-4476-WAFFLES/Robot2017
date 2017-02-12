@@ -20,13 +20,13 @@ void GearSubsystem::InitDefaultCommand()
 }
 //TODO get numbers
 void GearSubsystem::Open(){
-	GearLeft->SetAngle(180);
-	GearRight->SetAngle(0);
+	GearLeft->SetAngle(60);
+	GearRight->SetAngle(120);
 }
 
 void GearSubsystem::Closed(){
-	GearLeft->SetAngle(0);
-	GearRight->SetAngle(180);
+	GearLeft->SetAngle(180);
+	GearRight->SetAngle(0);
 }
 
 void GearSubsystem::Toggle(){

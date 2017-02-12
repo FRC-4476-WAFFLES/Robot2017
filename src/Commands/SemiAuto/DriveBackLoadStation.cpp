@@ -5,7 +5,8 @@
 DriveBackLoadStation::DriveBackLoadStation() {
 	SetTimeout(2.0);
 	AddSequential(new DriveAutoRelative(-0.5,0,1));
-	AddSequential(new DriveHalfRelative(+135.0,2));
+	AddSequential(new DriveHalfRelative(-45.0,0.0));
+	AddSequential(new DriveHalfRelative(-85.0,0.8));
 
 	//-153.6666666666667
 }

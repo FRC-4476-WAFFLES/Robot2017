@@ -39,11 +39,11 @@ void DriveHalf::Execute() {
 
 	//1=right, 2=left
 	if(side == 1){
-		drive->drive(0.0, -0.01*angleError);
+		drive->drive(0.0, -0.01*angleError, false);
 	}else if(side == 2){
-		drive->drive(0.01*angleError, 0.0);
+		drive->drive(0.01*angleError, 0.0, false);
 	}else{
-		drive->drive(0.0, 0.0);
+		drive->drive(0.0, 0.0, false);
 	}
 
 
@@ -62,10 +62,10 @@ bool DriveHalf::IsFinished() {
 
 // Stop the motors when this command ends
 void DriveHalf::End() {
-	drive->drive(0.0, 0.0);
+	drive->drive(0.0, 0.0, false);
 }
 
 // Stop the motors when this command is interrupted by another
 void DriveHalf::Interrupted() {
-	drive->drive(0.0, 0.0);
+	drive->drive(0.0, 0.0, false);
 }

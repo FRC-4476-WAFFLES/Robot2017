@@ -16,22 +16,16 @@ ShooterSubsystem::ShooterSubsystem():
 	 Load = new VictorSP(SHOOTER_LOAD);
 
 	 //CANTALLON SETUP//
-//	 Rollers->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-//	 Rollers->SetSensorDirection(false);
+	 Rollers->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
+	 Rollers->SetSensorDirection(true);
 
 
 	 //peak outputs
-//     Rollers->ConfigNominalOutputVoltage(+0.0f, -0.0f);
-//     Rollers->ConfigPeakOutputVoltage(+12.0f, -12.0f);
-
+     Rollers->ConfigNominalOutputVoltage(+0.0f, -0.0f);
+     Rollers->ConfigPeakOutputVoltage(+0.0f, -12.0f);
 
 
      //PID things
-//     Rollers->SelectProfileSlot(0);
-//     Rollers->SetF(0.1097);
-//	 Rollers->SetP(0.22);
-//	 Rollers->SetI(0);
-//	 Rollers->SetD(0);
 	 Rollers_Slave->SetControlMode(CANSpeedController::kFollower);
 	 Rollers_Slave->Set(SHOOTER_ROLLER);
 }
@@ -42,12 +36,25 @@ void ShooterSubsystem::InitDefaultCommand()
 	SetDefaultCommand(new ShooterDefault);
 }
 
-void ShooterSubsystem::SetSpeed(double RPM){
-	Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
-	Rollers->Set(RPM);
+void UpdateRollersPID(CANTalon* Rollers) {
+    Rollers->SelectProfileSlot(0);
+    Rollers->SetF(Preferences::GetInstance()->GetDouble("F", 0.015));
+	Rollers->SetP(Preferences::GetInstance()->GetDouble("P", 0.16));
+	Rollers->SetI(Preferences::GetInstance()->GetDouble("I", 0.0));
+	Rollers->SetD(Preferences::GetInstance()->GetDouble("D", 0.0));
 }
 
-void ShooterSubsystem::SetPower(double power){
+void ShooterSubsystem::SetSpeed(double RPM) {
+	if(-Rollers->GetSpeed() < -RPM/2) {
+		SetPower(-0.5);
+	} else {
+		UpdateRollersPID(Rollers);
+		Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
+		Rollers->Set(RPM);
+	}
+}
+
+void ShooterSubsystem::SetPower(double power) {
 	Rollers->SetControlMode(CANTalon::kPercentVbus);
 	Rollers->Set(power);
 }
@@ -60,5 +67,8 @@ void ShooterSubsystem::StopLoad() {
 	Load->Set(0.0);
 }
 
+void ShooterSubsystem::prints() {
+	SmartDashboard::PutNumber("Shooter Wheel Speed", Rollers->GetSpeed());
+}
 
 

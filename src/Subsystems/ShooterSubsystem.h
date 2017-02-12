@@ -14,6 +14,7 @@ public:
 	void SetPower(double power);
 	void RunLoad();
 	void StopLoad();
+	void prints();
 	CANTalon* Rollers;
 	CANTalon* Rollers_Slave;
 	VictorSP* Load;

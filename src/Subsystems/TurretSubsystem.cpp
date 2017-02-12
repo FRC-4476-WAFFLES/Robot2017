@@ -22,16 +22,16 @@ TurretSubsystem::TurretSubsystem():
      Turret->ConfigNominalOutputVoltage(+0.0f, -0.0f);
      Turret->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 
-     Turret->SelectProfileSlot(0);
-     Turret->SetP(0.0022);
-     Turret->SetI(0);
-     Turret->SetD(0);
+//     Turret->SelectProfileSlot(0);
+//     Turret->SetP(0.0022);
+//     Turret->SetI(0);
+//     Turret->SetD(0);
 }
 
 void TurretSubsystem::InitDefaultCommand()
 {
 	// When no other commands are running, we do operator control
-	SetDefaultCommand(new TurretFudge());
+	SetDefaultCommand(new TurretDefault());
 }
 
 void TurretSubsystem::AngleIntrepreter(){

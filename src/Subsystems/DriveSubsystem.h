@@ -18,6 +18,9 @@ private:
 	Victor* DriveLeft2;
 	Victor* DriveLeft3;
 
+	double last_left;
+	double last_right;
+
 //	double lastSpeed;
 public:
 	DriveSubsystem();
@@ -28,7 +31,7 @@ public:
 	bool on_target(double distance, double angle);
 	void zero_sensors();
 	void drive(Joystick* left, Joystick* right);
-	void drive(double left, double right);
+	void drive(double left, double right, bool ramp);
 	void prints();
 };
 

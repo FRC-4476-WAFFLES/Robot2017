@@ -2,20 +2,26 @@
 #include "Commands/Drive/DriveHalfRelative.h"
 #include "Commands/Drive/DriveAutoRelative.h"
 #include "Commands/Drive/DriveOperator.h"
+#include "Commands/Gear/GearAuto.h"
+#include "Commands/Gear/GearCloseAuto.h"
 
 DriveBackAirship::DriveBackAirship(bool right) {
-	SetTimeout(2.0);
+	SetTimeout(3.0);
+	AddSequential(new GearAuto());
 	AddSequential(new DriveAutoRelative(-1,0,1));
+	AddParallel(new GearCloseAuto());
 	if(right)
-		AddSequential(new DriveHalfRelative(90.0,1));
+		AddSequential(new DriveHalfRelative(80.0,0.0));
 	else
-		AddSequential(new DriveHalfRelative(-90.0,1));
+		AddSequential(new DriveHalfRelative(-80.0,1.0));
 
 	//-153.6666666666667
 }
+
 void DriveBackAirship::Execute(){
 	if(CommandBase::oi->DriveActive()){
 		Scheduler::GetInstance()->Remove(this);
-		Scheduler::GetInstance()->AddCommand(new DriveOperator);
+		Scheduler::GetInstance()->AddCommand(new GearCloseAuto());
+		Scheduler::GetInstance()->AddCommand(new DriveOperator());
 	}
 }

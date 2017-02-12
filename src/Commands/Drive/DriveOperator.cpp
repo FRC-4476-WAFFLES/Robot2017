@@ -34,7 +34,7 @@ bool DriveOperator::IsFinished()
 //stops the drive motor
 void DriveOperator::End()
 {
-	drive->drive(0.0, 0.0);
+	drive->drive(0.0, 0.0, false);
 }
 
 // Called when another command which requires one or more of the same
@@ -42,5 +42,5 @@ void DriveOperator::End()
 //stops the drive motors when .....see above....
 void DriveOperator::Interrupted()
 {
-	drive->drive(0.0, 0.0);
+	drive->drive(0.0, 0.0, false);
 }

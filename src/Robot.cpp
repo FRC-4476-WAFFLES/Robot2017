@@ -2,6 +2,7 @@
 #include "CommandBase.h"
 #include "Commands/Auto/AutoDoNothing.h"
 #include "Commands/Auto/AutoGearDelivery.h"
+#include "Commands/Auto/AutoLeftGearDelivery.h"
 
 class Robot: public IterativeRobot
 {
@@ -16,6 +17,7 @@ private:
 		chooser = new SendableChooser<Command*>();
 		chooser->AddDefault("Nothing Auto", new AutoDoNothing());
 		chooser->AddObject("Gear Delivery Auto", new AutoGearDelivery());
+		chooser->AddObject("Gear Delivery Left", new AutoLeftGearDelivery());
 		SmartDashboard::PutData("Auto Modes", chooser);
 		printf("running");
 	}
@@ -32,10 +34,11 @@ private:
 	 */
 	void AutonomousInit()
 	{
+		if(CommandBase::drive != nullptr)
+			CommandBase::drive->zero_sensors();
 		autonomousCommand = (Command*) chooser->GetSelected();
-		//		//starts the selected command
-				autonomousCommand->Start();
-
+		//starts the selected command
+		autonomousCommand->Start();
 	}
 
 	void AutonomousPeriodic()

@@ -21,7 +21,7 @@ void ShooterShoot::Initialize()
 void ShooterShoot::Execute()
 {
 	shooter->RunLoad();
-	shooter->SetPower(-Preferences::GetInstance()->GetDouble("Shot_Speed", 1.0));
+	shooter->SetSpeed(-Preferences::GetInstance()->GetDouble("Shot_Speed", 4640.0));
 }
 
 // Make this return true when this Command no longer needs to run execute()

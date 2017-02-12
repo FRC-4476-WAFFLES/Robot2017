@@ -62,6 +62,5 @@ bool OI::DriveDeadzone(double x){
 }
 
 bool OI::DriveActive(){
-
-	return !DriveDeadzone(joystickLeft->GetRawAxis(1))||!DriveDeadzone(joystickRight->GetRawAxis(1));
+	return !(fabs(joystickLeft->GetRawAxis(1)) < 0.15) ||!(fabs(joystickRight->GetRawAxis(1) < 0.15));
 }
