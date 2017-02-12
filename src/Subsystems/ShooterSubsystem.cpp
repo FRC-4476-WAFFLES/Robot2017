@@ -79,6 +79,7 @@ void ShooterSubsystem::StopLoad() {
 
 void ShooterSubsystem::prints() {
 	SmartDashboard::PutNumber("Shooter Velocity",Rollers->GetSpeed());
+	SmartDashboard::PutNumber("dpad angle",CommandBase::oi->operatorController->GetPOV());
 }
 
 
