@@ -42,7 +42,7 @@ void TurretSubsystem::AngleIntrepreter(){
 void TurretSubsystem::prints(){
 	SmartDashboard::PutNumber("Angle", table->GetNumber("Angle",0.0));
 	SmartDashboard::PutNumber("Distance", table->GetNumber("Distance",0.0));
-
+	SmartDashboard::PutNumber("Turret Encoder", Turret->GetEncPosition());
 }
 
 void TurretSubsystem::SetAngle(double angle){

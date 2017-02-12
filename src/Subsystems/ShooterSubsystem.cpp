@@ -44,6 +44,16 @@ void UpdateRollersPID(CANTalon* Rollers) {
 	Rollers->SetD(Preferences::GetInstance()->GetDouble("D", 0.0));
 }
 
+double ShooterSubsystem::ramp(double Target) {
+	if(Rollers->Get() == Target){
+		return Target;
+	}else if(Rollers->Get() < Target){
+		return Rollers->Get() + 0.1;
+	}else{
+		return Target;
+	}
+}
+
 void ShooterSubsystem::SetSpeed(double RPM) {
 	if(-Rollers->GetSpeed() < -RPM/2) {
 		SetPower(-0.5);
@@ -68,7 +78,9 @@ void ShooterSubsystem::StopLoad() {
 }
 
 void ShooterSubsystem::prints() {
-	SmartDashboard::PutNumber("Shooter Wheel Speed", Rollers->GetSpeed());
+	SmartDashboard::PutNumber("Shooter Velocity",Rollers->GetSpeed());
+	SmartDashboard::PutBoolean("Left Switch", Rollers->IsFwdLimitSwitchClosed());
+	SmartDashboard::PutBoolean("Right Switch", Rollers->IsRevLimitSwitchClosed());
 }
 
 
