@@ -15,6 +15,8 @@
 #include "Triggers/POVTrigger.h"
 #include "Commands/Turret/TurretFullLeft.h"
 #include "Commands/Turret/TurretFullRight.h"
+#include "Commands/Turret/TurretCenterShot.h"
+#include "Commands/Turret/TurretOffShot.h"
 OI::OI()
 {
 	/*
@@ -46,7 +48,7 @@ OI::OI()
 	Load3->WhenReleased(new DriveBackAirship(true));
 	Load4->WhenReleased(new DriveBackAirship(true));
 
-	Button* Shoot = new JoystickButton(operatorController, OperatorButton::BumperTopRight);
+	Button* Shoot = new JoystickButton(operatorController, OperatorButton::BumperBottomRight);
 	Shoot->WhileHeld(new ShooterShoot());
 	Button* SpeedUp = new JoystickButton(operatorController, OperatorButton::B);
 	SpeedUp->WhileHeld(new ShooterPrep());
@@ -63,6 +65,10 @@ OI::OI()
 	FullLeft->WhenActive(new TurretFullLeft());
 	Trigger* FullRight = new POVTrigger(operatorController, 90);
 	FullRight->WhenActive(new TurretFullRight());
+	Trigger* OffShot = new POVTrigger(operatorController, 180);
+	OffShot->WhenActive(new TurretOffShot());
+	Trigger* CenterShot = new POVTrigger(operatorController,  0);
+	CenterShot->WhenActive(new TurretCenterShot());
 }
 
 bool OI::DriveDeadzone(double x){

@@ -24,10 +24,10 @@ TurretSubsystem::TurretSubsystem():
 
 	Turret->EnableZeroSensorPositionOnReverseLimit(true);
 
-//     Turret->SelectProfileSlot(0);
-//     Turret->SetP(0.0022);
-//     Turret->SetI(0);
-//     Turret->SetD(0);
+     Turret->SelectProfileSlot(0);
+     Turret->SetP(0.0022);
+     Turret->SetI(0);
+     Turret->SetD(0);
 }
 
 void TurretSubsystem::InitDefaultCommand()
@@ -43,14 +43,22 @@ void TurretSubsystem::AngleIntrepreter(){
 void TurretSubsystem::prints(){
 	SmartDashboard::PutNumber("Angle", table->GetNumber("Angle",0.0));
 	SmartDashboard::PutNumber("Distance", table->GetNumber("Distance",0.0));
-	SmartDashboard::PutNumber("Turret Encoder", Turret->GetPosition());
+	SmartDashboard::PutNumber("Turret Encoder", (Turret->GetPosition()/2.7)*180.0);
 	SmartDashboard::PutBoolean("Left Switch", Turret->IsFwdLimitSwitchClosed());
 	SmartDashboard::PutBoolean("Right Switch", Turret->IsRevLimitSwitchClosed());
 }
 
+void TurretSubsystem::UpdateRollersPID() {
+    Turret->SelectProfileSlot(0);
+	Turret->SetP(Preferences::GetInstance()->GetDouble("Turret P", 0.16));
+	Turret->SetI(Preferences::GetInstance()->GetDouble("Turret I", 0.0));
+	Turret->SetD(Preferences::GetInstance()->GetDouble("Turret D", 0.0));
+}
+
 void TurretSubsystem::SetAngle(double angle){
+	UpdateRollersPID();
 	Turret->SetTalonControlMode(CANTalon::kPositionMode);
-	Turret->Set(angle);
+	Turret->Set(angle*2.7/180.0);
 }
 
 void TurretSubsystem::SetPower(double power) {
