@@ -5,10 +5,10 @@
 
 class POVTrigger : public Trigger {
 private:
-	Joystick &joystick;
+	Joystick *joystick;
 	int angle;
 public:
-	POVTrigger(Joystick&, int angle);
-	bool Get() const;
+	POVTrigger(Joystick*, int angle);
+	bool Get() override;
 };
 
