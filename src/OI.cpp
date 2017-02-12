@@ -12,6 +12,9 @@
 #include "Commands/Gear/GearDefault.h"
 #include "Commands/Gear/GearToggle.h"
 #include <math.h>
+#include "Triggers/POVTrigger.h"
+#include "Commands/Turret/TurretFullLeft.h"
+#include "Commands/Turret/TurretFullRight.h"
 OI::OI()
 {
 	/*
@@ -55,6 +58,11 @@ OI::OI()
 
 	Button* ToggleGear = new JoystickButton(operatorController, OperatorButton::Start);
 	ToggleGear->WhenReleased(new GearToggle());
+
+	Button* FullLeft = new JoystickButton(operatorController,Trigger(270));
+	FullLeft->WhenPressed(new TurretFullLeft());
+	Button* FullRight = new JoystickButton(operatorController,Trigger(270));
+	FullRight->WhenPressed(new TurretFullRight());
 }
 
 bool OI::DriveDeadzone(double x){

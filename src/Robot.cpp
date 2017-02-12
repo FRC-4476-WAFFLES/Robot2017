@@ -3,7 +3,7 @@
 #include "Commands/Auto/AutoDoNothing.h"
 #include "Commands/Auto/AutoGearDelivery.h"
 #include "Commands/Auto/AutoLeftGearDelivery.h"
-
+#include "Subsystems/TurretSubsystem.h"
 class Robot: public IterativeRobot
 {
 private:
@@ -45,6 +45,7 @@ private:
 	{
 		frc::Scheduler::GetInstance()->Run();
 		CommandBase::prints();
+		CommandBase::turret->TurretHome();
 	}
 
 	void TeleopInit()
@@ -57,15 +58,18 @@ private:
 	{
 		frc::Scheduler::GetInstance()->Run();
 		CommandBase::prints();
+		CommandBase::turret->TurretHome();
 	}
 
 	void TestPeriodic()
 	{
 		lw->Run();
+		CommandBase::turret->TurretHome();
 	}
 	void DisabledPeriodic()
 	{
 		CommandBase::prints();
+		CommandBase::turret->TurretHome();
 	}
 };
 

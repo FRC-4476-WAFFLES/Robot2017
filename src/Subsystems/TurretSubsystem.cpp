@@ -57,3 +57,8 @@ void TurretSubsystem::SetPower(double power) {
 	Turret->SetControlMode(CANTalon::kPercentVbus);
 	Turret->Set(power);
 }
+void TurretSubsystem::TurretHome(){
+	if(Turret->IsFwdLimitSwitchClosed()){
+		Turret->SetPosition(2.7);
+	}
+}

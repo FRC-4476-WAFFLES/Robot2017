@@ -13,6 +13,7 @@ public:
 	void AngleIntrepreter();
 	void SetAngle(double angle);
 	void SetPower(double power);
+	void TurretHome();
 	void prints();
 	CANTalon* Turret;
 	std::shared_ptr<NetworkTable> table;
