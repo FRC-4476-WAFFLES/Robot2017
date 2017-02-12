@@ -59,10 +59,10 @@ OI::OI()
 	Button* ToggleGear = new JoystickButton(operatorController, OperatorButton::Start);
 	ToggleGear->WhenReleased(new GearToggle());
 
-	Button* FullLeft = new JoystickButton(operatorController,Trigger(270));
-	FullLeft->WhenPressed(new TurretFullLeft());
-	Button* FullRight = new JoystickButton(operatorController,Trigger(270));
-	FullRight->WhenPressed(new TurretFullRight());
+	Trigger* FullLeft = new POVTrigger(operatorController, 270);
+	FullLeft->WhenActive(new TurretFullLeft());
+	Trigger* FullRight = new POVTrigger(operatorController, 90);
+	FullRight->WhenActive(new TurretFullRight());
 }
 
 bool OI::DriveDeadzone(double x){
