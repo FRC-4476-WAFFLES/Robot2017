@@ -14,13 +14,15 @@ TurretSubsystem::TurretSubsystem():
 	NetworkTable::SetUpdateRate(0.05);
 	table = NetworkTable::GetTable("CameraTable");
 
-	 Turret = new CANTalon(SHOOTER_TURRET);
+	Turret = new CANTalon(SHOOTER_TURRET);
 
-	 Turret->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-	 Turret->SetSensorDirection(false);
+	Turret->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
+	Turret->SetSensorDirection(false);
 
-     Turret->ConfigNominalOutputVoltage(+0.0f, -0.0f);
-     Turret->ConfigPeakOutputVoltage(+12.0f, -12.0f);
+	Turret->ConfigNominalOutputVoltage(+0.0f, -0.0f);
+	Turret->ConfigPeakOutputVoltage(+12.0f, -12.0f);
+
+	Turret->EnableZeroSensorPositionOnReverseLimit(true);
 
 //     Turret->SelectProfileSlot(0);
 //     Turret->SetP(0.0022);
@@ -38,11 +40,12 @@ void TurretSubsystem::AngleIntrepreter(){
 	Turret->SetSetpoint(Turret->GetEncPosition() + table->GetNumber("Angle",0.0));
 }
 
-
 void TurretSubsystem::prints(){
 	SmartDashboard::PutNumber("Angle", table->GetNumber("Angle",0.0));
 	SmartDashboard::PutNumber("Distance", table->GetNumber("Distance",0.0));
-	SmartDashboard::PutNumber("Turret Encoder", Turret->GetEncPosition());
+	SmartDashboard::PutNumber("Turret Encoder", Turret->GetPosition());
+	SmartDashboard::PutBoolean("Left Switch", Turret->IsFwdLimitSwitchClosed());
+	SmartDashboard::PutBoolean("Right Switch", Turret->IsRevLimitSwitchClosed());
 }
 
 void TurretSubsystem::SetAngle(double angle){

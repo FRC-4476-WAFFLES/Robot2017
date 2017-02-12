@@ -79,8 +79,6 @@ void ShooterSubsystem::StopLoad() {
 
 void ShooterSubsystem::prints() {
 	SmartDashboard::PutNumber("Shooter Velocity",Rollers->GetSpeed());
-	SmartDashboard::PutBoolean("Left Switch", Rollers->IsFwdLimitSwitchClosed());
-	SmartDashboard::PutBoolean("Right Switch", Rollers->IsRevLimitSwitchClosed());
 }
 
 
