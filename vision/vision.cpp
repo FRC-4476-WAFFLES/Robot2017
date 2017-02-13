@@ -3,18 +3,22 @@
 using namespace cv;
 
 Vision::Vision(const int devid): devid(devid) {
-  std::stringstream command;
-  command << "v4l2-ctl -d /dev/video" << devid;
-  command << " -c exposure_auto=1 -c exposure_absolute=-100";
-  const char* _s = command.str().c_str();
+  std::string command;
+  command += "v4l2-ctl";
+  if(devid != -1) command += " -d /dev/video" + devid;
+  command += " -c exposure_auto=1 -c exposure_absolute=-100";
+  const char* _s = command.c_str();
+  printf("\"%s\"\n", _s);
   system(_s);
 
   cap.open(devid);
   cap.set(CAP_PROP_FRAME_WIDTH, 640);
   cap.set(CAP_PROP_FRAME_HEIGHT, 360);
   cap.read(img); // Discard first frame
-  if(!cap.isOpened())
+  if(!cap.isOpened()) {
+    fprintf(stderr, "Failed to get camera at index %d.\n", devid);
     exit(1);
+  }
 }
 
 RunResult Vision::process_frame() {
@@ -23,7 +27,6 @@ RunResult Vision::process_frame() {
   inRange(hsv, Scalar(55,143,84), Scalar(95,255,254), thresh);
   findContours(thresh, contours, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
   draw_largest();
-  printf("Done!%ld\n", contours.size());
   imwrite("/tmp/out.png", img);
   return find_data();
 }

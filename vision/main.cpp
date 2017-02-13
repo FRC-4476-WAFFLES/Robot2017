@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include "networktables/NetworkTable.h"
 #include "vision.hpp"
 #include "run_result.hpp"
@@ -8,6 +9,7 @@ int main() {
   NetworkTable::SetUpdateRate(0.05);
   std::shared_ptr<NetworkTable> table = NetworkTable::GetTable("CameraTable");
   table->SetDefaultBoolean("Found", false);
+  table->PutBoolean("Found", false);
 
   // Setup camera and get ready for processing
   Vision vision(-1);

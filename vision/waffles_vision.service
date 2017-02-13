@@ -1,0 +1,7 @@
+[Service]
+Type=simple
+User=waffle
+ExecStart=waffles_vision
+
+[Install]
+WantedBy=multi-user.target
