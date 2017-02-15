@@ -17,8 +17,7 @@ ShooterSubsystem::ShooterSubsystem():
 
 	 //CANTALLON SETUP//
 	 Rollers->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-	 Rollers->SetSensorDirection(true);
-
+	 Rollers->SetSensorDirection(false);
 
 	 //peak outputs
      Rollers->ConfigNominalOutputVoltage(+0.0f, -0.0f);
@@ -38,10 +37,10 @@ void ShooterSubsystem::InitDefaultCommand()
 
 void UpdateRollersPID(CANTalon* Rollers) {
     Rollers->SelectProfileSlot(0);
-    Rollers->SetF(Preferences::GetInstance()->GetDouble("F", 0.015));
-	Rollers->SetP(Preferences::GetInstance()->GetDouble("P", 0.16));
-	Rollers->SetI(Preferences::GetInstance()->GetDouble("I", 0.0));
-	Rollers->SetD(Preferences::GetInstance()->GetDouble("D", 0.0));
+    Rollers->SetF(Preferences::GetInstance()->GetDouble("Shooter F", 0.015));
+	Rollers->SetP(Preferences::GetInstance()->GetDouble("Shooter P", 0.16));
+	Rollers->SetI(Preferences::GetInstance()->GetDouble("Shooter I", 0.0));
+	Rollers->SetD(Preferences::GetInstance()->GetDouble("Shooter D", 0.0));
 }
 
 double ShooterSubsystem::ramp(double Target) {

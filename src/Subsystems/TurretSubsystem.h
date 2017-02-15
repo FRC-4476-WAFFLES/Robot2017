@@ -6,6 +6,7 @@
 class TurretSubsystem: public Subsystem
 {
 private:
+	void UpdateRollersPID();
 
 public:
 	TurretSubsystem();
