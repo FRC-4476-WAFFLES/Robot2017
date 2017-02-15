@@ -2,10 +2,8 @@
 LIBS=-lntcore `pkg-config --libs opencv` -lpthread
 G++_FLAGS=-O2
 
-all: build_dir main build/vision.o build/run_result.o
-
-build_dir:
-	@mkdir -p build
+all: build_dir main
+	@ #empty
 
 main: main.cpp build/vision.o build/run_result.o
 	g++ ${G++_FLAGS} -std=c++1z -Wall build/vision.o build/run_result.o main.cpp ${LIBS} -o main
@@ -13,12 +11,17 @@ main: main.cpp build/vision.o build/run_result.o
 build/vision.o: vision.cpp vision.hpp run_result.hpp
 	g++ ${G++_FLAGS} -std=c++1z -c vision.cpp -o build/vision.o
 
-build/run_result.o: run_result.cpp run_result.hpp
+build/run_result.o:  run_result.cpp run_result.hpp
 	g++ ${G++_FLAGS} -std=c++1z -c run_result.cpp -o build/run_result.o
+
+build_dir:
+	@mkdir -p build
 
 clean:
 	rm -r build
+	rm main
 
 install:
 	install -m 755 main /usr/local/bin/waffles_vision
-	install -m waffles_vision.service
+	install -m 644 waffles_vision.service /etc/systemd/system/waffles_vision.service
+	systemctl daemon-reload

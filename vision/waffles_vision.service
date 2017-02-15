@@ -1,7 +1,10 @@
+[Unit]
+Description=Vision Processing for finding boilers
+
 [Service]
 Type=simple
 User=waffle
-ExecStart=waffles_vision
+ExecStart=/usr/local/bin/waffles_vision
 
 [Install]
 WantedBy=multi-user.target
