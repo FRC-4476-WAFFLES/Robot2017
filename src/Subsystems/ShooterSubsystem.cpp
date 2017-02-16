@@ -6,7 +6,7 @@
 #include "ShooterSubsystem.h"
 #include "../RobotMap.h"
 #include "CANTalon.h"
-#include "vision/run_result.hpp"
+
 ShooterSubsystem::ShooterSubsystem():
 		Subsystem("ShooterSubsystem")
 {
@@ -17,12 +17,13 @@ ShooterSubsystem::ShooterSubsystem():
 
 	 //CANTALLON SETUP//
 	 Rollers->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-	 Rollers->SetSensorDirection(false);
+	 Rollers->SetSensorDirection(true);
+	 Rollers->SetClosedLoopOutputDirection(true);
+	 Rollers->SetCloseLoopRampRate(0.1);
 
 	 //peak outputs
      Rollers->ConfigNominalOutputVoltage(+0.0f, -0.0f);
      Rollers->ConfigPeakOutputVoltage(+0.0f, -12.0f);
-
 
      //PID things
 	 Rollers_Slave->SetControlMode(CANSpeedController::kFollower);
@@ -37,10 +38,10 @@ void ShooterSubsystem::InitDefaultCommand()
 
 void UpdateRollersPID(CANTalon* Rollers) {
     Rollers->SelectProfileSlot(0);
-    Rollers->SetF(Preferences::GetInstance()->GetDouble("Shooter F", 0.015));
-	Rollers->SetP(Preferences::GetInstance()->GetDouble("Shooter P", 0.16));
+    Rollers->SetF(Preferences::GetInstance()->GetDouble("Shooter F", 4.5));
+	Rollers->SetP(Preferences::GetInstance()->GetDouble("Shooter P", 25.0));
 	Rollers->SetI(Preferences::GetInstance()->GetDouble("Shooter I", 0.0));
-	Rollers->SetD(Preferences::GetInstance()->GetDouble("Shooter D", 0.0));
+	Rollers->SetD(Preferences::GetInstance()->GetDouble("Shooter D", 0.6));
 }
 
 double ShooterSubsystem::ramp(double Target) {
@@ -54,13 +55,9 @@ double ShooterSubsystem::ramp(double Target) {
 }
 
 void ShooterSubsystem::SetSpeed(double RPM) {
-	if(-Rollers->GetSpeed() < -RPM/2) {
-		SetPower(-0.5);
-	} else {
-		UpdateRollersPID(Rollers);
-		Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
-		Rollers->Set(RPM);
-	}
+	UpdateRollersPID(Rollers);
+	Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
+	Rollers->Set(RPM);
 }
 
 void ShooterSubsystem::SetPower(double power) {
