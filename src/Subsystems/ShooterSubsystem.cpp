@@ -10,6 +10,7 @@
 ShooterSubsystem::ShooterSubsystem():
 		Subsystem("ShooterSubsystem")
 {
+	//shot speed: main shot->15 velocity->15.38s setting on current PID
 	 Rollers = new CANTalon(SHOOTER_ROLLER);
 	 Rollers_Slave = new CANTalon(SHOOTER_ROLLER_SLAVE);
 	 Load = new VictorSP(SHOOTER_LOAD);

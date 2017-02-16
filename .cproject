@@ -64,8 +64,6 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.1104744751.376201324" name="run_result.hpp" rcbsApplicability="disable" resourcePath="src/vision/run_result.hpp" toolsToInvoke=""/>
-					<fileInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.1104744751.2094170440" name="vision.hpp" rcbsApplicability="disable" resourcePath="src/vision/vision.hpp" toolsToInvoke=""/>
 					<sourceEntries>
 						<entry excluding="src/refrence/Robot.cpp|src/vision/ntcore|src/vision/run_result.hpp|src/vision/run_result.cpp|src/vision/libx86_64|src/vision/libarm|src/vision/include|src/vision/build|src/vision/vision.hpp|src/vision/vision.cpp|src/vision/main.cpp|src/vision/Client|vision" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
