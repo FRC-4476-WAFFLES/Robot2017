@@ -21,7 +21,7 @@ void TurretFullRight::Initialize()
 void TurretFullRight::Execute()
 {
 	if(!turret->Turret->IsFwdLimitSwitchClosed()){
-		turret->SetPower(0.25);
+		turret->SetPower(0.45);
 	}else{
 		turret->SetPower(0.0);
 	}

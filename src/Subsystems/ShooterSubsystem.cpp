@@ -10,7 +10,6 @@
 ShooterSubsystem::ShooterSubsystem():
 		Subsystem("ShooterSubsystem")
 {
-
 	 Rollers = new CANTalon(SHOOTER_ROLLER);
 	 Rollers_Slave = new CANTalon(SHOOTER_ROLLER_SLAVE);
 	 Load = new VictorSP(SHOOTER_LOAD);
@@ -19,11 +18,10 @@ ShooterSubsystem::ShooterSubsystem():
 	 Rollers->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
 	 Rollers->SetSensorDirection(true);
 	 Rollers->SetClosedLoopOutputDirection(true);
-	 Rollers->SetCloseLoopRampRate(0.1);
 
 	 //peak outputs
      Rollers->ConfigNominalOutputVoltage(+0.0f, -0.0f);
-     Rollers->ConfigPeakOutputVoltage(+0.0f, -12.0f);
+     Rollers->ConfigPeakOutputVoltage(+0.0f, -9.0f);
 
      //PID things
 	 Rollers_Slave->SetControlMode(CANSpeedController::kFollower);
@@ -56,8 +54,12 @@ double ShooterSubsystem::ramp(double Target) {
 
 void ShooterSubsystem::SetSpeed(double RPM) {
 	UpdateRollersPID(Rollers);
-	Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
-	Rollers->Set(RPM);
+	if(Rollers->GetSpeed() > RPM/2.0) {
+		Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
+		Rollers->Set(RPM);
+	} else {
+		SetPower(-0.5);
+	}
 }
 
 void ShooterSubsystem::SetPower(double power) {

@@ -21,7 +21,7 @@ void TurretFullLeft::Initialize()
 void TurretFullLeft::Execute()
 {
 	if(!turret->Turret->IsRevLimitSwitchClosed()){
-		turret->SetPower(-0.25);
+		turret->SetPower(-0.45);
 	}else{
 		turret->SetPower(0.0);
 	}
