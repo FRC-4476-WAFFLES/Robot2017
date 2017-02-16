@@ -21,7 +21,7 @@ void ShooterShoot::Initialize()
 void ShooterShoot::Execute()
 {
 	shooter->RunLoad();
-	shooter->SetSpeed(Preferences::GetInstance()->GetDouble("Shot_Speed", 12.0));
+	shooter->SetSpeed(turret->Determined_Speed);
 }
 
 // Make this return true when this Command no longer needs to run execute()

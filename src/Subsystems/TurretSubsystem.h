@@ -18,6 +18,7 @@ public:
 	void prints();
 	CANTalon* Turret;
 	std::shared_ptr<NetworkTable> table;
+	double Determined_Speed;
 
 };
 

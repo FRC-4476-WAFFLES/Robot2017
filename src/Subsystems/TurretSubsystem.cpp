@@ -50,7 +50,7 @@ void TurretSubsystem::prints(){
 
 void TurretSubsystem::UpdateRollersPID() {
     Turret->SelectProfileSlot(0);
-	Turret->SetP(Preferences::GetInstance()->GetDouble("Turret P", 1.0));
+	Turret->SetP(Preferences::GetInstance()->GetDouble("Turret P", 0.16));
 	Turret->SetI(Preferences::GetInstance()->GetDouble("Turret I", 0.0));
 	Turret->SetD(Preferences::GetInstance()->GetDouble("Turret D", 0.0));
 }
