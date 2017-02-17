@@ -14,7 +14,7 @@ TurretSubsystem::TurretSubsystem():
 	NetworkTable::SetUpdateRate(0.05);
 	table = NetworkTable::GetTable("CameraTable");
 
-	Turret = new CANTalon(SHOOTER_TURRET);
+	Turret = new CanTalonSRX(SHOOTER_TURRET);
 
 	Turret->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
 	Turret->SetSensorDirection(false);

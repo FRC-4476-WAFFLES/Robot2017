@@ -2,6 +2,7 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "CANTalon.h"
 
 class TurretSubsystem: public Subsystem
 {

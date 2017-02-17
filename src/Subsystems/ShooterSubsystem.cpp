@@ -5,7 +5,6 @@
 #include <Commands/Shooter/ShooterDefault.h>
 #include "ShooterSubsystem.h"
 #include "../RobotMap.h"
-#include "CANTalon.h"
 
 ShooterSubsystem::ShooterSubsystem():
 		Subsystem("ShooterSubsystem")
@@ -35,9 +34,14 @@ void ShooterSubsystem::InitDefaultCommand()
 	SetDefaultCommand(new ShooterDefault);
 }
 
-void UpdateRollersPID(CANTalon* Rollers) {
+void UpdateRollersPID(CANTalon* Rollers, double RPM) {
     Rollers->SelectProfileSlot(0);
-    Rollers->SetF(Preferences::GetInstance()->GetDouble("Shooter F", 4.5));
+    // F for 20 = 4.4
+    // F for 15 = 4.9
+    // F for 10 = 5.6
+    // F for 5 = 7.0
+    // F = 12*x^-0.334587
+    Rollers->SetF(Preferences::GetInstance()->GetDouble("Shooter F", 12.059)*pow(RPM, -0.334587));
 	Rollers->SetP(Preferences::GetInstance()->GetDouble("Shooter P", 25.0));
 	Rollers->SetI(Preferences::GetInstance()->GetDouble("Shooter I", 0.0));
 	Rollers->SetD(Preferences::GetInstance()->GetDouble("Shooter D", 0.6));
@@ -54,7 +58,7 @@ double ShooterSubsystem::ramp(double Target) {
 }
 
 void ShooterSubsystem::SetSpeed(double RPM) {
-	UpdateRollersPID(Rollers);
+	UpdateRollersPID(Rollers, RPM);
 	if(Rollers->GetSpeed() > RPM/2.0) {
 		Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
 		Rollers->Set(RPM);
