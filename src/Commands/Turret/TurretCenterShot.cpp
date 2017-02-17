@@ -20,7 +20,7 @@ void TurretCenterShot::Initialize()
 //makes the speed of the robot = the Y axis value of the joysticks
 void TurretCenterShot::Execute()
 {
-	turret->Determined_Speed = Preferences::GetInstance()->GetDouble("Center Speed", 14.9);
+	turret->Determined_Speed = Preferences::GetInstance()->GetDouble("Center Speed", 14.8);
 
 	if(DriverStation::GetInstance().GetAlliance() == DriverStation::kRed){
 		turret->SetAngle(90.0+25.7);

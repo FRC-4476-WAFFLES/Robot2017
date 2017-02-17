@@ -41,10 +41,10 @@ void UpdateRollersPID(CANTalon* Rollers, double RPM) {
     // F for 10 = 5.6
     // F for 5 = 7.0
     // F = 12*x^-0.334587
-    Rollers->SetF(Preferences::GetInstance()->GetDouble("Shooter F", 12.059)*pow(RPM, -0.334587));
-	Rollers->SetP(Preferences::GetInstance()->GetDouble("Shooter P", 25.0));
+    Rollers->SetF(Preferences::GetInstance()->GetDouble("Shooter F", 20.0)*pow(RPM, -0.334587));
+	Rollers->SetP(Preferences::GetInstance()->GetDouble("Shooter P", 50.0));
 	Rollers->SetI(Preferences::GetInstance()->GetDouble("Shooter I", 0.0));
-	Rollers->SetD(Preferences::GetInstance()->GetDouble("Shooter D", 0.6));
+	Rollers->SetD(Preferences::GetInstance()->GetDouble("Shooter D", 0.0));
 }
 
 double ShooterSubsystem::ramp(double Target) {

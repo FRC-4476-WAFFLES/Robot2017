@@ -50,9 +50,9 @@ void TurretSubsystem::prints(){
 
 void TurretSubsystem::UpdateRollersPID() {
     Turret->SelectProfileSlot(0);
-	Turret->SetP(Preferences::GetInstance()->GetDouble("Turret P", 0.16));
+	Turret->SetP(Preferences::GetInstance()->GetDouble("Turret P", 5.0));
 	Turret->SetI(Preferences::GetInstance()->GetDouble("Turret I", 0.0));
-	Turret->SetD(Preferences::GetInstance()->GetDouble("Turret D", 0.0));
+	Turret->SetD(Preferences::GetInstance()->GetDouble("Turret D", 70.0));
 }
 
 void TurretSubsystem::SetAngle(double angle){
