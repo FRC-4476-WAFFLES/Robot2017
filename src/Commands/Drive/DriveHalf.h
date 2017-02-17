@@ -6,10 +6,10 @@ class DriveHalf: public CommandBase {
 private:
 	double angle;
 	double speed;
-	int side;
+	double percent_right;
 public:
-	DriveHalf(double angle, int side);
-	DriveHalf(double angle, double speed, int side);
+	DriveHalf(double angle, double percent_right);
+	DriveHalf(double angle, double speed, double percent_right);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

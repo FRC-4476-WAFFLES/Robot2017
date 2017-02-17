@@ -38,7 +38,7 @@ void DriveHalfRelative::Execute() {
 	// Calculate the difference between the current angle and the desired angle
 	double angleError = angle - drive->angle();
 
-	drive->drive(0.03 * angleError * (1.0 - percent_right), -0.03 * angleError * percent_right, true);
+	drive->drive((speed * 0.1) * angleError * (1.0 - percent_right), -(speed * 1.0) * angleError * percent_right, true);
 }
 
 // Returns true when the distance is within 200 and the angle is within 5 degrees

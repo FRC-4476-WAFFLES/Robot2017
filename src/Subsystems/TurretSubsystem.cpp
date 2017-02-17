@@ -43,16 +43,20 @@ void TurretSubsystem::AngleIntrepreter(){
 void TurretSubsystem::prints(){
 	SmartDashboard::PutNumber("Angle", table->GetNumber("Angle",0.0));
 	SmartDashboard::PutNumber("Distance", table->GetNumber("Distance",0.0));
-	SmartDashboard::PutNumber("Turret Encoder", (Turret->GetPosition()/2.7)*180.0);
+	SmartDashboard::PutNumber("Turret Encoder", GetAngle());
 	SmartDashboard::PutBoolean("Left Switch", Turret->IsFwdLimitSwitchClosed());
 	SmartDashboard::PutBoolean("Right Switch", Turret->IsRevLimitSwitchClosed());
 }
 
 void TurretSubsystem::UpdateRollersPID() {
     Turret->SelectProfileSlot(0);
-	Turret->SetP(Preferences::GetInstance()->GetDouble("Turret P", 0.16));
+	Turret->SetP(Preferences::GetInstance()->GetDouble("Turret P", 5.0));
 	Turret->SetI(Preferences::GetInstance()->GetDouble("Turret I", 0.0));
-	Turret->SetD(Preferences::GetInstance()->GetDouble("Turret D", 0.0));
+	Turret->SetD(Preferences::GetInstance()->GetDouble("Turret D", 70.0));
+}
+
+double TurretSubsystem::GetAngle() {
+	return (Turret->GetPosition()/2.7)*180.0;
 }
 
 void TurretSubsystem::SetAngle(double angle){
@@ -61,10 +65,33 @@ void TurretSubsystem::SetAngle(double angle){
 	Turret->Set(angle*2.7/180.0);
 }
 
+void TurretSubsystem::SetAngleSlow(double angle){
+	Turret->SelectProfileSlot(1);
+	Turret->SetP(1.0);
+	Turret->SetI(0.0);
+	Turret->SetD(0.0);
+	Turret->SetTalonControlMode(CANTalon::kPositionMode);
+	Turret->Set(angle*2.7/180.0);
+}
+
 void TurretSubsystem::SetPower(double power) {
 	Turret->SetControlMode(CANTalon::kPercentVbus);
 	Turret->Set(power);
 }
+
+void TurretSubsystem::AimVision() {
+	double kP = 0.3;
+	double kD = 0.0;
+	double new_vision = -table->GetNumber("Angle",0.0);
+	if(last_vision != new_vision && table->GetBoolean("Found", false)) {
+		double power = kP * new_vision + kD * (new_vision - last_vision) / last_pid_time.Get();
+		last_pid_time.Reset();
+		last_pid_time.Start();
+		SetAngleSlow(GetAngle() + power);
+	}
+	last_vision = new_vision;
+}
+
 void TurretSubsystem::TurretHome(){
 	if(Turret->IsFwdLimitSwitchClosed()){
 		Turret->SetPosition(2.7);

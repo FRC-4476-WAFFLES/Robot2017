@@ -29,15 +29,20 @@ DriveAuto::DriveAuto(double distance, double angle, double speed):
 }
 
 void DriveAuto::Initialize() {
-
+	done.Reset();
+	done.Start();
 }
 
 void DriveAuto::Execute() {
 	drive->auto_drive(distance, angle, speed);
+	if(!drive->on_target(distance, angle)) {
+		done.Reset();
+		done.Start();
+	}
 }
 
 bool DriveAuto::IsFinished() {
-	return drive->on_target(distance, angle);
+	return done.HasPeriodPassed(0.1);
 }
 
 // Stop the motors when this command ends

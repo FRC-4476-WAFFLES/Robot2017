@@ -17,6 +17,8 @@
 #include "Commands/Turret/TurretFullRight.h"
 #include "Commands/Turret/TurretCenterShot.h"
 #include "Commands/Turret/TurretOffShot.h"
+#include "Commands/Turret/TurretVision.h"
+#include "Commands/Drive/DriveAuto.h"
 OI::OI()
 {
 	/*
@@ -69,6 +71,12 @@ OI::OI()
 	OffShot->WhenActive(new TurretOffShot());
 	Trigger* CenterShot = new POVTrigger(operatorController,  0);
 	CenterShot->WhenActive(new TurretCenterShot());
+
+	Button* ToggleVision = new JoystickButton(operatorController, OperatorButton::Back);
+	ToggleVision->WhileHeld(new TurretVision());
+
+	Button* DriveSomewhere = new JoystickButton(operatorController, OperatorButton::BumperTopLeft);
+	DriveSomewhere->WhenReleased(new DriveAuto(0.0,90.0,1.0));
 }
 
 bool OI::DriveDeadzone(double x){

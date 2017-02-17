@@ -22,7 +22,7 @@ void IntakeIn::Initialize()
 //makes the speed of the robot = the Y axis value of the joysticks
 void IntakeIn::Execute()
 {
-	intake->IntakeRollers->SetSpeed(0.7258);
+	intake->IntakeRollers->SetSpeed(-1.0);
 	intake->BallConveyor->Set(-1.0);
 	//TODO add button
 	if(false){

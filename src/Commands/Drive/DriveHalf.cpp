@@ -4,7 +4,7 @@
 
 #include "DriveHalf.h"
 
-DriveHalf::DriveHalf(double angle, int side):
+DriveHalf::DriveHalf(double angle, double percent_right):
 	CommandBase("DriveAuto")
 {
 	// We need the drive subsystem to not be doing anything else
@@ -13,10 +13,10 @@ DriveHalf::DriveHalf(double angle, int side):
 	// Remember distance and angle for later
 	this->angle = angle;
 	this->speed = 0.5;
-	this->side = side;
+	this->percent_right = percent_right;
 }
 
-DriveHalf::DriveHalf(double angle, double speed, int side):
+DriveHalf::DriveHalf(double angle, double speed, double percent_right):
 			CommandBase("DriveAuto")
 {
 	// We need the drive subsystem to not be doing anything else
@@ -25,7 +25,7 @@ DriveHalf::DriveHalf(double angle, double speed, int side):
 	// Remember distance and angle for later
 	this->angle = angle;
 	this->speed = speed;
-	this->side = side;
+	this->percent_right = percent_right;
 }
 
 void DriveHalf::Initialize() {
@@ -37,21 +37,7 @@ void DriveHalf::Execute() {
 	// Calculate the difference between the current angle and the desired angle
 	double angleError = angle - drive->angle();
 
-	//1=right, 2=left
-	if(side == 1){
-		drive->drive(0.0, -0.01*angleError, false);
-	}else if(side == 2){
-		drive->drive(0.01*angleError, 0.0, false);
-	}else{
-		drive->drive(0.0, 0.0, false);
-	}
-
-
-	// Calculate the difference between the current angle and the desired angle
-
-
-	// Set the motors to run
-//	drive->drive(0.01*angleError, -0.01*angleError);
+	drive->drive((speed * 0.1) * angleError * (1.0 - percent_right), -(speed * 1.0) * angleError * percent_right, true);
 }
 
 // Returns true when the distance is within 200 and the angle is within 5 degrees

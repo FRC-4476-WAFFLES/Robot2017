@@ -51,6 +51,7 @@ double DriveSubsystem::angle() {
 void DriveSubsystem::zero_sensors() {
 	gyro->Reset();
 	DriveEncoder->Reset();
+	DriveEncoder2->Reset();
 }
 
 void DriveSubsystem::drive(Joystick* left, Joystick* right) {
@@ -68,59 +69,74 @@ void DriveSubsystem::drive(Joystick* left, Joystick* right) {
 
 double ramp(double last, double target) {
 	const double step = 0.1;
-	if(last < target) {
-		if(last + step > target) {
-			return target;
-		} else {
-			return last + step;
-		}
-	} else {
-		if(last - step < target) {
-			return target;
-		} else {
-			return last - step;
-		}
-	}
+	if(last < 0 && target < 0 && target > last)
+		return target;
+	if(last > 0 && target > 0 && target < last)
+		return target;
+	if(!((last > 100.0) ^ (last < 100.0)))
+		return 0.0;
+	return last * (1-0.1) + target * 0.1;
 }
 
 void DriveSubsystem::drive(double left, double right, bool do_ramp) {
+	double new_left = left;
+	double new_right = right;
 	if(do_ramp) {
-		left = ramp(left, last_left);
-		right = ramp(right, last_right);
+		new_left = ramp(last_left, left);
+		new_right = ramp(last_right, right);
 	}
-	DriveRight1->SetSpeed(right);
-	DriveRight2->SetSpeed(right);
-	DriveRight3->SetSpeed(right);
-	DriveLeft1->SetSpeed(-left);
-	DriveLeft2->SetSpeed(-left);
-	DriveLeft3->SetSpeed(-left);
-	last_right = right;
-	last_left = left;
+	DriveRight1->SetSpeed(new_right);
+	DriveRight2->SetSpeed(new_right);
+	DriveRight3->SetSpeed(new_right);
+	DriveLeft1->SetSpeed(-new_left);
+	DriveLeft2->SetSpeed(-new_left);
+	DriveLeft3->SetSpeed(-new_left);
+	last_right = new_right;
+	last_left = new_left;
 }
 
 void DriveSubsystem::auto_drive(double distanceTarget, double angleTarget, double speed) {
+	double drive_kP = 5.0;
+	double drive_kD = 0.9;
+
 	// Calculate the error on the distance traveled
-	double distanceError = (distance() - distanceTarget)*1.5;
+	double distance_error = (distance() - distanceTarget);
+	double distance_out = drive_kP * distance_error + drive_kD * (distance_error - last_distance_error) / last_pid_time.Get();
+	last_distance_error = distance_error;
 
 	// Make sure the distance error does not exceed 100%
-	if(distanceError > 1.0) {
-		distanceError = 1.0;
+	if(distance_out > 0.9) {
+		distance_out = 0.9;
+	} else if(distance_out < -0.9) {
+		distance_out = -0.9;
 	}
-	if(distanceError < -1.0) {
-		distanceError = -1.0;
-	}
+
+	double angle_kP = 0.1;
+	double angle_kD = 0.00;
 
 	// Calculate the difference between the current angle and the desired angle
-	double angleError = angleTarget - angle();
+	double angle_error = (angle() - angleTarget);
+	double angle_out = angle_kP * angle_error + angle_kD * (angle_error - last_angle_error) / last_pid_time.Get();
+	last_angle_error = angle_error;
+
+	if(angle_out > 0.7) {
+		angle_out = 0.7;
+	} else if(angle_out < -0.7) {
+		angle_out = -0.7;
+	}
+
+	last_pid_time.Reset();
+	last_pid_time.Start();
+
 
 	// Set the motors to run
-	drive(0.012*angleError + speed*distanceError, -0.012*angleError + speed*distanceError, true);
+	drive(-angle_out + speed*distance_out, angle_out + speed*distance_out, true);
 }
 
 bool DriveSubsystem::on_target(double distanceTarget, double angleTarget) {
 	double distanceError = distance() - distanceTarget;
 	double angleError = angleTarget - angle();
-	return distanceError < 0.20 && distanceError > -0.20 && angleError < 5.0 && angleError > -5.0;
+	return distanceError < 0.05 && distanceError > -0.05 && angleError < 1.0 && angleError > -1.0;
 }
 
 void DriveSubsystem::prints() {

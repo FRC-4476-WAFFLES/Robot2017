@@ -20,12 +20,12 @@ void TurretOffShot::Initialize()
 //makes the speed of the robot = the Y axis value of the joysticks
 void TurretOffShot::Execute()
 {
-	turret->Determined_Speed = Preferences::GetInstance()->GetDouble("Off Speed", 13.5);
+	turret->Determined_Speed = Preferences::GetInstance()->GetDouble("Off Speed", 110.0);
 
 	if(DriverStation::GetInstance().GetAlliance() == DriverStation::kRed){
-		turret->SetAngle(90.0-15.0);
+		turret->SetAngle(90.0+16.3);
 	}else{
-		turret->SetAngle(90.0+15.0);
+		turret->SetAngle(90.0-16.3);
 	}
 }
 

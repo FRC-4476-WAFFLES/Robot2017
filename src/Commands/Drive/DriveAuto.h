@@ -15,6 +15,7 @@ private:
 	double distance;
 	double angle;
 	double speed;
+	Timer done;
 public:
 	DriveAuto(double distance, double angle);
 	DriveAuto(double distance, double angle, double speed);

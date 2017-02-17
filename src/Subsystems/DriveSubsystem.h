@@ -18,10 +18,12 @@ private:
 	Victor* DriveLeft2;
 	Victor* DriveLeft3;
 
-	double last_left;
-	double last_right;
+	double last_left = 0;
+	double last_right = 0;
 
-//	double lastSpeed;
+	double last_distance_error;
+	double last_angle_error;
+	Timer last_pid_time;
 public:
 	DriveSubsystem();
 	void InitDefaultCommand();
