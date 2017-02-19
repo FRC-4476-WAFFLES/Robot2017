@@ -17,7 +17,7 @@ DriveHalfRelative::DriveHalfRelative(double angle, double percent_right):
 	this->percent_right = percent_right;
 }
 
-DriveHalfRelative::DriveHalfRelative(double angle, double speed, double percent_right):
+DriveHalfRelative::DriveHalfRelative(double angle, double percent_right, double speed):
 			CommandBase("DriveAuto")
 {
 	// We need the drive subsystem to not be doing anything else

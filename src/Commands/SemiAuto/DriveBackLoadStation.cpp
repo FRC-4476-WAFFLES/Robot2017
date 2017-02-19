@@ -2,13 +2,18 @@
 #include "Commands/Drive/DriveHalfRelative.h"
 #include "Commands/Drive/DriveAutoRelative.h"
 #include "Commands/Drive/DriveOperator.h"
+
 DriveBackLoadStation::DriveBackLoadStation() {
-	SetTimeout(2.0);
-	AddSequential(new DriveAutoRelative(-0.5,0,1));
-	AddSequential(new DriveHalfRelative(-45.0,0.0));
-	AddSequential(new DriveHalfRelative(-85.0,0.8));
-	//-153.6666666666667
+	SetTimeout(10.0);
+	AddSequential(new DriveAutoRelative(-2.0, 0, 1.0));
+	// Blue
+//	AddSequential(new DriveAutoRelative(-2.0, -45.0, 1.0));
+//	AddSequential(new DriveHalfRelative(-90.0, 0.0, 0.5));
+	// Red
+	AddSequential(new DriveAutoRelative(-2.0, 45.0, 1.0));
+	AddSequential(new DriveHalfRelative(90.0, 1.0, 1.0));
 }
+
 void DriveBackLoadStation::Execute(){
 	if(CommandBase::oi->DriveActive()){
 		Scheduler::GetInstance()->Remove(this);

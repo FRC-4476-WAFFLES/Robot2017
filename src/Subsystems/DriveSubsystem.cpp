@@ -81,10 +81,10 @@ double ramp(double last, double target) {
 void DriveSubsystem::drive(double left, double right, bool do_ramp) {
 	double new_left = left;
 	double new_right = right;
-	if(do_ramp) {
-		new_left = ramp(last_left, left);
-		new_right = ramp(last_right, right);
-	}
+//	if(do_ramp) {
+//		new_left = ramp(last_left, left);
+//		new_right = ramp(last_right, right);
+//	}
 	DriveRight1->SetSpeed(new_right);
 	DriveRight2->SetSpeed(new_right);
 	DriveRight3->SetSpeed(new_right);
@@ -97,7 +97,7 @@ void DriveSubsystem::drive(double left, double right, bool do_ramp) {
 
 void DriveSubsystem::auto_drive(double distanceTarget, double angleTarget, double speed) {
 	double drive_kP = 5.0;
-	double drive_kD = 0.9;
+	double drive_kD = 0.3;
 
 	// Calculate the error on the distance traveled
 	double distance_error = (distance() - distanceTarget);

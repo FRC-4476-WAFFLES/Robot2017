@@ -2,7 +2,7 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-#include "CanTalon.h"
+#include "CANTalon.h"
 
 class IntakeSubsystem: public Subsystem
 {

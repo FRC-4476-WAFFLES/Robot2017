@@ -11,6 +11,8 @@
 #include "Commands/Intake/IntakeOut.h"
 #include "Commands/Gear/GearDefault.h"
 #include "Commands/Gear/GearToggle.h"
+#include "Commands/Gear/GearCloseAuto.h"
+#include "Commands/Gear/GearOpenAuto.h"
 #include <math.h>
 #include "Triggers/POVTrigger.h"
 #include "Commands/Turret/TurretFullLeft.h"
@@ -61,7 +63,8 @@ OI::OI()
 	Outtake->WhileHeld(new IntakeOut());
 
 	Button* ToggleGear = new JoystickButton(operatorController, OperatorButton::Start);
-	ToggleGear->WhenReleased(new GearToggle());
+	ToggleGear->WhenReleased(new GearCloseAuto());
+	ToggleGear->WhenPressed(new GearOpenAuto());
 
 	Trigger* FullLeft = new POVTrigger(operatorController, 270);
 	FullLeft->WhenActive(new TurretFullLeft());

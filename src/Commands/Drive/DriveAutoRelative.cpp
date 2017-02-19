@@ -34,6 +34,7 @@ DriveAutoRelative::DriveAutoRelative(double distance, double angle, double speed
 
 void DriveAutoRelative::Initialize() {
 	distance = drive->distance() + distanceRelative;
+	SmartDashboard::PutNumber("Target", drive->distance() + distanceRelative);
 	angle = drive->angle() + angleRelative;
 }
 

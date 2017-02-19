@@ -40,3 +40,7 @@ void GearSubsystem::Persist(){
 		Closed();
 	}
 }
+
+void GearSubsystem::prints() {
+	SmartDashboard::PutBoolean("Gear Open?", is_open);
+}

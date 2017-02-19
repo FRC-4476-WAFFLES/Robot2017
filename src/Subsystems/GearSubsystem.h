@@ -14,6 +14,7 @@ public:
 	void Closed();
 	void Toggle();
 	void Persist();
+	void prints();
 	Servo* GearLeft;
 	Servo*GearRight;
 	bool is_open = false;

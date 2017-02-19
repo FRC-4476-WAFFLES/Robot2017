@@ -36,11 +36,6 @@ void ShooterSubsystem::InitDefaultCommand()
 
 void UpdateRollersPID(CANTalon* Rollers, double RPM) {
     Rollers->SelectProfileSlot(0);
-    // F for 20 = 4.4
-    // F for 15 = 4.9
-    // F for 10 = 5.6
-    // F for 5 = 7.0
-    // F = 12*x^-0.334587
     Rollers->SetF(Preferences::GetInstance()->GetDouble("Shooter F", 20.0)*pow(RPM, -0.334587));
 	Rollers->SetP(Preferences::GetInstance()->GetDouble("Shooter P", 50.0));
 	Rollers->SetI(Preferences::GetInstance()->GetDouble("Shooter I", 0.0));
@@ -82,7 +77,6 @@ void ShooterSubsystem::StopLoad() {
 
 void ShooterSubsystem::prints() {
 	SmartDashboard::PutNumber("Shooter Velocity",Rollers->GetSpeed());
-	SmartDashboard::PutNumber("Shooter Ready?", fabs(Rollers->GetSpeed() - Rollers->GetSetpoint()) < 0.1);
 	SmartDashboard::PutNumber("dpad angle",CommandBase::oi->operatorController->GetPOV());
 }
 
