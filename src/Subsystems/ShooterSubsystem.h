@@ -7,6 +7,8 @@
 class ShooterSubsystem: public Subsystem
 {
 private:
+	double last_dip = 0.0;
+	double last_gyro = 0.0;
 public:
 	ShooterSubsystem();
 	void InitDefaultCommand();
@@ -14,6 +16,7 @@ public:
 	void SetPower(double power);
 	void RunLoad();
 	void StopLoad();
+	bool AtSpeed();
 	double ramp(double Target);
 	void prints();
 	CANTalon* Rollers;

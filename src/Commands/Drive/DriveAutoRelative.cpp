@@ -43,7 +43,7 @@ void DriveAutoRelative::Execute() {
 }
 
 bool DriveAutoRelative::IsFinished() {
-	return drive->on_target(distance, angle);
+	return drive->on_target(distance, 0.5, angle, 5.0);
 }
 
 // Stop the motors when this command ends

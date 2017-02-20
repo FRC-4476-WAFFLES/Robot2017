@@ -34,28 +34,28 @@ OI::OI()
 	joystickRight = new Joystick(1);
 	operatorController = new Joystick(2);
 
-	Button* Airship1 = new JoystickButton(joystickLeft, 8);
-	Button* Airship2 = new JoystickButton(joystickLeft, 9);
-	Button* Airship3 = new JoystickButton(joystickRight, 8);
-	Button* Airship4 = new JoystickButton(joystickRight, 9);
-	Airship1->WhenReleased(new DriveBackLoadStation);
-	Airship2->WhenReleased(new DriveBackLoadStation);
-	Airship3->WhenReleased(new DriveBackLoadStation);
-	Airship4->WhenReleased(new DriveBackLoadStation);
-
-	Button* Load1 = new JoystickButton(joystickLeft, 6);
-	Button* Load2 = new JoystickButton(joystickLeft, 7);
-	Button* Load3 = new JoystickButton(joystickRight, 10);
-	Button* Load4 = new JoystickButton(joystickRight, 11);
-	Load1->WhenReleased(new DriveBackAirship(false));
-	Load2->WhenReleased(new DriveBackAirship(false));
-	Load3->WhenReleased(new DriveBackAirship(true));
-	Load4->WhenReleased(new DriveBackAirship(true));
+//	Button* Airship1 = new JoystickButton(joystickLeft, 8);
+//	Button* Airship2 = new JoystickButton(joystickLeft, 9);
+//	Button* Airship3 = new JoystickButton(joystickRight, 8);
+//	Button* Airship4 = new JoystickButton(joystickRight, 9);
+//	Airship1->WhenReleased(new DriveBackLoadStation);
+//	Airship2->WhenReleased(new DriveBackLoadStation);
+//	Airship3->WhenReleased(new DriveBackLoadStation);
+//	Airship4->WhenReleased(new DriveBackLoadStation);
+//
+//	Button* Load1 = new JoystickButton(joystickLeft, 6);
+//	Button* Load2 = new JoystickButton(joystickLeft, 7);
+//	Button* Load3 = new JoystickButton(joystickRight, 10);
+//	Button* Load4 = new JoystickButton(joystickRight, 11);
+//	Load1->WhenReleased(new DriveBackAirship(false));
+//	Load2->WhenReleased(new DriveBackAirship(false));
+//	Load3->WhenReleased(new DriveBackAirship(true));
+//	Load4->WhenReleased(new DriveBackAirship(true));
 
 	Button* Shoot = new JoystickButton(operatorController, OperatorButton::BumperBottomRight);
 	Shoot->WhileHeld(new ShooterShoot());
 	Button* SpeedUp = new JoystickButton(operatorController, OperatorButton::B);
-	SpeedUp->WhileHeld(new ShooterPrep());
+	SpeedUp->ToggleWhenPressed(new ShooterPrep());
 
 	Button* Intake = new JoystickButton(operatorController, OperatorButton::A);
 	Intake->WhileHeld(new IntakeIn());

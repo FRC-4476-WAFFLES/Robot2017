@@ -20,6 +20,7 @@ void TurretFullRight::Initialize()
 //makes the speed of the robot = the Y axis value of the joysticks
 void TurretFullRight::Execute()
 {
+	turret->Determined_Speed = Preferences::GetInstance()->GetDouble("Right Speed", 14.8);
 	if(!turret->Turret->IsFwdLimitSwitchClosed()){
 		turret->SetPower(0.45);
 	}else{

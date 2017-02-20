@@ -21,7 +21,7 @@ ShooterSubsystem::ShooterSubsystem():
 
 	 //peak outputs
      Rollers->ConfigNominalOutputVoltage(+0.0f, -0.0f);
-     Rollers->ConfigPeakOutputVoltage(+0.0f, -9.0f);
+     Rollers->ConfigPeakOutputVoltage(+0.0f, -12.0f);
 
      //PID things
 	 Rollers_Slave->SetControlMode(CANSpeedController::kFollower);
@@ -36,6 +36,8 @@ void ShooterSubsystem::InitDefaultCommand()
 
 void UpdateRollersPID(CANTalon* Rollers, double RPM) {
     Rollers->SelectProfileSlot(0);
+    Rollers->SetVelocityMeasurementPeriod(CANTalon::Period_100Ms);
+    Rollers->SetVelocityMeasurementWindow(64);
     Rollers->SetF(Preferences::GetInstance()->GetDouble("Shooter F", 20.0)*pow(RPM, -0.334587));
 	Rollers->SetP(Preferences::GetInstance()->GetDouble("Shooter P", 50.0));
 	Rollers->SetI(Preferences::GetInstance()->GetDouble("Shooter I", 0.0));
@@ -75,9 +77,16 @@ void ShooterSubsystem::StopLoad() {
 	Load->Set(0.0);
 }
 
+bool ShooterSubsystem::AtSpeed() {
+	return fabs(Rollers->GetSpeed() - Rollers->GetSetpoint()) < 0.2 && Rollers->GetSetpoint() != 0.0;
+}
+
 void ShooterSubsystem::prints() {
+	if(Rollers->GetSpeed() < last_dip || CommandBase::oi->operatorController->GetRawButton(OI::BumperBottomLeft))
+		last_dip = Rollers->GetSpeed();
+	SmartDashboard::PutNumber("Last Dip", last_dip);
 	SmartDashboard::PutNumber("Shooter Velocity",Rollers->GetSpeed());
-	SmartDashboard::PutNumber("dpad angle",CommandBase::oi->operatorController->GetPOV());
+//	270
 }
 
 

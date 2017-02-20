@@ -48,6 +48,10 @@ double DriveSubsystem::angle() {
 	return gyro->GetAngleZ();
 }
 
+double DriveSubsystem::angle_rate() {
+	return gyro->GetRateZ();
+}
+
 void DriveSubsystem::zero_sensors() {
 	gyro->Reset();
 	DriveEncoder->Reset();
@@ -139,9 +143,18 @@ bool DriveSubsystem::on_target(double distanceTarget, double angleTarget) {
 	return distanceError < 0.05 && distanceError > -0.05 && angleError < 1.0 && angleError > -1.0;
 }
 
+bool DriveSubsystem::on_target(double distanceTarget, double distanceTolerence, double angleTarget, double angleTolerence) {
+	double distanceError = distance() - distanceTarget;
+	double angleError = angleTarget - angle();
+	return
+			distanceError < distanceTolerence && distanceError > -distanceTolerence &&
+			angleError < angleTolerence && angleError > -angleTolerence;
+}
+
 void DriveSubsystem::prints() {
 	SmartDashboard::PutNumber("drive.angle(degrees)", angle());
 	SmartDashboard::PutNumber("drive.distance(feet)", distance());
+	SmartDashboard::PutNumber("Drive Speed", ((DriveEncoder->GetRate() - DriveEncoder2->GetRate())/2.0)/76.83333333);
 }
 
 namespace drive_curves {

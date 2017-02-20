@@ -29,8 +29,10 @@ public:
 	void InitDefaultCommand();
 	double distance();
 	double angle();
+	double angle_rate();
 	void auto_drive(double distance, double angle, double speed);
 	bool on_target(double distance, double angle);
+	bool on_target(double distanceTarget, double distanceTolerence, double angleTarget, double angleTolerence);
 	void zero_sensors();
 	void drive(Joystick* left, Joystick* right);
 	void drive(double left, double right, bool ramp);

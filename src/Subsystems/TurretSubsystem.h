@@ -9,7 +9,12 @@ class TurretSubsystem: public Subsystem
 private:
 	void UpdateRollersPID();
 	double last_vision;
+	double last_gyro;
+	double last_angle;
+	double vision_history[100];
+	int vision_index = 0;
 	Timer last_pid_time;
+	double* LookupHistory(int delta, bool increment);
 public:
 	TurretSubsystem();
 	void InitDefaultCommand();

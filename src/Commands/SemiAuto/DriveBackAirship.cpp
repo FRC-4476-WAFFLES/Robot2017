@@ -11,9 +11,9 @@ DriveBackAirship::DriveBackAirship(bool right) {
 	AddSequential(new DriveAutoRelative(-2, 0, 1.0));
 	AddParallel(new GearCloseAuto());
 	if(right)
-		AddSequential(new DriveHalfRelative(70.0, 0.03, 1.0));
+		AddSequential(new DriveAutoRelative(0, 70, 1.0));
 	else
-		AddSequential(new DriveHalfRelative(-70.0, 0.97, 1.0));
+		AddSequential(new DriveAutoRelative(0, -70, 1.0));
 
 	//-153.6666666666667
 }
