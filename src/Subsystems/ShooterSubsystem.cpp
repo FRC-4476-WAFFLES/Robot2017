@@ -38,7 +38,7 @@ void UpdateRollersPID(CANTalon* Rollers, double RPM) {
     Rollers->SelectProfileSlot(0);
     Rollers->SetVelocityMeasurementPeriod(CANTalon::Period_100Ms);
     Rollers->SetVelocityMeasurementWindow(64);
-    Rollers->SetF(Preferences::GetInstance()->GetDouble("Shooter F", 20.0)*pow(RPM, -0.334587));
+    Rollers->SetF(Preferences::GetInstance()->GetDouble("Shooter F", 13.5012)*pow(RPM, -0.4445381));
 	Rollers->SetP(Preferences::GetInstance()->GetDouble("Shooter P", 50.0));
 	Rollers->SetI(Preferences::GetInstance()->GetDouble("Shooter I", 0.0));
 	Rollers->SetD(Preferences::GetInstance()->GetDouble("Shooter D", 0.0));

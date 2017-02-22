@@ -23,9 +23,6 @@
 #include "Commands/Drive/DriveAuto.h"
 OI::OI()
 {
-	/*
-
-	*/
 	//Options between button types: WhenPressed, WhileHeld, ToggleWhenPressed
 	// Process operator interface input here.
 
@@ -54,6 +51,7 @@ OI::OI()
 
 	Button* Shoot = new JoystickButton(operatorController, OperatorButton::BumperBottomRight);
 	Shoot->WhileHeld(new ShooterShoot());
+	Shoot->WhileHeld(new IntakeIn());
 	Button* SpeedUp = new JoystickButton(operatorController, OperatorButton::B);
 	SpeedUp->ToggleWhenPressed(new ShooterPrep());
 
