@@ -2,6 +2,7 @@
 
 #include <opencv2/opencv.hpp>
 #include "run_result.hpp"
+#include <cscore.h>
 
 class Vision {
 public:
@@ -11,16 +12,12 @@ public:
   // Does all of the vision processing and returns a RunResult
   RunResult process_frame();
 private:
-  // Opencv images
+  cs::UsbCamera camera;
+  cs::CvSink camera_sink;
+  cs::CvSource server_source;
+  cs::MjpegServer server;
   cv::Mat img, hsv, thresh;
-  // The camera
-  cv::VideoCapture cap;
-
-  // The detected regions
   std::vector<std::vector<cv::Point>> contours;
-
-  // The device id of the camera
-  int devid;
 
   // Produces a RunResult, assumes that image processing has already been done
   RunResult find_data();

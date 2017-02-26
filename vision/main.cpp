@@ -12,12 +12,13 @@ int main() {
   table->PutBoolean("Found", false);
 
   // Setup camera and get ready for processing
-  Vision vision(-1);
+  Vision vision(1);
 
   while(true) {
     RunResult partial = vision.process_frame();
     table->PutBoolean("Found", partial.found);
     table->PutNumber("Distance", partial.distance);
     table->PutNumber("Angle", partial.angle);
+    table->Flush();
   }
 }

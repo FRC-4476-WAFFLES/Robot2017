@@ -1,9 +1,19 @@
 # Use the libraries in libarm for pi, libx86_64 for desktop linux
-LIBS=-lntcore `pkg-config --libs opencv` -lpthread
-G++_FLAGS=-O2
+LIBS=-Lntcore/native/ntcore/build/libs/ntcore/static/* -lntcore\
+	-Lcscore/native/build/libs/cscore/static/ -lcscore\
+	-Lntcore/native/wpiutil/build/libs/wpituil/static/* -lwpiutil\
+	`pkg-config --libs opencv`\
+	-lpthread
+INCLUDES=-Intcore/include -Icscore/include
+G++_FLAGS=-O2 ${INCLUDES}
 
 all: build_dir main
 	@ #empty
+
+deps:
+	git submodule update
+	cd ntcore && ./gradlew build
+	cd cscore && ./gradlew build
 
 main: main.cpp build/vision.o build/run_result.o
 	g++ ${G++_FLAGS} -std=c++1z -Wall build/vision.o build/run_result.o main.cpp ${LIBS} -o main

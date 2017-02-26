@@ -2,32 +2,33 @@
 
 using namespace cv;
 
-Vision::Vision(const int devid): devid(devid) {
-  std::string command;
-  command += "v4l2-ctl";
-  if(devid != -1) command += " -d /dev/video" + devid;
-  command += " -c exposure_auto=1 -c exposure_absolute=-100";
-  const char* _s = command.c_str();
-  printf("\"%s\"\n", _s);
-  system(_s);
-
-  cap.open(devid);
-  cap.set(CAP_PROP_FRAME_WIDTH, 640);
-  cap.set(CAP_PROP_FRAME_HEIGHT, 360);
-  cap.read(img); // Discard first frame
-  if(!cap.isOpened()) {
-    fprintf(stderr, "Failed to get camera at index %d.\n", devid);
-    exit(1);
-  }
+Vision::Vision(const int devid):
+  camera{"usb_camera", devid},
+  camera_sink{"camera_sink"},
+  server{"processed_image", 8081},
+  server_source{"processed_source", cs::VideoMode::kMJPEG, 320, 240, 30}
+{
+  camera.SetVideoMode(cs::VideoMode::kMJPEG, 320, 240, 30);
+  camera.SetWhiteBalanceManual(50);
+  camera.SetBrightness(50);
+  camera.SetExposureManual(50);
+  camera_sink.SetSource(camera);
+  server.SetSource(server_source);
 }
 
 RunResult Vision::process_frame() {
-  cap.read(img);
+  uint64_t time = camera_sink.GrabFrame(img);
+  if (time == 0) {
+    std::cout << "error: " << camera_sink.GetError() << std::endl;
+    return RunResult {
+      false, 0.0, 0.0, 0.0
+    };
+  }
   cvtColor(img, hsv, CV_BGR2HSV);
   inRange(hsv, Scalar(55,143,84), Scalar(95,255,254), thresh);
   findContours(thresh, contours, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
   draw_largest();
-  imwrite("/tmp/out.png", img);
+  server_source.PutFrame(img);
   return find_data();
 }
 
