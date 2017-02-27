@@ -13,6 +13,7 @@ all: build_dir main
 deps:
 	git submodule update
 	cd ntcore && ./gradlew build
+	rm -r cscore/examples
 	cd cscore && ./gradlew build
 
 main: main.cpp build/vision.o build/run_result.o
