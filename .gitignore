@@ -55,3 +55,6 @@ Temporary Items
 sysProps.xml
 /Windows Simulate/
 sysProps.xml
+
+# Vscode stuff
+.vscode/

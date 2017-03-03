@@ -12,9 +12,20 @@ all: build_dir main
 
 deps:
 	git submodule update
-	cd ntcore && ./gradlew build
-	rm -r cscore/examples
-	cd cscore && ./gradlew build
+	cd ntcore && ./gradlew :native:wpiutil:build
+	cd ntcore && ./gradlew :native:ntcore:build
+	- rm -r cscore/examples
+	cd cscore && ./gradlew:native:build
+
+deps-arm:
+	git submodule update
+	cd ntcore && ./gradlew :arm:wpiutil:build -PcompilerPrefix=arm-unknown-linux-gnueabihf-
+	cd ntcore && ./gradlew :arm:ntcore:build -PcompilerPrefix=arm-unknown-linux-gnueabihf-
+	mkdir -p cscore/arm/build/wpiutil/Linux/arm/
+	cp ntcore/arm/wpiutil/build/libs/wpiutil/static/libwpiutil.a cscore/arm/build/wpiutil/Linux/arm/
+	cp ntcore/arm/wpiutil/build/libs/wpiutil/shared/libwpiutil.so cscore/arm/build/wpiutil/Linux/arm/
+	cd cscore && git reset --hard && git apply ../cscore-patch.patch
+	cd cscore && ./gradlew :arm:build -PcompilerPrefix=arm-unknown-linux-gnueabihf-
 
 main: main.cpp build/vision.o build/run_result.o
 	g++ ${G++_FLAGS} -std=c++1z -Wall build/vision.o build/run_result.o main.cpp ${LIBS} -o main

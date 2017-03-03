@@ -1,0 +1,282 @@
+diff --git a/dependencies.gradle b/dependencies.gradle
+index a72e2bf..17bbc19 100644
+--- a/dependencies.gradle
++++ b/dependencies.gradle
+@@ -44,7 +44,6 @@ ext.useWpiUtil = { project ->
+     project.ext.wpiUtilInclude = "$wpiUtilUnzipLocation/include"
+ 
+     project.ext.addWpiUtilStaticLibraryLinks = { compileTask, linker, targetPlatform ->
+-        compileTask.dependsOn project.tasks.unzipWpiUtil
+         String path = project.getPlatformPath2(targetPlatform)
+         if (targetPlatform.operatingSystem.windows) {
+             linker.args "${project.wpiUtil}/${path}/wpiutil.lib"
+@@ -54,7 +53,6 @@ ext.useWpiUtil = { project ->
+     }
+     
+     project.ext.addWpiUtilSharedLibraryLinks = { compileTask, linker, targetPlatform ->
+-        compileTask.dependsOn project.tasks.unzipWpiUtil
+         String path = project.getPlatformPath2(targetPlatform)
+         if (targetPlatform.operatingSystem.windows) {
+             linker.args "${project.wpiUtil}/${path}/wpiutil.dll"
+diff --git a/examples/enum_usb/enum_usb.cpp b/examples/enum_usb/enum_usb.cpp
+deleted file mode 100644
+index 7c46b75..0000000
+--- a/examples/enum_usb/enum_usb.cpp
++++ /dev/null
+@@ -1,61 +0,0 @@
+-#include "cscore.h"
+-
+-#include "llvm/SmallString.h"
+-#include "llvm/raw_ostream.h"
+-
+-int main() {
+-  CS_Status status = 0;
+-  llvm::SmallString<64> buf;
+-
+-  for (const auto& caminfo : cs::EnumerateUsbCameras(&status)) {
+-    llvm::outs() << caminfo.dev << ": " << caminfo.path << " (" << caminfo.name
+-                 << ")\n";
+-    cs::UsbCamera camera{"usbcam", caminfo.dev};
+-
+-    llvm::outs() << "Properties:\n";
+-    for (const auto& prop : camera.EnumerateProperties()) {
+-      llvm::outs() << "  " << prop.GetName();
+-      switch (prop.GetKind()) {
+-        case cs::VideoProperty::kBoolean:
+-          llvm::outs() << " (bool): " << "value=" << prop.Get()
+-                       << " default=" << prop.GetDefault();
+-          break;
+-        case cs::VideoProperty::kInteger:
+-          llvm::outs() << " (int): "
+-                       << "value=" << prop.Get() << " min=" << prop.GetMin()
+-                       << " max=" << prop.GetMax() << " step=" << prop.GetStep()
+-                       << " default=" << prop.GetDefault();
+-          break;
+-        case cs::VideoProperty::kString:
+-          llvm::outs() << " (string): " << prop.GetString(buf);
+-          break;
+-        case cs::VideoProperty::kEnum: {
+-          llvm::outs() << " (enum): " << "value=" << prop.Get();
+-          auto choices = prop.GetChoices();
+-          for (size_t i = 0; i < choices.size(); ++i) {
+-            if (choices[i].empty()) continue;
+-            llvm::outs() << "\n    " << i << ": " << choices[i];
+-          }
+-          break;
+-        }
+-        default:
+-          break;
+-      }
+-      llvm::outs() << '\n';
+-    }
+-
+-    llvm::outs() << "Video Modes:\n";
+-    for (const auto& mode : camera.EnumerateVideoModes()) {
+-      llvm::outs() << "  PixelFormat:";
+-      switch (mode.pixelFormat) {
+-        case cs::VideoMode::kMJPEG: llvm::outs() << "MJPEG"; break;
+-        case cs::VideoMode::kYUYV: llvm::outs() << "YUYV"; break;
+-        case cs::VideoMode::kRGB565: llvm::outs() << "RGB565"; break;
+-        default: llvm::outs() << "Unknown"; break;
+-      }
+-      llvm::outs() << " Width:" << mode.width;
+-      llvm::outs() << " Height:" << mode.height;
+-      llvm::outs() << " FPS:" << mode.fps << '\n';
+-    }
+-  }
+-}
+diff --git a/examples/httpcvstream/httpcvstream.cpp b/examples/httpcvstream/httpcvstream.cpp
+deleted file mode 100644
+index e631218..0000000
+--- a/examples/httpcvstream/httpcvstream.cpp
++++ /dev/null
+@@ -1,28 +0,0 @@
+-#include "cscore.h"
+-#include "opencv2/core/core.hpp"
+-
+-#include <iostream>
+-#include <stdio.h>
+-
+-int main() {
+-  cs::HttpCamera camera{"httpcam", "http://localhost:8081/?action=stream"};
+-  camera.SetVideoMode(cs::VideoMode::kMJPEG, 320, 240, 30);
+-  cs::CvSink cvsink{"cvsink"};
+-  cvsink.SetSource(camera);
+-  cs::CvSource cvsource{"cvsource", cs::VideoMode::kMJPEG, 320, 240, 30};
+-  cs::MjpegServer cvMjpegServer{"cvhttpserver", 8083};
+-  cvMjpegServer.SetSource(cvsource);
+-
+-  cv::Mat test;
+-  cv::Mat flip;
+-  for (;;) {
+-    uint64_t time = cvsink.GrabFrame(test);
+-    if (time == 0) {
+-      std::cout << "error: " << cvsink.GetError() << std::endl;
+-      continue;
+-    }
+-    std::cout << "got frame at time " << time << " size " << test.size() << std::endl;
+-    cv::flip(test, flip, 0);
+-    cvsource.PutFrame(flip);
+-  }
+-}
+diff --git a/examples/settings/settings.cpp b/examples/settings/settings.cpp
+deleted file mode 100644
+index 69327e7..0000000
+--- a/examples/settings/settings.cpp
++++ /dev/null
+@@ -1,95 +0,0 @@
+-#include <chrono>
+-#include <thread>
+-
+-#include "cscore.h"
+-
+-#include "llvm/SmallString.h"
+-#include "llvm/raw_ostream.h"
+-
+-int main(int argc, char** argv) {
+-  if (argc < 2) {
+-    llvm::errs() << "Usage: settings camera [prop val] ... -- [prop val]...\n";
+-    llvm::errs() << "  Example: settings 1 brightness 30 raw_contrast 10\n";
+-    return 1;
+-  }
+-
+-  int id;
+-  if (llvm::StringRef{argv[1]}.getAsInteger(10, id)) {
+-    llvm::errs() << "Expected number for camera\n";
+-    return 2;
+-  }
+-
+-  cs::UsbCamera camera{"usbcam", id};
+-
+-  // Set prior to connect
+-  int arg = 2;
+-  llvm::StringRef propName;
+-  for (; arg < argc && llvm::StringRef{argv[arg]} != "--"; ++arg) {
+-    if (propName.empty())
+-      propName = argv[arg];
+-    else {
+-      llvm::StringRef propVal{argv[arg]};
+-      int intVal;
+-      if (propVal.getAsInteger(10, intVal))
+-        camera.GetProperty(propName).SetString(propVal);
+-      else
+-        camera.GetProperty(propName).Set(intVal);
+-      propName = llvm::StringRef{};
+-    }
+-  }
+-  if (arg < argc && llvm::StringRef{argv[arg]} == "--") ++arg;
+-
+-  // Wait to connect
+-  while (!camera.IsConnected())
+-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+-
+-  // Set rest
+-  propName = llvm::StringRef{};
+-  for (; arg < argc; ++arg) {
+-    if (propName.empty())
+-      propName = argv[arg];
+-    else {
+-      llvm::StringRef propVal{argv[arg]};
+-      int intVal;
+-      if (propVal.getAsInteger(10, intVal))
+-        camera.GetProperty(propName).SetString(propVal);
+-      else
+-        camera.GetProperty(propName).Set(intVal);
+-      propName = llvm::StringRef{};
+-    }
+-  }
+-
+-  // Print settings
+-  llvm::SmallString<64> buf;
+-  llvm::outs() << "Properties:\n";
+-  for (const auto& prop : camera.EnumerateProperties()) {
+-    llvm::outs() << "  " << prop.GetName();
+-    switch (prop.GetKind()) {
+-      case cs::VideoProperty::kBoolean:
+-        llvm::outs() << " (bool): " << "value=" << prop.Get()
+-                     << " default=" << prop.GetDefault();
+-        break;
+-      case cs::VideoProperty::kInteger:
+-        llvm::outs() << " (int): "
+-                     << "value=" << prop.Get() << " min=" << prop.GetMin()
+-                     << " max=" << prop.GetMax() << " step=" << prop.GetStep()
+-                     << " default=" << prop.GetDefault();
+-        break;
+-      case cs::VideoProperty::kString:
+-        llvm::outs() << " (string): " << prop.GetString(buf);
+-        break;
+-      case cs::VideoProperty::kEnum: {
+-        llvm::outs() << " (enum): " << "value=" << prop.Get();
+-        auto choices = prop.GetChoices();
+-        for (size_t i = 0; i < choices.size(); ++i) {
+-          if (choices[i].empty()) continue;
+-          llvm::outs() << "\n    " << i << ": " << choices[i];
+-        }
+-        break;
+-      }
+-      default:
+-        break;
+-    }
+-    llvm::outs() << '\n';
+-  }
+-}
+diff --git a/examples/usbcvstream/usbcvstream.cpp b/examples/usbcvstream/usbcvstream.cpp
+deleted file mode 100644
+index feea0b0..0000000
+--- a/examples/usbcvstream/usbcvstream.cpp
++++ /dev/null
+@@ -1,30 +0,0 @@
+-#include "cscore.h"
+-#include "opencv2/core/core.hpp"
+-
+-#include <iostream>
+-#include <stdio.h>
+-
+-int main() {
+-  cs::UsbCamera camera{"usbcam", 0};
+-  camera.SetVideoMode(cs::VideoMode::kMJPEG, 320, 240, 30);
+-  cs::MjpegServer mjpegServer{"httpserver", 8081};
+-  mjpegServer.SetSource(camera);
+-  cs::CvSink cvsink{"cvsink"};
+-  cvsink.SetSource(camera);
+-  cs::CvSource cvsource{"cvsource", cs::VideoMode::kMJPEG, 320, 240, 30};
+-  cs::MjpegServer cvMjpegServer{"cvhttpserver", 8082};
+-  cvMjpegServer.SetSource(cvsource);
+-
+-  cv::Mat test;
+-  cv::Mat flip;
+-  for (;;) {
+-    uint64_t time = cvsink.GrabFrame(test);
+-    if (time == 0) {
+-      std::cout << "error: " << cvsink.GetError() << std::endl;
+-      continue;
+-    }
+-    std::cout << "got frame at time " << time << " size " << test.size() << std::endl;
+-    cv::flip(test, flip, 0);
+-    cvsource.PutFrame(flip);
+-  }
+-}
+diff --git a/examples/usbstream/usbstream.cpp b/examples/usbstream/usbstream.cpp
+deleted file mode 100644
+index 16e133f..0000000
+--- a/examples/usbstream/usbstream.cpp
++++ /dev/null
+@@ -1,18 +0,0 @@
+-#include "cscore.h"
+-
+-#include <stdio.h>
+-
+-#include "llvm/raw_ostream.h"
+-
+-int main() {
+-  llvm::outs() << "hostname: " << cs::GetHostname() << '\n';
+-  llvm::outs() << "IPv4 network addresses:\n";
+-  for (const auto& addr : cs::GetNetworkInterfaces())
+-    llvm::outs() << "  " << addr << '\n';
+-  cs::UsbCamera camera{"usbcam", 1};
+-  camera.SetVideoMode(cs::VideoMode::kMJPEG, 320, 240, 30);
+-  cs::MjpegServer mjpegServer{"httpserver", 8081};
+-  mjpegServer.SetSource(camera);
+-
+-  getchar();
+-}
