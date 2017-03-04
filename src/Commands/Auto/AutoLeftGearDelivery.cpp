@@ -4,9 +4,11 @@
 #include "Commands/Gear/GearCloseAuto.h"
 #include "Commands/Turret/TurretOffShot.h"
 #include "Commands/Turret/ReleaseIntake.h"
+#include "Commands/Intake/ConveyorAuto.h"
 
 AutoLeftGearDelivery::AutoLeftGearDelivery() {
 	SetTimeout(15.0);
+	AddParallel(new ConveyorAuto(1.0,3.0));
 	AddParallel(new GearCloseAuto());
 //	AddParallel(new TurretOffShot());
 	AddSequential(new DriveAuto(6.55, 0, 1.0));
