@@ -13,7 +13,7 @@ DriveAuto::DriveAuto(double distance, double angle):
 	// Remember distance and angle for later
 	this->distance = distance;
 	this->angle = angle;
-	this->speed = 0.5;
+	this->speed = 0.3;
 }
 
 DriveAuto::DriveAuto(double distance, double angle, double speed):

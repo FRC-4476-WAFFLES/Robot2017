@@ -22,7 +22,7 @@ void TurretOffShot::Execute()
 {
 	turret->Determined_Speed = Preferences::GetInstance()->GetDouble("Off Speed", 110.0);
 
-	if(DriverStation::GetInstance().GetAlliance() == DriverStation::kRed){
+	if(DriverStation::GetInstance().GetAlliance() == DriverStation::kBlue){
 		turret->SetAngle(90.0+16.3);
 	}else{
 		turret->SetAngle(90.0-16.3);

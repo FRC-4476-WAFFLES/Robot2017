@@ -1,9 +1,11 @@
+#include <Commands/Auto/AutoLeftGearDeliveryBlue.h>
 #include "WPILib.h"
 #include "CommandBase.h"
 #include "Commands/Auto/AutoDoNothing.h"
 #include "Commands/Auto/AutoGearDelivery.h"
-#include "Commands/Auto/AutoLeftGearDelivery.h"
 #include "Subsystems/TurretSubsystem.h"
+#include "Commands/Auto/AutoLeftGearDeliveryRed.h"
+#include "Commands/Auto/AutoDriveForward.h"
 class Robot: public IterativeRobot
 {
 private:
@@ -17,7 +19,9 @@ private:
 		chooser = new SendableChooser<Command*>();
 		chooser->AddDefault("Nothing Auto", new AutoDoNothing());
 		chooser->AddObject("Gear Delivery Auto", new AutoGearDelivery());
-		chooser->AddObject("Gear Delivery Left", new AutoLeftGearDelivery());
+		chooser->AddObject("RED Gear Delivery Right ", new AutoLeftGearDeliveryRed());
+		chooser->AddObject("BLUE Gear Delivery Left ", new AutoLeftGearDeliveryBlue());
+		chooser->AddDefault("drive forward Auto", new AutoDriveForward());
 		SmartDashboard::PutData("Auto Modes", chooser);
 		printf("running");
 	}

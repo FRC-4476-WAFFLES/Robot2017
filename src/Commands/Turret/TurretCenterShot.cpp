@@ -23,7 +23,7 @@ void TurretCenterShot::Execute()
 	turret->Determined_Speed = Preferences::GetInstance()->GetDouble("Center Speed", 14.8);
 
 	double angle = Preferences::GetInstance()->GetDouble("Center Angle", 74.1);
-	if(DriverStation::GetInstance().GetAlliance() == DriverStation::kRed){
+	if(DriverStation::GetInstance().GetAlliance() == DriverStation::kBlue){
 		turret->SetAngle(90.0-angle);
 	}else{
 		turret->SetAngle(90.0+angle);

@@ -89,7 +89,7 @@ void TurretSubsystem::SetPower(double power) {
 
 void TurretSubsystem::AimVision() {
 	double kP = Preferences::GetInstance()->GetDouble("Vision P", 0.5);
-	double new_vision = -table->GetNumber("Angle", 0.0) * 1.196 - Preferences::GetInstance()->GetDouble("Vision Offset", 0.0);
+	double new_vision = table->GetNumber("Angle", 0.0) * 1.196 - Preferences::GetInstance()->GetDouble("Vision Offset", 0.0);
 
 	if(last_vision != new_vision && table->GetBoolean("Found", false)) {
 		double power = (kP / (fabs(CommandBase::drive->angle_rate()) + 1.0)) * new_vision;
