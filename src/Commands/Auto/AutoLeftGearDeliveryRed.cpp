@@ -4,7 +4,7 @@
 #include "Commands/Gear/GearCloseAuto.h"
 #include "Commands/Turret/TurretOffShot.h"
 #include "Commands/Turret/ReleaseIntake.h"
-#include "Commands/Shooter/ShooterPrep.h"
+#include "Commands/Shooter/ShooterPrepAuto.h"
 #include "Commands/Misc/WaitTime.h"
 #include "Commands/Shooter/ShootAutoUntil.h"
 
@@ -17,7 +17,7 @@ AutoLeftGearDeliveryRed::AutoLeftGearDeliveryRed() {
 	AddSequential(new DriveAuto(6.55, -60, 0.3));
 	AddSequential(new DriveAuto(11.75, -60, 0.3));
 	AddSequential(new GearAuto());
-	AddParallel(new ShooterPrep());
+	AddParallel(new ShooterPrepAuto());
 	AddSequential(new WaitTime(1.0));
 	AddSequential(new ShootAutoUntil(t, 10.0));
 	AddParallel(new ShootAutoUntil(t, 15.0));

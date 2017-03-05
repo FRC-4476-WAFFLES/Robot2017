@@ -1,7 +1,7 @@
 #include "AutoGearDelivery.h"
 #include "Commands/Misc/WaitTime.h"
 #include "Commands/Drive/DriveAuto.h"
-#include "Commands/Shooter/ShooterPrep.h"
+#include "Commands/Shooter/ShooterPrepAuto.h"
 #include "Commands/Shooter/ShootAutoUntil.h"
 #include "Commands/Intake/ConveyorAuto.h"
 #include "Commands/Turret/TurretCenterShot.h"
@@ -16,7 +16,7 @@ AutoGearDelivery::AutoGearDelivery()
 //	AddParallel(new ConveyorAuto(1.0,3.0));
 	AddSequential(new DriveAuto(6.2, 0, 0.3));
 	AddSequential(new GearAuto());
-	AddSequential(new ShooterPrep());
+	AddSequential(new ShooterPrepAuto());
 	AddSequential(new WaitTime(1.0));
 //	AddParallel(new TurretVision());
 	AddSequential(new ShootAutoUntil(t, 10.0));

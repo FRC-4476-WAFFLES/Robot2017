@@ -5,7 +5,7 @@
 #include "Commands/Turret/TurretOffShot.h"
 #include "Commands/Turret/ReleaseIntake.h"
 #include "Commands/Intake/ConveyorAuto.h"
-#include "Commands/Shooter/ShooterPrep.h"
+#include "Commands/Shooter/ShooterPrepAuto.h"
 #include "Commands/Shooter/ShootAutoUntil.h"
 #include "Commands/Misc/WaitTime.h"
 
@@ -16,9 +16,9 @@ AutoLeftGearDeliveryBlue::AutoLeftGearDeliveryBlue() {
 	AddParallel(new TurretOffShot());
 	AddSequential(new DriveAuto(6.55, 0, 0.3));
 	AddSequential(new DriveAuto(6.55, 60, 0.3));
-	AddSequential(new DriveAuto(11.25, 60, 0.3));
+	AddSequential(new DriveAuto(11.75, 60, 0.3));
 	AddSequential(new GearAuto());
-	AddParallel(new ShooterPrep());
+	AddParallel(new ShooterPrepAuto());
 	AddSequential(new WaitTime(1.0));
 	//AddParallel(new TurretVision(t,10.0));
 	AddSequential(new ShootAutoUntil(t, 10.0));
