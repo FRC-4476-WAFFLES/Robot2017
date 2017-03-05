@@ -21,7 +21,7 @@ void IntakeOut::Initialize()
 void IntakeOut::Execute()
 {
 	intake->IntakeRollers->SetSpeed(1.0);
-	intake->BallConveyor->Set(1.0);
+	intake->BallConveyor->Set(0.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()

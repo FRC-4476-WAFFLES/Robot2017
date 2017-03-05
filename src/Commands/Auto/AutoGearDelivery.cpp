@@ -12,13 +12,13 @@
 AutoGearDelivery::AutoGearDelivery()
 {
 	SetTimeout(15.0);
-	AddParallel(new TurretCenterShot());
-//	AddParallel(new ConveyorAuto(1.0,3.0));
+//	AddParallel(new TurretCenterShot());
+	AddParallel(new ConveyorAuto(1.0,1.0));
 	AddSequential(new DriveAuto(6.2, 0, 0.3));
 	AddSequential(new GearAuto());
-	AddSequential(new ShooterPrepAuto());
+//	AddSequential(new ShooterPrepAuto());
 //	AddParallel(new TurretVision());
-	AddSequential(new ShootAutoUntil(t, 10.0));
+//	AddSequential(new ShootAutoUntil(t, 10.0));
 	AddSequential(new DriveAuto(5.2, 0, 0.8));
 	AddSequential(new DriveAuto(2.5, 0, 0.3));
 	AddParallel(new GearCloseAuto());

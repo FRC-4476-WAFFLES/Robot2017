@@ -10,8 +10,8 @@
 AutoDriveForward::AutoDriveForward()
 {
 	SetTimeout(15.0);
-	AddParallel(new TurretOffShot());
-//	AddParallel(new ConveyorAuto(1.0,3.0));
-	AddSequential(new DriveAuto(2.5, 0, 0.3));
+//	AddParallel(new TurretOffShot());
+	AddParallel(new ConveyorAuto(1.0,1.0));
+	AddSequential(new DriveAuto(6, 0, 0.3));
 	AddSequential(new WaitTime(1.0));
 }

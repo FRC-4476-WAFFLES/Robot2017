@@ -29,7 +29,7 @@ void ShooterPrepAuto::Execute()
 // never ends
 bool ShooterPrepAuto::IsFinished()
 {
-	return t.HasPeriodPassed(1.0);
+	return t.HasPeriodPassed(2.0) || shooter->AtSpeed();
 }
 
 // Called once after isFinished returns true

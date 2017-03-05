@@ -31,7 +31,7 @@ ShooterSubsystem::ShooterSubsystem():
 void ShooterSubsystem::InitDefaultCommand()
 {
 	// When no other commands are running, we do operator control
-	SetDefaultCommand(new ShooterDefault);
+//	SetDefaultCommand(new ShooterDefault);
 }
 
 void UpdateRollersPID(CANTalon* Rollers, double RPM) {
@@ -56,7 +56,7 @@ double ShooterSubsystem::ramp(double Target) {
 
 void ShooterSubsystem::SetSpeed(double RPM) {
 	UpdateRollersPID(Rollers, RPM);
-	if(Rollers->GetSpeed() > RPM/2.0) {
+	if(Rollers->GetSpeed() > 10) {
 		Rollers->SetTalonControlMode(CANTalon::kSpeedMode);
 		Rollers->Set(RPM);
 	} else {

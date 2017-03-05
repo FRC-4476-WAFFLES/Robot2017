@@ -19,8 +19,8 @@ private:
 		chooser = new SendableChooser<Command*>();
 		chooser->AddDefault("Nothing Auto", new AutoDoNothing());
 		chooser->AddObject("Gear Delivery Auto", new AutoGearDelivery());
-		chooser->AddObject("RED Gear Delivery Right ", new AutoLeftGearDeliveryRed());
-		chooser->AddObject("BLUE Gear Delivery Left ", new AutoLeftGearDeliveryBlue());
+		chooser->AddObject("BLUE Gear Delivery Right ", new AutoLeftGearDeliveryRed());
+		chooser->AddObject("RED Gear Delivery Left ", new AutoLeftGearDeliveryBlue());
 		chooser->AddDefault("drive forward Auto", new AutoDriveForward());
 		SmartDashboard::PutData("Auto Modes", chooser);
 		printf("running");
@@ -49,7 +49,7 @@ private:
 	{
 		frc::Scheduler::GetInstance()->Run();
 		CommandBase::prints();
-		CommandBase::turret->TurretHome();
+//		CommandBase::turret->TurretHome();
 	}
 
 	void TeleopInit()
@@ -62,18 +62,18 @@ private:
 	{
 		frc::Scheduler::GetInstance()->Run();
 		CommandBase::prints();
-		CommandBase::turret->TurretHome();
+//		CommandBase::turret->TurretHome();
 	}
 
 	void TestPeriodic()
 	{
 		lw->Run();
-		CommandBase::turret->TurretHome();
+//		CommandBase::turret->TurretHome();
 	}
 	void DisabledPeriodic()
 	{
 		CommandBase::prints();
-		CommandBase::turret->TurretHome();
+//		CommandBase::turret->TurretHome();
 	}
 };
 
