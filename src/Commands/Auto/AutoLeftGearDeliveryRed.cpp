@@ -20,6 +20,7 @@ AutoLeftGearDeliveryRed::AutoLeftGearDeliveryRed() {
 	AddParallel(new ShooterPrep());
 	AddSequential(new WaitTime(1.0));
 	AddSequential(new ShootAutoUntil(t, 10.0));
+	AddParallel(new ShootAutoUntil(t, 15.0));
 	AddSequential(new DriveAuto(8, -60, 0.3));
 	AddParallel(new GearCloseAuto());
 	AddSequential(new DriveAuto(8, -89, 0.3));
