@@ -7,6 +7,7 @@
 #include "Commands/Turret/TurretCenterShot.h"
 #include "Commands/Gear/GearCloseAuto.h"
 #include "Commands/Gear/GearAuto.h"
+#include "Commands/Turret/TurretVision.h"
 
 AutoGearDelivery::AutoGearDelivery()
 {
@@ -17,6 +18,7 @@ AutoGearDelivery::AutoGearDelivery()
 	AddSequential(new GearAuto());
 	AddSequential(new ShooterPrep());
 	AddSequential(new WaitTime(1.0));
+//	AddParallel(new TurretVision());
 	AddSequential(new ShootAutoUntil(t, 10.0));
 	AddSequential(new DriveAuto(5.2, 0, 0.8));
 	AddSequential(new DriveAuto(2.5, 0, 0.3));

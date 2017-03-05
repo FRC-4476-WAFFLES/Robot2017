@@ -15,13 +15,13 @@ AutoLeftGearDeliveryBlue::AutoLeftGearDeliveryBlue() {
 	AddParallel(new GearCloseAuto());
 	AddParallel(new TurretOffShot());
 	AddSequential(new DriveAuto(6.55, 0, 0.3));
-	AddSequential(new DriveAuto(6.55, 58, 0.3));
-	AddSequential(new DriveAuto(11.25, 58, 0.3));
+	AddSequential(new DriveAuto(6.55, 60, 0.3));
+	AddSequential(new DriveAuto(11.25, 60, 0.3));
 	AddSequential(new GearAuto());
 	AddParallel(new ShooterPrep());
 	AddSequential(new WaitTime(1.0));
 	AddSequential(new ShootAutoUntil(t, 10.0));
-	AddSequential(new DriveAuto(8, 58, 0.3));
+	AddSequential(new DriveAuto(8, 60, 0.3));
 	AddParallel(new GearCloseAuto());
 	AddSequential(new DriveAuto(8, -89, 0.3));
 //	AddSequential(new DriveAuto(3.5, 47, 0.5));
