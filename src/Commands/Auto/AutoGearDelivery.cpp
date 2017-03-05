@@ -17,10 +17,8 @@ AutoGearDelivery::AutoGearDelivery()
 	AddSequential(new DriveAuto(6.2, 0, 0.3));
 	AddSequential(new GearAuto());
 	AddSequential(new ShooterPrepAuto());
-	AddSequential(new WaitTime(1.0));
 //	AddParallel(new TurretVision());
 	AddSequential(new ShootAutoUntil(t, 10.0));
-	AddParallel(new ShootAutoUntil(t, 15.0));
 	AddSequential(new DriveAuto(5.2, 0, 0.8));
 	AddSequential(new DriveAuto(2.5, 0, 0.3));
 	AddParallel(new GearCloseAuto());
