@@ -5,8 +5,11 @@
 
 class AutoGearDelivery: public CommandGroup
 {
+private:
+	Timer t;
 public:
 	AutoGearDelivery();
+	void Initialize();
 };
 
 

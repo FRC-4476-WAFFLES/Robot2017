@@ -4,6 +4,9 @@
 #include "Commands/Gear/GearCloseAuto.h"
 #include "Commands/Turret/TurretOffShot.h"
 #include "Commands/Turret/ReleaseIntake.h"
+#include "Commands/Shooter/ShooterPrep.h"
+#include "Commands/Misc/WaitTime.h"
+#include "Commands/Shooter/ShootAutoUntil.h"
 
 AutoLeftGearDelivery::AutoLeftGearDelivery() {
 	SetTimeout(15.0);
@@ -16,7 +19,12 @@ AutoLeftGearDelivery::AutoLeftGearDelivery() {
 	AddSequential(new DriveAuto(8, 58, 1.0));
 	AddParallel(new GearCloseAuto());
 	AddSequential(new DriveAuto(8, -89, 1.0));
-//	AddSequential(new DriveAuto(3.5, 47, 0.5));
-//	AddSequential(new DriveAuto(3.5, 0, 0.5));
-//	AddSequential(new DriveAuto(20.0, 0, 0.5));
+	AddParallel(new ShooterPrep());
+	AddSequential(new WaitTime(1.0));
+	AddSequential(new ShootAutoUntil(t, 10.0));
+}
+
+void AutoLeftGearDelivery::Initialize() {
+	t.Reset();
+	t.Start();
 }
