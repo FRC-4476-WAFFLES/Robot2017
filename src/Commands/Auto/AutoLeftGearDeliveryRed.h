@@ -3,10 +3,10 @@
 #include "WPILib.h"
 #include <Commands/CommandGroup.h>
 
-class AutoLeftGearDelivery : public CommandGroup {
+class AutoLeftGearDeliveryRed : public CommandGroup {
 private:
 	Timer t;
 public:
-	AutoLeftGearDelivery();
+	AutoLeftGearDeliveryRed();
 	void Initialize();
 };

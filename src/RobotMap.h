@@ -33,8 +33,8 @@ constexpr int BALL_CONVEYOR = 1;
 // Analog Inputs
 
 // Digital Inputs
-constexpr int DRIVE_ENCODER_A = 0;//
-constexpr int DRIVE_ENCODER_B = 1;//
+constexpr int DRIVE_ENCODER_A = 8;//
+constexpr int DRIVE_ENCODER_B = 9;//
 constexpr int DRIVE_ENCODER_C = 2;//
 constexpr int DRIVE_ENCODER_D = 3;
 

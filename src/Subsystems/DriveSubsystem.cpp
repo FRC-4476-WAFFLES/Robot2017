@@ -123,10 +123,10 @@ void DriveSubsystem::auto_drive(double distanceTarget, double angleTarget, doubl
 	double angle_out = angle_kP * angle_error + angle_kD * (angle_error - last_angle_error) / last_pid_time.Get();
 	last_angle_error = angle_error;
 
-	if(angle_out > 0.7) {
-		angle_out = 0.7;
-	} else if(angle_out < -0.7) {
-		angle_out = -0.7;
+	if(angle_out > 0.5) {
+		angle_out = 0.5;
+	} else if(angle_out < -0.5) {
+		angle_out = -0.5;
 	}
 
 	last_pid_time.Reset();

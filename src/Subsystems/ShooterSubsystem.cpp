@@ -16,7 +16,7 @@ ShooterSubsystem::ShooterSubsystem():
 
 	 //CANTALLON SETUP//
 	 Rollers->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-	 Rollers->SetSensorDirection(true);
+	 Rollers->SetSensorDirection(false);
 	 Rollers->SetClosedLoopOutputDirection(true);
 
 	 //peak outputs
@@ -36,8 +36,8 @@ void ShooterSubsystem::InitDefaultCommand()
 
 void UpdateRollersPID(CANTalon* Rollers, double RPM) {
     Rollers->SelectProfileSlot(0);
-    Rollers->SetVelocityMeasurementPeriod(CANTalon::Period_100Ms);
-    Rollers->SetVelocityMeasurementWindow(64);
+//    Rollers->SetVelocityMeasurementPeriod(CANTalon::Period_100Ms);
+//    Rollers->SetVelocityMeasurementWindow(64);
     Rollers->SetF(Preferences::GetInstance()->GetDouble("Shooter F", 13.5012)*pow(RPM, -0.4445381));
 	Rollers->SetP(Preferences::GetInstance()->GetDouble("Shooter P", 50.0));
 	Rollers->SetI(Preferences::GetInstance()->GetDouble("Shooter I", 0.0));
@@ -86,6 +86,7 @@ void ShooterSubsystem::prints() {
 		last_dip = Rollers->GetSpeed();
 	SmartDashboard::PutNumber("Last Dip", last_dip);
 	SmartDashboard::PutNumber("Shooter Velocity",Rollers->GetSpeed());
+	SmartDashboard::PutBoolean("shooter ready?", AtSpeed());
 //	270
 }
 

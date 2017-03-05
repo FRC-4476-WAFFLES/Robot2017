@@ -15,8 +15,6 @@
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -26,7 +24,7 @@
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.541714056" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix" value="arm-frc-linux-gnueabi-" valueType="string"/>
 							<option id="cdt.managedbuild.option.gnu.cross.path.1246856819" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path" value="/usr/local/bin" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.864368257" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
-							<builder arguments="-j4" buildPath="${workspace_loc:/Robot2017}/Debug" command="make" id="cdt.managedbuild.builder.gnu.cross.397629281" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
+							<builder autoBuildTarget="all" buildPath="${workspace_loc:/Robot2017}/Debug" cleanBuildTarget="clean" id="org.eclipse.cdt.build.core.internal.builder.938328549" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.1261239456" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.680635682" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.143320011" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
@@ -66,6 +64,10 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.1104744751.52918417" name="TurretTrigger.h" rcbsApplicability="disable" resourcePath="src/Triggers/TurretTrigger.h" toolsToInvoke=""/>
+					<fileInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.1104744751.847567420" name="TurretTrigger.cpp" rcbsApplicability="disable" resourcePath="src/Triggers/TurretTrigger.cpp" toolsToInvoke="cdt.managedbuild.tool.gnu.cross.cpp.compiler.1505235107.1372383945">
+						<tool id="cdt.managedbuild.tool.gnu.cross.cpp.compiler.1505235107.1372383945" name="Cross G++ Compiler" superClass="cdt.managedbuild.tool.gnu.cross.cpp.compiler.1505235107"/>
+					</fileInfo>
 					<sourceEntries>
 						<entry excluding="src/refrence/Robot.cpp|src/vision/ntcore|src/vision/run_result.hpp|src/vision/run_result.cpp|src/vision/libx86_64|src/vision/libarm|src/vision/include|src/vision/build|src/vision/vision.hpp|src/vision/vision.cpp|src/vision/main.cpp|src/vision/Client|vision" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>

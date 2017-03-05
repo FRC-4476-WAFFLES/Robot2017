@@ -1,9 +1,10 @@
 [NetworkTables Storage 3.0]
-double "/Preferences/Shooter D"=0.6
-double "/Preferences/Shooter F"=4.5
+double "/Preferences/Center Speed"=14.8
+double "/Preferences/Off Speed"=110
+double "/Preferences/Shooter D"=0
+double "/Preferences/Shooter F"=20
 double "/Preferences/Shooter I"=0
-double "/Preferences/Shooter P"=25
-double "/Preferences/Shot_Speed"=14.8
-double "/Preferences/Turret D"=0
+double "/Preferences/Shooter P"=50
+double "/Preferences/Turret D"=70
 double "/Preferences/Turret I"=0
-double "/Preferences/Turret P"=1
+double "/Preferences/Turret P"=5
