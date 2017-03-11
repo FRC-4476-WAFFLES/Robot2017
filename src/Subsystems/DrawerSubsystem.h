@@ -4,16 +4,15 @@
 #include "WPILib.h"
 #include "CANTalon.h"
 
-class IntakeSubsystem: public Subsystem
+class DrawerSubsystem: public Subsystem
 {
 private:
 
 public:
-	IntakeSubsystem();
+	DrawerSubsystem();
 	void InitDefaultCommand();
 	void ContinuosIntake();
-	VictorSP* IntakeRollers;
-	CANTalon* BallConveyor;
+	CANTalon* Drawer;
 };
 
 

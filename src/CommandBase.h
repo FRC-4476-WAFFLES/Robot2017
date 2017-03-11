@@ -1,11 +1,11 @@
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
+#include <Subsystems/DrawerSubsystem.h>
 #include <string>
 #include <mutex>
 #include "Subsystems/DriveSubsystem.h"
 #include "Subsystems/ShooterSubsystem.h"
-#include "Subsystems/IntakeSubsystem.h"
 #include "Subsystems/GearSubsystem.h"
 #include "Subsystems/TurretSubsystem.h"
 #include "Subsystems/ClimberSubsystem.h"
@@ -30,7 +30,7 @@ public:
 	static std::unique_ptr<OI> oi;
 	static std::unique_ptr<ClimberSubsystem> climber;
 //	static std::unique_ptr<ShooterSubsystem> shooter;
-	static std::unique_ptr<IntakeSubsystem> intake;
+	static std::unique_ptr<DrawerSubsystem> drawer;
 	static std::unique_ptr<GearSubsystem> gear;
 //	static std::unique_ptr<TurretSubsystem> turret;
 

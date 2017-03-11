@@ -1,8 +1,8 @@
 #include <Commands/Drive/DriveOperator.h>
-#include <Commands/Climber/ClimberDefault.h>
+#include <Commands/Climber/ClimberFudge.h>
 #include <Subsystems/DriveSubsystem.h>
-ClimberDefault::ClimberDefault():
-	CommandBase("ClimberDefault")
+ClimberFudge::ClimberFudge():
+	CommandBase("ClimberFudge")
 	{
 	Requires(climber.get());
 	}
@@ -11,27 +11,27 @@ ClimberDefault::ClimberDefault():
 
 
 // Called just before this Command runs the first time
-void ClimberDefault::Initialize() {
+void ClimberFudge::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ClimberDefault::Execute() {
-//	climber->Climber->SetPI
+void ClimberFudge::Execute() {
+	climber->SetPower(oi->operatorController->GetY());
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ClimberDefault::IsFinished() {
+bool ClimberFudge::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void ClimberDefault::End() {
+void ClimberFudge::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ClimberDefault::Interrupted() {
+void ClimberFudge::Interrupted() {
 
 }

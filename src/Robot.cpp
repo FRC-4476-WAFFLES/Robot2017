@@ -62,17 +62,20 @@ private:
 	{
 		frc::Scheduler::GetInstance()->Run();
 		CommandBase::prints();
+		CommandBase::drawer->Drawer->SetPosition(0.0);
 //		CommandBase::turret->TurretHome();
 	}
 
 	void TestPeriodic()
 	{
 		lw->Run();
+		CommandBase::drawer->Drawer->SetPosition(0.0);
 //		CommandBase::turret->TurretHome();
 	}
 	void DisabledPeriodic()
 	{
 		CommandBase::prints();
+		CommandBase::drawer->Drawer->SetPosition(0.0);
 //		CommandBase::turret->TurretHome();
 	}
 };

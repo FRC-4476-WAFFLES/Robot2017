@@ -13,7 +13,7 @@ AutoGearDelivery::AutoGearDelivery()
 {
 	SetTimeout(15.0);
 //	AddParallel(new TurretCenterShot());
-	AddParallel(new ConveyorAuto(1.0,1.0));
+//	AddParallel(new ConveyorAuto(1.0,1.0));
 	AddSequential(new DriveAuto(7.2, 0, 0.3));
 	AddSequential(new GearAuto());
 //	AddSequential(new ShooterPrepAuto());

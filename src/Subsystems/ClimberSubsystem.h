@@ -14,6 +14,9 @@ public:
 	void SetPower(double power);
 	CANTalon* Climber;
 	CANTalon* Climber_Slave;
+	Encoder* ClimbEncoder;
+	double distance();
+
 };
 
 

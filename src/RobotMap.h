@@ -19,18 +19,18 @@ constexpr int DRIVE_LEFT_1 = 3;
 constexpr int DRIVE_LEFT_2 = 4;
 constexpr int DRIVE_LEFT_3 = 5;
 
-constexpr int INTAKE_ROLLER = 7;
+
 
 constexpr int GEAR_LEFT = 8;
 constexpr int GEAR_RIGHT = 9;
-// will be used for the new gear manipulator
-constexpr int GEAR = 9;
+
 
 // CAN Motors
 constexpr int TOP_CLIMBER_ROLLER = 3;
 constexpr int TOP_CLIMBER_SLAVE= 4;
 
-constexpr int BALL_CONVEYOR = 1;
+constexpr int DRAWER = 1;
+constexpr int GEAR = 5;
 // Analog Inputs
 
 // Digital Inputs
@@ -38,6 +38,8 @@ constexpr int DRIVE_ENCODER_A = 8;//left
 constexpr int DRIVE_ENCODER_B = 9;//
 constexpr int DRIVE_ENCODER_C = 2;//right
 constexpr int DRIVE_ENCODER_D = 3;
+constexpr int CLIMBER_ENCODER_A = 5;
+constexpr int CLIMBER_ENCODER_B = 6;
 
 
 

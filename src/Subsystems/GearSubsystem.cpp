@@ -11,7 +11,7 @@ GearSubsystem::GearSubsystem():
 {
 	Gear = new CANTalon(GEAR);
 
-	Gear->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
+	Gear->SetFeedbackDevice(CANTalon::CtreMagEncoder_Absolute);
 	Gear->SetSensorDirection(false);
 
 	Gear->ConfigNominalOutputVoltage(+0.0f, -0.0f);
@@ -29,20 +29,21 @@ GearSubsystem::GearSubsystem():
 
 void GearSubsystem::InitDefaultCommand()
 {
+	starting_angle = Gear->GetEncPosition();
 	// When no other commands are running, we do operator control
 	SetDefaultCommand(new GearDefault());
 }
-//TODO get numbers
+
 void GearSubsystem::Open(){
 	// TODO get actual numbers
-	Gear->Set(0.0);
+	Gear->SetPosition(starting_angle + 45);
 //	GearLeft->SetAngle(165);
 //	GearRight->SetAngle(0);
 }
 
 void GearSubsystem::Closed(){
 	// TODO get actual numbers
-	Gear->Set(0.0);
+	Gear->SetPosition(starting_angle);
 //	GearLeft->SetAngle(110);
 //	GearRight->SetAngle(60);
 }

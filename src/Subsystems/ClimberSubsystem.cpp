@@ -20,12 +20,18 @@ ClimberSubsystem::ClimberSubsystem():
      //PID things
      Climber_Slave->SetControlMode(CANSpeedController::kFollower);
 	 Climber_Slave->Set(TOP_CLIMBER_ROLLER);
+	 ClimbEncoder = new Encoder( CLIMBER_ENCODER_A,  CLIMBER_ENCODER_B);
+
 }
 
 void ClimberSubsystem::InitDefaultCommand()
 {
 	// When no other commands are running, we do operator control
 	SetDefaultCommand(new ClimberDefault());
+}
+
+double ClimberSubsystem::distance() {
+	return ((ClimbEncoder->Get()));
 }
 
 void ClimberSubsystem::SetPower(double power) {

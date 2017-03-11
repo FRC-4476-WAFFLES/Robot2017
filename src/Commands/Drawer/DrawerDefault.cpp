@@ -1,37 +1,37 @@
 #include <Commands/Drive/DriveOperator.h>
-#include <Commands/Climber/ClimberDefault.h>
+#include <Commands/Drawer/DrawerDefault.h>
 #include <Subsystems/DriveSubsystem.h>
-ClimberDefault::ClimberDefault():
-	CommandBase("ClimberDefault")
+DrawerDefault::DrawerDefault():
+	CommandBase("DrawerDefault")
 	{
-	Requires(climber.get());
+	Requires(drawer.get());
 	}
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+
 
 
 // Called just before this Command runs the first time
-void ClimberDefault::Initialize() {
+void DrawerDefault::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ClimberDefault::Execute() {
-//	climber->Climber->SetPI
+void DrawerDefault::Execute() {
+	//TODO make this hold in position using a pid
+	drawer->Drawer->Set(0.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ClimberDefault::IsFinished() {
+bool DrawerDefault::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void ClimberDefault::End() {
+void DrawerDefault::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ClimberDefault::Interrupted() {
+void DrawerDefault::Interrupted() {
 
 }

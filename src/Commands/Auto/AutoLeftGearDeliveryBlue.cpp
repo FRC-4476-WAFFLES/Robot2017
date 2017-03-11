@@ -11,7 +11,7 @@
 
 AutoLeftGearDeliveryBlue::AutoLeftGearDeliveryBlue() {
 	SetTimeout(15.0);
-	AddParallel(new ConveyorAuto(1.0,1.0));
+//	AddParallel(new ConveyorAuto(1.0,1.0));
 	AddParallel(new GearCloseAuto());
 //	AddParallel(new TurretOffShot());
 	AddSequential(new DriveAuto(6.55, 0, 0.3));

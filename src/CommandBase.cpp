@@ -11,7 +11,7 @@ std::unique_ptr<OI> CommandBase::oi;
 std::unique_ptr<DriveSubsystem> CommandBase::drive;
 std::unique_ptr<ClimberSubsystem> CommandBase::climber;
 //std::unique_ptr<ShooterSubsystem> CommandBase::shooter;
-std::unique_ptr<IntakeSubsystem> CommandBase::intake;
+std::unique_ptr<DrawerSubsystem> CommandBase::drawer;
 std::unique_ptr<GearSubsystem> CommandBase::gear;
 //std::unique_ptr<TurretSubsystem> CommandBase::turret;
 // Empty constructors
@@ -27,7 +27,7 @@ void CommandBase::init()
   // line should be repeated for each subsystem in the project.
   drive.reset(new DriveSubsystem());
 //  shooter.reset(new ShooterSubsystem());
-  intake.reset(new IntakeSubsystem());
+  drawer.reset(new DrawerSubsystem());
   climber.reset(new ClimberSubsystem());
   gear.reset(new GearSubsystem());
 //  turret.reset(new TurretSubsystem());
