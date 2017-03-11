@@ -2,7 +2,7 @@
  * ClimberSubsystem is a class that keeps references to each of the
  * drive motors and drive encoder.
  */
-#include <Commands/Intake/IntakeDefault.h>
+#include <Commands/Climber/ClimberDefault.h>
 #include "ClimberSubsystem.h"
 #include "../RobotMap.h"
 
@@ -25,7 +25,7 @@ ClimberSubsystem::ClimberSubsystem():
 void ClimberSubsystem::InitDefaultCommand()
 {
 	// When no other commands are running, we do operator control
-	SetDefaultCommand(new IntakeDefault());
+	SetDefaultCommand(new ClimberDefault());
 }
 
 void ClimberSubsystem::SetPower(double power) {

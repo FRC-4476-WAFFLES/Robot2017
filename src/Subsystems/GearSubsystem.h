@@ -15,8 +15,9 @@ public:
 	void Toggle();
 	void Persist();
 	void prints();
-	Servo* GearLeft;
-	Servo*GearRight;
+	CANTalon* Gear;
+//	Servo* GearLeft;
+//	Servo*GearRight;
 	bool is_open = false;
 };
 

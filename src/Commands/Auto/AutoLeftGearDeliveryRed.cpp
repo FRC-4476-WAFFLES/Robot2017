@@ -16,7 +16,7 @@ AutoLeftGearDeliveryRed::AutoLeftGearDeliveryRed() {
 //	AddParallel(new TurretOffShot());
 	AddSequential(new DriveAuto(6.55, 0, 0.3));
 	AddSequential(new DriveAuto(6.55, -60, 0.3));
-	AddSequential(new DriveAuto(11.75, -60, 0.3));
+	AddSequential(new DriveAuto(12.95, -60, 0.3));
 	AddSequential(new GearAuto());
 //	AddSequential(new ShooterPrepAuto());
 //	AddSequential(new ShootAutoUntil(t, 10.0));
