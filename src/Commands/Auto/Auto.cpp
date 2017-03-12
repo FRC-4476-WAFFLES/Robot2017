@@ -7,6 +7,7 @@
 #include "Commands/Turret/TurretCenterShot.h"
 #include "Commands/Gear/GearCloseAuto.h"
 #include "Commands/Gear/GearAuto.h"
+#include "Commands/Gear/GearAutoUltrasonic.h"
 #include "Commands/Turret/TurretVision.h"
 
 Auto::Auto():
@@ -138,7 +139,7 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 
 		}else if(autonomousposition == 1){
 			AddSequential(new DriveAuto(7.2, 0, 0.3));
-			AddSequential(new GearAuto());
+			AddSequential(new GearAutoUltrasonic());
 
 		}else if(autonomousposition == 2){//right
 			if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
@@ -146,12 +147,12 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 				AddSequential(new DriveAuto(6.55, 0, 0.3));
 				AddSequential(new DriveAuto(6.55, -60, 0.3));
 				AddSequential(new DriveAuto(12.95, -60, 0.3));
-				AddSequential(new GearAuto());
+				AddSequential(new GearAutoUltrasonic());
 			}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
 				AddSequential(new DriveAuto(6.55, 0, 0.3));
 				AddSequential(new DriveAuto(6.55, 60, 0.3));
 				AddSequential(new DriveAuto(12.75, 60, 0.3));
-				AddSequential(new GearAuto());
+				AddSequential(new GearAutoUltrasonic());
 			}else{
 				AddSequential(new WaitTime(30.0));
 			}
@@ -162,13 +163,13 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 				AddSequential(new DriveAuto(6.55, 0, 0.3));
 				AddSequential(new DriveAuto(6.55, -60, 0.3));
 				AddSequential(new DriveAuto(12.95, -60, 0.3));
-				AddSequential(new GearAuto());
+				AddSequential(new GearAutoUltrasonic());
 			}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
 
 				AddSequential(new DriveAuto(6.55, 0, 0.3));
 				AddSequential(new DriveAuto(6.55, 60, 0.3));
 				AddSequential(new DriveAuto(12.75, 60, 0.3));
-				AddSequential(new GearAuto());
+				AddSequential(new GearAutoUltrasonic());
 			}else{
 				AddSequential(new WaitTime(30.0));
 			}
@@ -186,7 +187,7 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 				AddSequential(new DriveAuto(8, -60, 0.3));
 				AddParallel(new GearCloseAuto());
 				AddSequential(new DriveAuto(8, -89, 0.3));
-				AddSequential(new GearAuto());
+				AddSequential(new GearAutoUltrasonic());
 			}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
 				AddSequential(new DriveAuto(8, 60, 0.3));
 				AddParallel(new GearCloseAuto());

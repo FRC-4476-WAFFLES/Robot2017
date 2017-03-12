@@ -46,6 +46,11 @@ double DriveSubsystem::distance_to_wall() {
 	return (ultrasonic_sensor->GetRangeInches())/12;
 }
 
+void DriveSubsystem::DriveToGearWall()
+{
+	DriveAuto(distance_to_wall() - 0.3, angle(),0.3);
+}
+
 double DriveSubsystem::distance() {
 	return ((DriveEncoder->Get() - DriveEncoder2->Get())/2.0)/76.83333333;
 }

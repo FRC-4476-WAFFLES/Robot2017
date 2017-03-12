@@ -2,6 +2,7 @@
  * OI is a class that is used to setup user input to the robot.
  */
 
+#include <Commands/Gear/GearOpenAutoUltrasonic.h>
 #include "OI.h"
 #include "Commands/SemiAuto/DriveBackAirship.h"
 #include "Commands/SemiAuto/DriveBackLoadStation.h"
@@ -13,6 +14,7 @@
 #include "Commands/Gear/GearToggle.h"
 #include "Commands/Gear/GearCloseAuto.h"
 #include "Commands/Gear/GearOpenAuto.h"
+#include "Commands/Gear/GearOpenAutoUltrasonic.h"
 #include <math.h>
 #include "Triggers/POVTrigger.h"
 #include "Commands/Turret/TurretFullLeft.h"
