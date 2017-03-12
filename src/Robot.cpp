@@ -59,6 +59,7 @@ private:
 		autonomousultrasonic = *ultrasonic->GetSelected();
 
 		// Remove the previous autonomous command
+		frc::Scheduler::GetInstance()->Remove(autoCommand);
 		delete autoCommand;
 		// Create a new autonomous command
 		autoCommand = new Auto(autonomousposition, autonomousbackup, autonomousultrasonic);
