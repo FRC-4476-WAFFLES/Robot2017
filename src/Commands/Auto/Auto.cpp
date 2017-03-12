@@ -17,9 +17,11 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 {
 	// the idea is to use one command for any of the 20-30 possible auto modes using if statements
 	//position
+	//0 = nothing
 	//1 = center
 	//2 = right
 	//3 = left
+	//4 = drive forward
 	//backup
 	//1 = hopper
 	//2 = part way
@@ -30,15 +32,94 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 
 	SetTimeout(15.0);
 	AddSequential(new WaitTime(1.0));
+	AddParallel(new GearCloseAuto());
+
 	if(autonomousposition == 0){
 		AddSequential(new WaitTime(30.0));
+
 	}else if(autonomousposition == 1){
 		AddSequential(new DriveAuto(7.2, 0, 0.3));
 		AddSequential(new GearAuto());
-	}else if(autonomousposition == 2){
-		if(DriverStation::GetInstance().GetAlliance == DriverStation::Alliance::kBlue){
 
+	}else if(autonomousposition == 2){//right
+		if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
+			//from gear delivery left red
+			AddSequential(new DriveAuto(6.55, 0, 0.3));
+			AddSequential(new DriveAuto(6.55, -60, 0.3));
+			AddSequential(new DriveAuto(12.95, -60, 0.3));
+			AddSequential(new GearAuto());
+		}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
+			AddSequential(new DriveAuto(6.55, 0, 0.3));
+			AddSequential(new DriveAuto(6.55, 60, 0.3));
+			AddSequential(new DriveAuto(12.75, 60, 0.3));
+			AddSequential(new GearAuto());
+		}else{
+			AddSequential(new WaitTime(30.0));
 		}
+
+	}else if(autonomousposition == 3){
+		//from auto gear delivery left blue
+		if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
+			AddSequential(new DriveAuto(6.55, 0, 0.3));
+			AddSequential(new DriveAuto(6.55, -60, 0.3));
+			AddSequential(new DriveAuto(12.95, -60, 0.3));
+			AddSequential(new GearAuto());
+		}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
+
+			AddSequential(new DriveAuto(6.55, 0, 0.3));
+			AddSequential(new DriveAuto(6.55, 60, 0.3));
+			AddSequential(new DriveAuto(12.75, 60, 0.3));
+			AddSequential(new GearAuto());
+		}else{
+			AddSequential(new WaitTime(30.0));
+		}
+
+	}else if(autonomousposition == 4){
+		AddSequential(new DriveAuto(6, 0, 0.3));
+		AddSequential(new WaitTime(1.0));
 	}
 
+  if(autonomousposition != 0||autonomousposition != 4){
+	if(autonomousbackup == 1){//hopper
+		//TODO add code here
+	}else if(autonomousbackup == 1){//part way
+		if(autonomousposition == 2){
+			AddSequential(new DriveAuto(8, -60, 0.3));
+			AddParallel(new GearCloseAuto());
+			AddSequential(new DriveAuto(8, -89, 0.3));
+			AddSequential(new GearAuto());
+		}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
+			AddSequential(new DriveAuto(8, 60, 0.3));
+			AddParallel(new GearCloseAuto());
+			AddSequential(new DriveAuto(8, -89, 0.3));
+		}else{
+			AddSequential(new WaitTime(30.0));
+		}
+
+		}else if(autonomousposition == 3){
+			if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
+				AddSequential(new DriveAuto(8, -60, 0.3));
+				AddParallel(new GearCloseAuto());
+				AddSequential(new DriveAuto(8, -89, 0.3));
+			}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
+
+				AddSequential(new DriveAuto(8, 60, 0.3));
+				AddParallel(new GearCloseAuto());
+				AddSequential(new DriveAuto(8, -89, 0.3));
+			}else{
+				AddSequential(new WaitTime(30.0));
+			}
+
+		}else{
+			AddSequential(new DriveAuto(5.2, 0, 0.8));
+			AddSequential(new DriveAuto(2.5, 0, 0.3));
+			AddParallel(new GearCloseAuto());
+		}
+
+  }else{
+	  AddSequential(new WaitTime(30.0));
+  }
+
 }
+
+
