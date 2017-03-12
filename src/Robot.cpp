@@ -1,11 +1,9 @@
 #include <Commands/Auto/AutoLeftGearDeliveryBlue.h>
 #include "WPILib.h"
 #include "CommandBase.h"
-#include "Commands/Auto/AutoDoNothing.h"
-#include "Commands/Auto/AutoGearDelivery.h"
+#include "Commands/Auto/Auto.h"
 #include "Subsystems/TurretSubsystem.h"
-#include "Commands/Auto/AutoLeftGearDeliveryRed.h"
-#include "Commands/Auto/AutoDriveForward.h"
+
 class Robot: public IterativeRobot
 {
 private:
@@ -16,6 +14,7 @@ private:
 	SendableChooser<int*>* position;
 	SendableChooser<int*>* backup;
 	SendableChooser<int*>* ultrasonic;
+	Auto* autoCommand;
 
 	void RobotInit()
 	{
@@ -37,6 +36,7 @@ private:
 		ultrasonic->AddObject("no", new int(2));
 		SmartDashboard::PutData("ultrasonic", ultrasonic);
 
+		autoCommand = new Auto();
 		printf("running");
 	}
 
@@ -55,9 +55,15 @@ private:
 		if(CommandBase::drive != nullptr)
 			CommandBase::drive->zero_sensors();
 		autonomousposition = *position->GetSelected();
-		//starts the selected command
 		autonomousbackup = *backup->GetSelected();
 		autonomousultrasonic = *ultrasonic->GetSelected();
+
+		// Remove the previous autonomous command
+		delete autoCommand;
+		// Create a new autonomous command
+		autoCommand = new Auto(autonomousposition, autonomousbackup, autonomousultrasonic);
+		// Run it.
+		autoCommand->Start();
 	}
 
 	void AutonomousPeriodic()
