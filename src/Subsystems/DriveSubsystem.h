@@ -17,16 +17,18 @@ private:
 	Victor* DriveLeft1;
 	Victor* DriveLeft2;
 	Victor* DriveLeft3;
+	Ultrasonic* ultrasonic_sensor;
 
 	double last_left = 0;
 	double last_right = 0;
 
-	double last_distance_error;
-	double last_angle_error;
+	double last_distance_error = 0;
+	double last_angle_error = 0;
 	Timer last_pid_time;
 public:
 	DriveSubsystem();
 	void InitDefaultCommand();
+	double distance_to_wall();
 	double distance();
 	double angle();
 	double angle_rate();

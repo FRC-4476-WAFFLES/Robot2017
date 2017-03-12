@@ -33,11 +33,17 @@ DriveSubsystem::DriveSubsystem():
 	gyro = new ADIS16448_IMU;
 	DriveEncoder = new Encoder(DRIVE_ENCODER_A , DRIVE_ENCODER_B);
 	DriveEncoder2 = new Encoder(DRIVE_ENCODER_C, DRIVE_ENCODER_D);
+
+	ultrasonic_sensor = new Ultrasonic(SONAR_OUT, SONAR_IN);
+	ultrasonic_sensor->SetAutomaticMode(true);
 }
 
 void DriveSubsystem::InitDefaultCommand() {
 	// When no other commands are running, we do operator control
 	SetDefaultCommand(new DriveOperator());
+}
+double DriveSubsystem::distance_to_wall() {
+	return (ultrasonic_sensor->GetRangeInches())/12;
 }
 
 double DriveSubsystem::distance() {
@@ -72,7 +78,7 @@ void DriveSubsystem::drive(Joystick* left, Joystick* right) {
 }
 
 double ramp(double last, double target) {
-	const double step = 0.1;
+//	const double step = 0.1;
 	if(last < 0 && target < 0 && target > last)
 		return target;
 	if(last > 0 && target > 0 && target < last)

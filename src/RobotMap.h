@@ -33,14 +33,19 @@ constexpr int DRAWER = 1;
 constexpr int GEAR = 5;
 // Analog Inputs
 
+/////////DIGITAL I/O PORTS/////////
 // Digital Inputs
 constexpr int DRIVE_ENCODER_A = 8;//left
 constexpr int DRIVE_ENCODER_B = 9;//
 constexpr int DRIVE_ENCODER_C = 2;//right
 constexpr int DRIVE_ENCODER_D = 3;
-constexpr int CLIMBER_ENCODER_A = 5;
-constexpr int CLIMBER_ENCODER_B = 6;
+constexpr int CLIMBER_ENCODER_A = 4;
+constexpr int CLIMBER_ENCODER_B = 5;
+constexpr int SONAR_IN = 6;
 
+
+//Digital Outputs
+constexpr int SONAR_OUT = 7;
 
 
 #endif

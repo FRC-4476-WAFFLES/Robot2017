@@ -10,19 +10,33 @@ class Robot: public IterativeRobot
 {
 private:
 	LiveWindow *lw = LiveWindow::GetInstance();
-	Command* autonomousCommand;
-	SendableChooser<Command*>* chooser;
+	int autonomousposition;
+	int autonomousbackup;
+	int autonomousultrasonic;
+	SendableChooser<int*>* position;
+	SendableChooser<int*>* backup;
+	SendableChooser<int*>* ultrasonic;
 
 	void RobotInit()
 	{
 		CommandBase::init();
-		chooser = new SendableChooser<Command*>();
-		chooser->AddDefault("Nothing Auto", new AutoDoNothing());
-		chooser->AddObject("Gear Delivery Auto", new AutoGearDelivery());
-		chooser->AddObject("BLUE Gear Delivery Right ", new AutoLeftGearDeliveryRed());
-		chooser->AddObject("RED Gear Delivery Left ", new AutoLeftGearDeliveryBlue());
-		chooser->AddDefault("drive forward Auto", new AutoDriveForward());
-		SmartDashboard::PutData("Auto Modes", chooser);
+		position = new SendableChooser<int*>();
+		position->AddDefault("Center", new int(1));
+		position->AddObject("Right", new int(2));
+		position->AddObject("Left", new int(3));
+		SmartDashboard::PutData("Position", position);
+
+		backup = new SendableChooser<int*>();
+		backup->AddDefault("Hopper", new int(1));
+		backup->AddObject("part way", new int(2));
+		backup->AddObject("no", new int(3));
+		SmartDashboard::PutData("backup", backup);
+
+		ultrasonic = new SendableChooser<int*>();
+		ultrasonic->AddDefault("Yes", new int(1));
+		ultrasonic->AddObject("no", new int(2));
+		SmartDashboard::PutData("ultrasonic", ultrasonic);
+
 		printf("running");
 	}
 
@@ -40,9 +54,10 @@ private:
 	{
 		if(CommandBase::drive != nullptr)
 			CommandBase::drive->zero_sensors();
-		autonomousCommand = (Command*) chooser->GetSelected();
+		autonomousposition = *position->GetSelected();
 		//starts the selected command
-		autonomousCommand->Start();
+		autonomousbackup = *backup->GetSelected();
+		autonomousultrasonic = *ultrasonic->GetSelected();
 	}
 
 	void AutonomousPeriodic()
@@ -54,8 +69,8 @@ private:
 
 	void TeleopInit()
 	{
-		if (autonomousCommand != NULL)
-			autonomousCommand->Cancel();
+//		if (autonomousposition != NULL)
+//			autonomousposition->Cancel();
 	}
 
 	void TeleopPeriodic()
