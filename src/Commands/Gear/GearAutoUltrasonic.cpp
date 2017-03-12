@@ -5,6 +5,7 @@ GearAutoUltrasonic::GearAutoUltrasonic() :
 	// eg. Requires(Robot::chassis.get());
 	CommandBase("GearAutoUltrasonic")
 {
+	Requires(drive.get());
 	Requires(gear.get());
 }
 

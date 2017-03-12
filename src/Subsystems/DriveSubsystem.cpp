@@ -48,7 +48,7 @@ double DriveSubsystem::distance_to_wall() {
 
 void DriveSubsystem::DriveToGearWall()
 {
-	DriveAuto(distance_to_wall() - 0.3, angle(),0.3);
+	auto_drive(distance() - distance_to_wall() - 0.3, angle(),0.3);
 }
 
 double DriveSubsystem::distance() {

@@ -3,6 +3,7 @@
 
 GearOpenAutoUltrasonic::GearOpenAutoUltrasonic():
 	CommandBase("GearOpenAutoUltrasonic") {
+	Requires(drive.get());
 	Requires(gear.get());
 }
 
