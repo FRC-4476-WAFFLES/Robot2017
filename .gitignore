@@ -58,3 +58,5 @@ sysProps.xml
 
 # Vscode stuff
 .vscode/
+.cproject
+*.cproject
