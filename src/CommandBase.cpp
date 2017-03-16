@@ -1,5 +1,12 @@
-#include "./CommandBase.h"
-#include "Commands/Scheduler.h"
+#include <Commands/Scheduler.h>
+#include "CommandBase.h"
+#include "Subsystems/ClimberSubsystem.h"
+#include "Subsystems/DrawerSubsystem.h"
+#include "Subsystems/DriveSubsystem.h"
+#include "Subsystems/GearSubsystem.h"
+//#include "Subsystems/ShooterSubsystem.h"
+//#include "Subsystems/TurretSubsystem.h"
+#include "OI.h"
 
 /**
  * CommandBase is a class that is the parent class to each of the commands used by the robot.
@@ -8,12 +15,13 @@
 
 // Initialize a single static instance of all of your subsystems to NULL
 std::unique_ptr<OI> CommandBase::oi;
+std::unique_ptr<DrawerSubsystem> CommandBase::drawer;
 std::unique_ptr<DriveSubsystem> CommandBase::drive;
 std::unique_ptr<ClimberSubsystem> CommandBase::climber;
-//std::unique_ptr<ShooterSubsystem> CommandBase::shooter;
-std::unique_ptr<DrawerSubsystem> CommandBase::drawer;
 std::unique_ptr<GearSubsystem> CommandBase::gear;
+//std::unique_ptr<ShooterSubsystem> CommandBase::shooter;
 //std::unique_ptr<TurretSubsystem> CommandBase::turret;
+
 // Empty constructors
 CommandBase::CommandBase(const std::string &name) :
 		Command(name)

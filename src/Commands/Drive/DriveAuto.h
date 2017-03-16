@@ -1,13 +1,6 @@
-/*
- * DriveAuto.h
- *
- *  Created on: Feb 27, 2016
- *      Author: Robotics-1
- */
+#pragma once
 
-#ifndef DRIVE_AUTO_H_
-#define DRIVE_AUTO_H_
-
+#include <Timer.h>
 #include "CommandBase.h"
 
 class DriveAuto: public CommandBase {
@@ -25,13 +18,3 @@ public:
 	void End();
 	void Interrupted();
 };
-
-#endif
-
-
-
-
-
-
-
-

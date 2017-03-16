@@ -1,7 +1,6 @@
-#ifndef OI_H
-#define OI_H
+#pragma once
 
-#include "WPILib.h"
+#include <Joystick.h>
 
 class OI
 {
@@ -26,5 +25,3 @@ public:
 	Joystick* joystickRight;
 	Joystick* operatorController;
 };
-
-#endif

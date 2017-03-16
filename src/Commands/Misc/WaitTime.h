@@ -1,8 +1,7 @@
-#ifndef WAIT_TIME_H_
-#define WAIT_TIME_H_
+#pragma once
 
-#include <CommandBase.h>
-#include "WPILib.h"
+#include <Timer.h>
+#include "CommandBase.h"
 
 class WaitTime: public CommandBase {
 private:
@@ -16,5 +15,3 @@ public:
 	void End();
 	void Interrupted();
 };
-
-#endif

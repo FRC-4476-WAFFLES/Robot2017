@@ -1,10 +1,3 @@
-/*
- * DriveAutoRelative.h
- *
- *  Created on: Feb 27, 2016
- *      Author: Robotics-1
- */
-
 #pragma once
 
 #include "CommandBase.h"

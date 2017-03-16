@@ -1,4 +1,6 @@
-#include <Commands/Gear/GearAutoUltrasonic.h>
+#include "Commands/Gear/GearAutoUltrasonic.h"
+#include "Subsystems/GearSubsystem.h"
+#include "Subsystems/DriveSubsystem.h"
 
 GearAutoUltrasonic::GearAutoUltrasonic() :
 	// Use Requires() here to declare subsystem dependencies

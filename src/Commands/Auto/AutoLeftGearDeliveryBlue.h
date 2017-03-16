@@ -1,7 +1,7 @@
 #pragma once
 
-#include "WPILib.h"
 #include <Commands/CommandGroup.h>
+#include <Timer.h>
 
 class AutoLeftGearDeliveryBlue : public CommandGroup {
 private:

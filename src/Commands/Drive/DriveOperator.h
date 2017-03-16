@@ -1,8 +1,6 @@
-#ifndef DRIVE_OPERATOR_H
-#define DRIVE_OPERATOR_H
+#pragma once
 
 #include "CommandBase.h"
-#include "WPILib.h"
 
 class DriveOperator: public CommandBase
 {
@@ -14,5 +12,3 @@ public:
 	void End();
 	void Interrupted();
 };
-
-#endif

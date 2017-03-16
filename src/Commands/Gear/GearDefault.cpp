@@ -1,4 +1,5 @@
-#include "GearDefault.h"
+#include "Commands/Gear/GearDefault.h"
+#include "Subsystems/GearSubsystem.h"
 
 
 GearDefault::GearDefault():

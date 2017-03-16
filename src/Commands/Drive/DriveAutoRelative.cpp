@@ -2,7 +2,9 @@
  * Drives in a direction for a certain number of encoder tick
  */
 
-#include "DriveAutoRelative.h"
+#include "Commands/Drive/DriveAutoRelative.h"
+#include "Subsystems/DriveSubsystem.h"
+#include "SmartDashboard/SmartDashboard.h"
 
 DriveAutoRelative::DriveAutoRelative(double distance, double angle):
 	CommandBase("DriveAutoRelative")

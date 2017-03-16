@@ -1,6 +1,7 @@
 #pragma once
 
-#include "WPILib.h"
+#include "Counter.h"
+#include "PIDSource.h"
 
 class VexEncoder: public SensorBase, public PIDSource {
 private:

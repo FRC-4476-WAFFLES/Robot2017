@@ -1,6 +1,6 @@
-#ifndef GearAutoUltrasonic_H
-#define GearAutoUltrasonic_H
+#pragma once
 
+#include <Timer.h>
 #include "CommandBase.h"
 
 class GearAutoUltrasonic : public CommandBase {
@@ -13,5 +13,3 @@ public:
 	void Interrupted();
 	Timer t;
 };
-
-#endif  // GearAutoUltrasonic_H

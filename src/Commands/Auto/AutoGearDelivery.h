@@ -1,7 +1,7 @@
 #pragma once
 
-#include "CommandBase.h"
-#include "WPILib.h"
+#include <Commands/CommandGroup.h>
+#include <Timer.h>
 
 class AutoGearDelivery: public CommandGroup
 {

@@ -1,5 +1,5 @@
-#include <Commands/Gear/GearOpenAuto.h>
-
+#include "Commands/Gear/GearOpenAuto.h"
+#include "Subsystems/GearSubsystem.h"
 
 GearOpenAuto::GearOpenAuto():
 	CommandBase("GearOpenAuto") {

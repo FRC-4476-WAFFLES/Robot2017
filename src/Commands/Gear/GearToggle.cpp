@@ -1,5 +1,5 @@
-#include "GearToggle.h"
-
+#include "Commands/Gear/GearToggle.h"
+#include "Subsystems/GearSubsystem.h"
 
 GearToggle::GearToggle():
 	CommandBase("GearToggle")
