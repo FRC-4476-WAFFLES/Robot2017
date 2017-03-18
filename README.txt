@@ -1,3 +1,10 @@
+Stuff to do tomorrow:
+- Check all systems.->press all buttons
+- Get setpoints
+- Figure out how far from the wall to drop off the gear.
+- Test auto selector
+- Test autos (if we have time)
+
 --------Robot Controls By Button-------
 >>>>>>bumpers and triggers<<<<<<
 R1,BumperTopRight(Right Bumper) = nothing

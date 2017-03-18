@@ -2,7 +2,7 @@
  * ClimberSubsystem is a class that keeps references to each of the
  * drive motors and drive encoder.
  */
-#include <Commands/Climber/ClimberDefault.h>
+#include <Commands/Climber/ClimberFudge.h>
 #include "ClimberSubsystem.h"
 #include "../RobotMap.h"
 
@@ -27,7 +27,7 @@ ClimberSubsystem::ClimberSubsystem():
 void ClimberSubsystem::InitDefaultCommand()
 {
 	// When no other commands are running, we do operator control
-	SetDefaultCommand(new ClimberDefault());
+	SetDefaultCommand(new ClimberFudge());
 }
 
 double ClimberSubsystem::distance() {

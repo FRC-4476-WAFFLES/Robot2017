@@ -25,6 +25,12 @@
 #include "Commands/Drive/DriveAuto.h"
 #include "Commands/Climber/ClimberClimb.h"
 #include "Commands/Climber/ClimberStop.h"
+#include "Commands/Drawer/DrawerOut.h"
+#include "Commands/Drawer/DrawerIn.h"
+#include "Commands/Drawer/DrawerBumper.h"
+#include "Commands/Climber/ClimberFudge.h"
+#include "Commands/Climber/ClimberGrab.h"
+
 OI::OI()
 {
 	//Options between button types: WhenPressed, WhileHeld, ToggleWhenPressed
@@ -67,6 +73,19 @@ OI::OI()
 	Button* ToggleGear = new JoystickButton(operatorController, OperatorButton::Start);
 	ToggleGear->WhenReleased(new GearCloseAuto());
 	ToggleGear->WhenPressed(new GearOpenAuto());
+
+	Button* DrawerFullOut = new JoystickButton(operatorController, OperatorButton::Y);
+	DrawerFullOut->WhenReleased(new DrawerOut());
+	Button* DrawerFullIn = new JoystickButton(operatorController, OperatorButton::X);
+	DrawerFullIn->WhenReleased(new DrawerIn());
+	Button* DrawerToBumper = new JoystickButton(operatorController, OperatorButton::A);
+	DrawerToBumper->WhenReleased(new DrawerBumper());
+
+	Button* GrabRope = new JoystickButton(operatorController, OperatorButton::BumperTopLeft);
+	GrabRope->WhileHeld(new ClimberGrab());
+	GrabRope->WhenReleased(new ClimberStop());
+	Button* climb = new JoystickButton(operatorController, OperatorButton::BumperTopRight);
+	climb->WhenReleased(new ClimberClimb());
 
 
 //	Trigger* FullLeft = new POVTrigger(operatorController, 270);

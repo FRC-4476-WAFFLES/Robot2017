@@ -10,4 +10,5 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+	double pos;
 };

@@ -12,6 +12,7 @@ public:
 	void End();
 	void Interrupted();
 	Timer t;
+	float pos;
 };
 
 #endif  // GearAutoUltrasonic_H

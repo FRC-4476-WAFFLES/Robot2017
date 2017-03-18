@@ -5,6 +5,7 @@ ClimberFudge::ClimberFudge():
 	CommandBase("ClimberFudge")
 	{
 	Requires(climber.get());
+	hold = climber->Climber->GetEncPosition();
 	}
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -12,12 +13,16 @@ ClimberFudge::ClimberFudge():
 
 // Called just before this Command runs the first time
 void ClimberFudge::Initialize() {
-
+	hold = climber->Climber->GetEncPosition();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ClimberFudge::Execute() {
-	climber->SetPower(oi->operatorController->GetY());
+	if(!oi->DriveDeadzone(oi->operatorController->GetY())){
+		climber->SetPower(oi->operatorController->GetY());
+	}else{
+		climber->Climber->SetSetpoint(hold);
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

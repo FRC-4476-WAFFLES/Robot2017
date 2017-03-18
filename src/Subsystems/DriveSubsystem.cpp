@@ -42,13 +42,14 @@ void DriveSubsystem::InitDefaultCommand() {
 	// When no other commands are running, we do operator control
 	SetDefaultCommand(new DriveOperator());
 }
+
 double DriveSubsystem::distance_to_wall() {
 	return (ultrasonic_sensor->GetRangeInches())/12;
 }
 
-void DriveSubsystem::DriveToGearWall()
+void DriveSubsystem::DriveToGearWall(double InputAngle)
 {
-	auto_drive(distance() - distance_to_wall() - 0.3, angle(),0.3);
+	auto_drive(distance() + distance_to_wall() - 0.3, InputAngle,0.3); // TODO: distance() and angle()?
 }
 
 double DriveSubsystem::distance() {
@@ -165,6 +166,7 @@ bool DriveSubsystem::on_target(double distanceTarget, double distanceTolerence, 
 void DriveSubsystem::prints() {
 	SmartDashboard::PutNumber("drive.angle(degrees)", angle());
 	SmartDashboard::PutNumber("drive.distance(feet)", distance());
+	SmartDashboard::PutNumber("drive.ultrasonic(feet)", distance_to_wall());
 	SmartDashboard::PutNumber("Drive Speed", ((DriveEncoder->GetRate() - DriveEncoder2->GetRate())/2.0)/76.83333333);
 }
 

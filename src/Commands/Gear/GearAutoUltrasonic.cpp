@@ -7,6 +7,7 @@ GearAutoUltrasonic::GearAutoUltrasonic() :
 {
 	Requires(drive.get());
 	Requires(gear.get());
+	pos = drive->angle();
 }
 
 
@@ -15,11 +16,12 @@ GearAutoUltrasonic::GearAutoUltrasonic() :
 void GearAutoUltrasonic::Initialize() {
 	t.Reset();
 	t.Start();
+	pos = drive->angle();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void GearAutoUltrasonic::Execute() {
-	drive->DriveToGearWall();
+	drive->DriveToGearWall(pos);
 	gear->is_open = true;
 	gear->Persist();
 }

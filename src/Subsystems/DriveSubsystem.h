@@ -28,7 +28,7 @@ private:
 public:
 	DriveSubsystem();
 	void InitDefaultCommand();
-	void DriveToGearWall();
+	void DriveToGearWall(double InputAngle);
 	double distance_to_wall();
 	double distance();
 	double angle();
