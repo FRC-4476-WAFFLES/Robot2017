@@ -57,4 +57,5 @@ void GearSubsystem::Persist(){
 
 void GearSubsystem::prints() {
 	SmartDashboard::PutBoolean("Gear Open?", is_open);
+	SmartDashboard::PutNumber("Gear Encoder", Gear->GetPosition());
 }

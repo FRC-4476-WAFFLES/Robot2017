@@ -15,6 +15,7 @@ public:
 	void SetPosition(double position);
 	double GetSetpoint();
 	double GetPosition();
+	void prints();
 	CANTalon* Climber;
 	CANTalon* Climber_Slave;
 	Encoder* ClimbEncoder;

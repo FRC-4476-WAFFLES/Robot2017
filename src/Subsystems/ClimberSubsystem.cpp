@@ -49,4 +49,6 @@ void ClimberSubsystem::SetPower(double power) {
 	Climber->Set(power);
 }
 
-
+void ClimberSubsystem::prints() {
+	SmartDashboard::PutNumber("Climber Encoder", Climber->GetPosition());
+}

@@ -14,6 +14,7 @@ public:
 	void InitDefaultCommand();
 	double GetSetpoint();
 	void SetSetpoint(double);
+	void prints();
 };
 
 

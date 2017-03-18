@@ -39,4 +39,8 @@ double DrawerSubsystem::GetSetpoint() {
 	return Drawer->GetSetpoint();
 }
 
+void DrawerSubsystem::prints() {
+	SmartDashboard::PutNumber("Drawer Encoder", Drawer->GetPosition());
+}
+
 
