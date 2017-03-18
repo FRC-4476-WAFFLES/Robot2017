@@ -29,6 +29,7 @@ public:
 	DriveSubsystem();
 	void InitDefaultCommand();
 	void DriveToGearWall(double InputAngle);
+	bool IsAtWall();
 	double distance_to_wall();
 	double distance();
 	double angle();

@@ -1,6 +1,16 @@
 Stuff to do tomorrow:
-- Check all systems.->press all buttons
+- Check all systems
+    - Drive
+    - Drawer
+    - Gear
+    - Climber
 - Get setpoints
+    - Drawer In, Out, Bumber
+    - Gear Open, Closed
+- Calibrate PIDS
+    - Drawer PID
+    - Gear PID
+    - Climber PID?
 - Figure out how far from the wall to drop off the gear.
 - Test auto selector
 - Test autos (if we have time)

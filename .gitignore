@@ -3,6 +3,8 @@
 
 # Build files
 Debug/
+linux_simulate/
+Windows\ Simulate/
 
 # Windows image file caches
 Thumbs.db

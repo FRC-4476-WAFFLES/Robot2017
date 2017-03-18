@@ -5,11 +5,11 @@
 #include <Commands/Climber/ClimberFudge.h>
 #include "ClimberSubsystem.h"
 #include "../RobotMap.h"
+#include "Helpers/PIDPreferences.h"
 
 ClimberSubsystem::ClimberSubsystem():
 		Subsystem("ClimberSubsystem")
 {
-	//shot speed: main shot->15 velocity->15.38s setting on current PID
 	 Climber = new CANTalon(TOP_CLIMBER_ROLLER);
 	 Climber_Slave = new CANTalon(TOP_CLIMBER_SLAVE);
 
@@ -20,8 +20,8 @@ ClimberSubsystem::ClimberSubsystem():
      //PID things
      Climber_Slave->SetControlMode(CANSpeedController::kFollower);
 	 Climber_Slave->Set(TOP_CLIMBER_ROLLER);
-	 ClimbEncoder = new Encoder( CLIMBER_ENCODER_A,  CLIMBER_ENCODER_B);
 
+	 UpdatePID("Climber", Climber);
 }
 
 void ClimberSubsystem::InitDefaultCommand()
@@ -30,8 +30,18 @@ void ClimberSubsystem::InitDefaultCommand()
 	SetDefaultCommand(new ClimberFudge());
 }
 
-double ClimberSubsystem::distance() {
-	return ((ClimbEncoder->Get()));
+void ClimberSubsystem::SetPosition(double position) {
+	UpdatePID("Climber", Climber);
+	Climber->SetControlMode(CANTalon::kPosition);
+	Climber->SetSetpoint(position);
+}
+
+double ClimberSubsystem::GetPosition() {
+	return Climber->GetPosition();
+}
+
+double ClimberSubsystem::GetSetpoint() {
+	return Climber->GetSetpoint();
 }
 
 void ClimberSubsystem::SetPower(double power) {

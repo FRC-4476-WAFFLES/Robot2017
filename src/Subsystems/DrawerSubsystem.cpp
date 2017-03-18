@@ -5,6 +5,7 @@
 #include <Commands/Drawer/DrawerDefault.h>
 #include <Subsystems/DrawerSubsystem.h>
 #include "../RobotMap.h"
+#include "Helpers/PIDPreferences.h"
 
 DrawerSubsystem::DrawerSubsystem():
 		Subsystem("DrawerSubsytem")
@@ -19,10 +20,7 @@ DrawerSubsystem::DrawerSubsystem():
 
 	 Drawer->EnableZeroSensorPositionOnReverseLimit(true);
 
-	 Drawer->SelectProfileSlot(0);
-	 Drawer->SetP(0.0022);
-	 Drawer->SetI(0);
-	 Drawer->SetD(0);
+	 UpdatePID("Drawer", Drawer);
 }
 
 void DrawerSubsystem::InitDefaultCommand()
@@ -31,5 +29,14 @@ void DrawerSubsystem::InitDefaultCommand()
 	SetDefaultCommand(new DrawerDefault());
 }
 
+void DrawerSubsystem::SetSetpoint(double point) {
+	UpdatePID("Drawer", Drawer);
+	Drawer->SetControlMode(CANTalon::kPosition);
+	Drawer->SetSetpoint(point);
+}
+
+double DrawerSubsystem::GetSetpoint() {
+	return Drawer->GetSetpoint();
+}
 
 

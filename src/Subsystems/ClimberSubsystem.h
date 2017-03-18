@@ -12,11 +12,10 @@ public:
 	ClimberSubsystem();
 	void InitDefaultCommand();
 	void SetPower(double power);
+	void SetPosition(double position);
+	double GetSetpoint();
+	double GetPosition();
 	CANTalon* Climber;
 	CANTalon* Climber_Slave;
 	Encoder* ClimbEncoder;
-	double distance();
-
 };
-
-

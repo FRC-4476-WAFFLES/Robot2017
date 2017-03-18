@@ -3,9 +3,9 @@
 #include <Subsystems/DriveSubsystem.h>
 DrawerOut::DrawerOut():
 	CommandBase("DrawerOut")
-	{
+{
 	Requires(drawer.get());
-	}
+}
 
 
 
@@ -17,7 +17,7 @@ void DrawerOut::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DrawerOut::Execute() {
 	//TODO real numbers
-	drawer->Drawer->SetSetpoint(3910.0);
+	drawer->SetSetpoint(3910.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()

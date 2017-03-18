@@ -5,6 +5,7 @@
 #include <Commands/Gear/GearDefault.h>
 #include "GearSubsystem.h"
 #include "../RobotMap.h"
+#include "Helpers/PIDPreferences.h"
 
 GearSubsystem::GearSubsystem():
 		Subsystem("GearSubsystem")
@@ -17,35 +18,29 @@ GearSubsystem::GearSubsystem():
 	Gear->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	Gear->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 
-	Gear->EnableZeroSensorPositionOnReverseLimit(true);
-	// TODO: tune pid to actual numbers
-	Gear->SelectProfileSlot(0);
-	Gear->SetP(0.0022);
-	Gear->SetI(0);
-	Gear->SetD(0);
-/*	GearLeft = new Servo(GEAR_LEFT);
-	GearRight = new Servo(GEAR_RIGHT);*/
+	UpdatePID("Gear", Gear);
+
+	starting_angle = 0.0;
+	is_open = false;
 }
 
 void GearSubsystem::InitDefaultCommand()
 {
-	starting_angle = Gear->GetEncPosition();
+	starting_angle = Gear->GetPosition();
 	// When no other commands are running, we do operator control
 	SetDefaultCommand(new GearDefault());
 }
 
 void GearSubsystem::Open(){
 	// TODO get actual numbers
+	UpdatePID("Gear", Gear);
 	Gear->SetPosition(starting_angle + 45);
-//	GearLeft->SetAngle(165);
-//	GearRight->SetAngle(0);
 }
 
 void GearSubsystem::Closed(){
 	// TODO get actual numbers
+	UpdatePID("Gear", Gear);
 	Gear->SetPosition(starting_angle);
-//	GearLeft->SetAngle(110);
-//	GearRight->SetAngle(60);
 }
 
 void GearSubsystem::Toggle(){

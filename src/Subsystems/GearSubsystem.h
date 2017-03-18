@@ -17,8 +17,6 @@ public:
 	void prints();
 	CANTalon* Gear;
 	float starting_angle = 0;
-//	Servo* GearLeft;
-//	Servo*GearRight;
 	bool is_open = false;
 };
 

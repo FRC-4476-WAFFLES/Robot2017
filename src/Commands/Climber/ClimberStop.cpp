@@ -19,8 +19,8 @@ void ClimberStop::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ClimberStop::Execute() {
-	if (int(climber->distance()) % 128 < 10){
-	climber->SetPower(0.0);
+	if (int(climber->GetSetpoint()) % 128 < 10){
+		climber->SetPower(0.0);
 	}
 }
 

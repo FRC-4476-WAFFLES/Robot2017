@@ -10,9 +10,10 @@ private:
 
 public:
 	DrawerSubsystem();
-	void InitDefaultCommand();
-	void ContinuosIntake();
 	CANTalon* Drawer;
+	void InitDefaultCommand();
+	double GetSetpoint();
+	void SetSetpoint(double);
 };
 
 

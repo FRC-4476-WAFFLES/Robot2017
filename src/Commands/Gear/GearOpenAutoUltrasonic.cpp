@@ -19,7 +19,7 @@ void GearOpenAutoUltrasonic::Execute() {
 }
 
 bool GearOpenAutoUltrasonic::IsFinished() {
-	return true; // TODO: back up?
+	return drive->IsAtWall(); // TODO: back up?
 }
 
 void GearOpenAutoUltrasonic::End() {

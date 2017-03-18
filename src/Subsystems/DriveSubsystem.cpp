@@ -49,7 +49,11 @@ double DriveSubsystem::distance_to_wall() {
 
 void DriveSubsystem::DriveToGearWall(double InputAngle)
 {
-	auto_drive(distance() + distance_to_wall() - 0.3, InputAngle,0.3); // TODO: distance() and angle()?
+	auto_drive(distance() + distance_to_wall() - 0.3, InputAngle,0.3);
+}
+
+bool DriveSubsystem::IsAtWall() {
+	return distance_to_wall() - 0.35 < 0.0;
 }
 
 double DriveSubsystem::distance() {

@@ -3,25 +3,26 @@
 #include <Subsystems/DriveSubsystem.h>
 ClimberFudge::ClimberFudge():
 	CommandBase("ClimberFudge")
-	{
+{
 	Requires(climber.get());
-	hold = climber->Climber->GetEncPosition();
-	}
+	hold = climber->Climber->GetPosition();
+}
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 
 
 // Called just before this Command runs the first time
 void ClimberFudge::Initialize() {
-	hold = climber->Climber->GetEncPosition();
+	hold = climber->Climber->GetPosition();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ClimberFudge::Execute() {
 	if(!oi->DriveDeadzone(oi->operatorController->GetY())){
-		climber->SetPower(oi->operatorController->GetY());
-	}else{
-		climber->Climber->SetSetpoint(hold);
+		climber->SetPosition(climber->GetPosition() + oi->operatorController->GetY());
+		hold = climber->GetSetpoint();
+	} else {
+		climber->SetPosition(hold);
 	}
 }
 
