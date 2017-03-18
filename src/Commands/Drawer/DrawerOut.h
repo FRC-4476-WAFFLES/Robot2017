@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../CommandBase.h"
+#include "CommandBase.h"
 
 class DrawerOut : public CommandBase {
 public:

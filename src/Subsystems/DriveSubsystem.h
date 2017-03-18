@@ -1,8 +1,11 @@
-#ifndef DRIVE_SUBSYSTEM_H
-#define DRIVE_SUBSYSTEM_H
+#pragma once
 
 #include "Commands/Subsystem.h"
-#include "WPILib.h"
+#include "Joystick.h"
+#include "Encoder.h"
+#include "Timer.h"
+#include "Victor.h"
+#include "Ultrasonic.h"
 #include "CustomSensors/ADIS16448_IMU.h"
 
 class DriveSubsystem: public Subsystem
@@ -50,5 +53,3 @@ namespace drive_curves {
 	double cheesy_curve(double x);
 	double bezier_1114(double x);
 }
-
-#endif

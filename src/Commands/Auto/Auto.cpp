@@ -1,4 +1,5 @@
 #include "Auto.h"
+#include <DriverStation.h>
 #include "Commands/Misc/WaitTime.h"
 #include "Commands/Drive/DriveAuto.h"
 #include "Commands/Shooter/ShooterPrepAuto.h"

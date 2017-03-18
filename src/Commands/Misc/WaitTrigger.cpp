@@ -1,4 +1,5 @@
 #include "WaitTrigger.h"
+#include "OI.h"
 
 ////////////////DISCRIPTION//////////////////
 // Waits for a button to be pressed on the controller

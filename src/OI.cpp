@@ -2,27 +2,28 @@
  * OI is a class that is used to setup user input to the robot.
  */
 
-#include <Commands/Gear/GearOpenAutoUltrasonic.h>
 #include "OI.h"
-#include "Commands/SemiAuto/DriveBackAirship.h"
-#include "Commands/SemiAuto/DriveBackLoadStation.h"
-#include "Commands/Shooter/ShooterShoot.h"
-#include "Commands/Shooter/ShooterPrep.h"
-#include "Commands/Intake/IntakeIn.h"
-#include "Commands/Intake/IntakeOut.h"
-#include "Commands/Gear/GearDefault.h"
-#include "Commands/Gear/GearToggle.h"
+#include <math.h>
+#include <Buttons/Button.h>
+#include <Buttons/JoystickButton.h>
+#include "Commands/Gear/GearOpenAutoUltrasonic.h"
+//#include "Commands/SemiAuto/DriveBackAirship.h"
+//#include "Commands/SemiAuto/DriveBackLoadStation.h"
+//#include "Commands/Shooter/ShooterShoot.h"
+//#include "Commands/Shooter/ShooterPrep.h"
+//#include "Commands/Intake/IntakeIn.h"
+//#include "Commands/Intake/IntakeOut.h"
+//#include "Commands/Gear/GearDefault.h"
+//#include "Commands/Gear/GearToggle.h"
 #include "Commands/Gear/GearCloseAuto.h"
 #include "Commands/Gear/GearOpenAuto.h"
-#include "Commands/Gear/GearOpenAutoUltrasonic.h"
-#include <math.h>
-#include "Triggers/POVTrigger.h"
-#include "Commands/Turret/TurretFullLeft.h"
-#include "Commands/Turret/TurretFullRight.h"
-#include "Commands/Turret/TurretCenterShot.h"
-#include "Commands/Turret/TurretOffShot.h"
-#include "Commands/Turret/TurretVision.h"
-#include "Commands/Drive/DriveAuto.h"
+//#include "Commands/Gear/GearOpenAutoUltrasonic.h"
+//#include "Commands/Turret/TurretFullLeft.h"
+//#include "Commands/Turret/TurretFullRight.h"
+//#include "Commands/Turret/TurretCenterShot.h"
+//#include "Commands/Turret/TurretOffShot.h"
+//#include "Commands/Turret/TurretVision.h"
+//#include "Commands/Drive/DriveAuto.h"
 #include "Commands/Climber/ClimberClimb.h"
 #include "Commands/Climber/ClimberStop.h"
 #include "Commands/Drawer/DrawerOut.h"
@@ -83,9 +84,9 @@ OI::OI()
 
 	Button* GrabRope = new JoystickButton(operatorController, OperatorButton::BumperTopLeft);
 	GrabRope->WhileHeld(new ClimberGrab());
-	GrabRope->WhenReleased(new ClimberStop());
-	Button* climb = new JoystickButton(operatorController, OperatorButton::BumperTopRight);
-	climb->WhenReleased(new ClimberClimb());
+	// GrabRope->WhenReleased(new ClimberStop());
+	// Button* climb = new JoystickButton(operatorController, OperatorButton::BumperTopRight);
+	// climb->WhenReleased(new ClimberClimb());
 
 
 //	Trigger* FullLeft = new POVTrigger(operatorController, 270);

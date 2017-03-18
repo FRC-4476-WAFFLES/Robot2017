@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Commands/Subsystem.h"
-#include "WPILib.h"
+#include "CANTalon.h"
 
 class GearSubsystem: public Subsystem
 {

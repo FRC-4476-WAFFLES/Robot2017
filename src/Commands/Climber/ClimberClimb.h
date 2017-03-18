@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../CommandBase.h"
+#include "CommandBase.h"
 
 class ClimberClimb : public CommandBase {
 public:

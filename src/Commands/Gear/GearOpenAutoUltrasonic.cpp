@@ -1,5 +1,6 @@
-#include <Commands/Gear/GearOpenAutoUltrasonic.h>
-
+#include "Commands/Gear/GearOpenAutoUltrasonic.h"
+#include "Subsystems/GearSubsystem.h"
+#include "Subsystems/DriveSubsystem.h"
 
 GearOpenAutoUltrasonic::GearOpenAutoUltrasonic():
 	CommandBase("GearOpenAutoUltrasonic") {

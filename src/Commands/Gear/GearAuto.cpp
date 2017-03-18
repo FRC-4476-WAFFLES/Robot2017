@@ -1,4 +1,5 @@
-#include <Commands/Gear/GearAuto.h>
+#include "Commands/Gear/GearAuto.h"
+#include "Subsystems/GearSubsystem.h"
 
 GearAuto::GearAuto() :
 	// Use Requires() here to declare subsystem dependencies

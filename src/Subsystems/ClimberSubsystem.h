@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Commands/Subsystem.h"
-#include "WPILib.h"
-#include "CANTalon.h"
+#include <Commands/Subsystem.h>
+#include <Encoder.h>
+#include <CANTalon.h>
 
 class ClimberSubsystem: public Subsystem
 {

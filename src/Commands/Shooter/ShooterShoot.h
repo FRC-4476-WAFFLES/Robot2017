@@ -1,7 +1,6 @@
 #pragma once
 
 #include "CommandBase.h"
-#include "WPILib.h"
 
 class ShooterShoot: public CommandBase
 {

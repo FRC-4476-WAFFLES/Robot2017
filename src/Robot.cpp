@@ -1,8 +1,11 @@
-#include <Commands/Auto/AutoLeftGearDeliveryBlue.h>
-#include "WPILib.h"
+#include <IterativeRobot.h>
+#include <SmartDashboard/SendableChooser.h>
+#include <LiveWindow/LiveWindow.h>
 #include "CommandBase.h"
+#include "Subsystems/DriveSubsystem.h"
+#include "Subsystems/DrawerSubsystem.h"
 #include "Commands/Auto/Auto.h"
-#include "Subsystems/TurretSubsystem.h"
+
 
 class Robot: public IterativeRobot
 {
@@ -78,8 +81,8 @@ private:
 
 	void TeleopInit()
 	{
-//		if (autonomousposition != NULL)
-//			autonomousposition->Cancel();
+		if (autoCommand != NULL)
+			autoCommand->Cancel();
 	}
 
 	void TeleopPeriodic()

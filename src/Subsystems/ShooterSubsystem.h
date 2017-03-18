@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Commands/Subsystem.h"
-#include "WPILib.h"
 #include "CANTalon.h"
 
 class ShooterSubsystem: public Subsystem

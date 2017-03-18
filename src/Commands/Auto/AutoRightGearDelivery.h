@@ -1,5 +1,4 @@
-#ifndef AutoRightGearDelivery_H
-#define AutoRightGearDelivery_H
+#pragma once
 
 #include <Commands/CommandGroup.h>
 
@@ -7,5 +6,3 @@ class AutoRightGearDelivery : public CommandGroup {
 public:
 	AutoRightGearDelivery();
 };
-
-#endif  // AutoRightGearDelivery_H

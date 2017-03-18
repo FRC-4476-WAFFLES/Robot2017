@@ -1,6 +1,6 @@
 #pragma once
-
-#include "WPILib.h"
+#include "Counter.h"
+#include "PIDSource.h"
 
 class NonLoopingVexEncoder: public SensorBase, public PIDSource {
 private:

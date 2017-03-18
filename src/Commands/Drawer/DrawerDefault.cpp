@@ -1,13 +1,11 @@
-#include <Commands/Drive/DriveOperator.h>
-#include <Commands/Drawer/DrawerDefault.h>
-#include <Subsystems/DriveSubsystem.h>
+#include "Commands/Drawer/DrawerDefault.h"
+#include "Subsystems/DrawerSubsystem.h"
+
 DrawerDefault::DrawerDefault():
 	CommandBase("DrawerDefault")
-	{
+{
 	Requires(drawer.get());
-	}
-
-
+}
 
 // Called just before this Command runs the first time
 void DrawerDefault::Initialize() {
@@ -17,7 +15,7 @@ void DrawerDefault::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DrawerDefault::Execute() {
 	drawer->Drawer->SetControlMode(CANTalon::kPercentVbus);
-	drawer->Drawer->Set(drawer->GetSetpoint());
+	drawer->Drawer->Set(0.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()

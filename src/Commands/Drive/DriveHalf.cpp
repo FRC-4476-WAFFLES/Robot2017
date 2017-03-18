@@ -2,7 +2,8 @@
  * Drives in a direction for a certain number of encoder tick
  */
 
-#include "DriveHalf.h"
+#include "Commands/Drive/DriveHalf.h"
+#include "Subsystems/DriveSubsystem.h"
 
 DriveHalf::DriveHalf(double angle, double percent_right):
 	CommandBase("DriveAuto")

@@ -1,6 +1,6 @@
-#ifndef GearAuto_H
-#define GearAuto_H
+#pragma once
 
+#include <Timer.h>
 #include "CommandBase.h"
 
 class GearAuto : public CommandBase {
@@ -13,5 +13,3 @@ public:
 	void Interrupted();
 	Timer t;
 };
-
-#endif  // gearAuto_H

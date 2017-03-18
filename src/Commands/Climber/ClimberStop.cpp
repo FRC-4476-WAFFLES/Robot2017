@@ -1,15 +1,14 @@
-#include <Commands/Drive/DriveOperator.h>
-#include <Commands/Climber/ClimberStop.h>
-#include <Subsystems/DriveSubsystem.h>
-#include <WPILib.h>
+#include "Commands/Climber/ClimberStop.h"
+#include "Subsystems/ClimberSubsystem.h"
 #include <math.h>
+
 ClimberStop::ClimberStop():
 	CommandBase("ClimberStop")
-	{
+{
 	Requires(climber.get());
-	}
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+}
+// Use Requires() here to declare subsystem dependencies
+// eg. Requires(Robot::chassis.get());
 
 
 // Called just before this Command runs the first time
@@ -19,7 +18,7 @@ void ClimberStop::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ClimberStop::Execute() {
-	if (int(climber->GetSetpoint()) % 128 < 10){
+	if(int(climber->GetPosition()) % 128 < 10) {
 		climber->SetPower(0.0);
 	}
 }

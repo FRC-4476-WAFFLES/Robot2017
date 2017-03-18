@@ -1,4 +1,5 @@
-#include "GearCloseAuto.h"
+#include "Commands/Gear/GearCloseAuto.h"
+#include "Subsystems/GearSubsystem.h"
 
 GearCloseAuto::GearCloseAuto():
 	CommandBase("GearCloseAuto") {
