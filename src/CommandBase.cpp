@@ -56,4 +56,5 @@ void CommandBase::prints() {
   if(drawer != nullptr) drawer->prints();
 //  SmartDashboard::PutNumber("Voltage", DriverStation::GetInstance().GetBatteryVoltage());
 //  SmartDashboard::PutNumber("Current", PowerDistributionPanel().GetTotalCurrent());
+  if(Scheduler::GetInstance() != nullptr) SmartDashboard::PutData(Scheduler::GetInstance());
 }

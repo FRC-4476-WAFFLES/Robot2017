@@ -1,5 +1,6 @@
 # Eclipse
 .settings/
+.cproject
 
 # Build files
 Debug/

@@ -33,195 +33,94 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 	//2 = no
 
 	SetTimeout(15.0);
-	AddSequential(new WaitTime(1.0));
 	AddParallel(new GearCloseAuto());
 
-	if(autonomousultrasonic == 2){
-
-		if(autonomousposition == 0){
-			AddSequential(new WaitTime(30.0));
-
-		}else if(autonomousposition == 1){
-			AddSequential(new DriveAuto(7.2, 0, 0.3));
-			AddSequential(new GearAuto());
-
-		}else if(autonomousposition == 2){//right
-			if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
-				//from gear delivery left red
-				AddSequential(new DriveAuto(6.55, 0, 0.3));
-				AddSequential(new DriveAuto(6.55, -60, 0.3));
-				AddSequential(new DriveAuto(12.95, -60, 0.3));
-				AddSequential(new GearAuto());
-			}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
-				AddSequential(new DriveAuto(6.55, 0, 0.3));
-				AddSequential(new DriveAuto(6.55, 60, 0.3));
-				AddSequential(new DriveAuto(12.75, 60, 0.3));
-				AddSequential(new GearAuto());
-			}else{
-				AddSequential(new WaitTime(30.0));
-			}
-
-		}else if(autonomousposition == 3){
-			//from auto gear delivery left blue
-			if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
-				AddSequential(new DriveAuto(6.55, 0, 0.3));
-				AddSequential(new DriveAuto(6.55, -60, 0.3));
-				AddSequential(new DriveAuto(12.95, -60, 0.3));
-				AddSequential(new GearAuto());
-			}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
-
-				AddSequential(new DriveAuto(6.55, 0, 0.3));
-				AddSequential(new DriveAuto(6.55, 60, 0.3));
-				AddSequential(new DriveAuto(12.75, 60, 0.3));
-				AddSequential(new GearAuto());
-			}else{
-				AddSequential(new WaitTime(30.0));
-			}
-
-		}else if(autonomousposition == 4){
-			AddSequential(new DriveAuto(6, 0, 0.3));
-			AddSequential(new WaitTime(1.0));
-		}
-
-	  if(autonomousposition != 0||autonomousposition != 4){
-		if(autonomousbackup == 1){//hopper
-			//TODO add code here
-		}else if(autonomousbackup == 1){//part way
-			if(autonomousposition == 2){
-				AddSequential(new DriveAuto(8, -60, 0.3));
-				AddParallel(new GearCloseAuto());
-				AddSequential(new DriveAuto(8, -89, 0.3));
-				AddSequential(new GearAuto());
-			}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
-				AddSequential(new DriveAuto(8, 60, 0.3));
-				AddParallel(new GearCloseAuto());
-				AddSequential(new DriveAuto(8, -89, 0.3));
-			}else{
-				AddSequential(new WaitTime(30.0));
-			}
-
-			}else if(autonomousposition == 3){
-				if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
-					AddSequential(new DriveAuto(8, -60, 0.3));
-					AddParallel(new GearCloseAuto());
-					AddSequential(new DriveAuto(8, -89, 0.3));
-				}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
-
-					AddSequential(new DriveAuto(8, 60, 0.3));
-					AddParallel(new GearCloseAuto());
-					AddSequential(new DriveAuto(8, -89, 0.3));
-				}else{
-					AddSequential(new WaitTime(30.0));
-				}
-
-			}else{
-				AddSequential(new DriveAuto(5.2, 0, 0.8));
-				AddSequential(new DriveAuto(2.5, 0, 0.3));
-				AddParallel(new GearCloseAuto());
-			}
-
-	  }else{
-		  AddSequential(new WaitTime(30.0));
-	  }
-
-
-
-
-
-
-
-
-	  //TODO add ultrasonic code here\|/
-
-	}else{
-
-		if(autonomousposition == 0){
-			AddSequential(new WaitTime(30.0));
-
-		}else if(autonomousposition == 1){
-			AddSequential(new DriveAuto(7.2, 0, 0.3));
-			AddSequential(new GearAutoUltrasonic());
-
-		}else if(autonomousposition == 2){//right
-			if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
-				//from gear delivery left red
-				AddSequential(new DriveAuto(6.55, 0, 0.3));
-				AddSequential(new DriveAuto(6.55, -60, 0.3));
-				AddSequential(new DriveAuto(12.95, -60, 0.3));
-				AddSequential(new GearAutoUltrasonic());
-			}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
-				AddSequential(new DriveAuto(6.55, 0, 0.3));
-				AddSequential(new DriveAuto(6.55, 60, 0.3));
-				AddSequential(new DriveAuto(12.75, 60, 0.3));
-				AddSequential(new GearAutoUltrasonic());
-			}else{
-				AddSequential(new WaitTime(30.0));
-			}
-
-		}else if(autonomousposition == 3){
-			//from auto gear delivery left blue
-			if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
-				AddSequential(new DriveAuto(6.55, 0, 0.3));
-				AddSequential(new DriveAuto(6.55, -60, 0.3));
-				AddSequential(new DriveAuto(12.95, -60, 0.3));
-				AddSequential(new GearAutoUltrasonic());
-			}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
-
-				AddSequential(new DriveAuto(6.55, 0, 0.3));
-				AddSequential(new DriveAuto(6.55, 60, 0.3));
-				AddSequential(new DriveAuto(12.75, 60, 0.3));
-				AddSequential(new GearAutoUltrasonic());
-			}else{
-				AddSequential(new WaitTime(30.0));
-			}
-
-		}else if(autonomousposition == 4){
-			AddSequential(new DriveAuto(6, 0, 0.3));
-			AddSequential(new WaitTime(1.0));
-		}
-
-	  if(autonomousposition != 0||autonomousposition != 4){
-		if(autonomousbackup == 1){//hopper
-			//TODO add code here
-		}else if(autonomousbackup == 1){//part way
-			if(autonomousposition == 2){
-				AddSequential(new DriveAuto(8, -60, 0.3));
-				AddParallel(new GearCloseAuto());
-				AddSequential(new DriveAuto(8, -89, 0.3));
-				AddSequential(new GearAutoUltrasonic());
-			}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
-				AddSequential(new DriveAuto(8, 60, 0.3));
-				AddParallel(new GearCloseAuto());
-				AddSequential(new DriveAuto(8, -89, 0.3));
-			}else{
-				AddSequential(new WaitTime(30.0));
-			}
-
-			}else if(autonomousposition == 3){
-				if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
-					AddSequential(new DriveAuto(8, -60, 0.3));
-					AddParallel(new GearCloseAuto());
-					AddSequential(new DriveAuto(8, -89, 0.3));
-				}else if(DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
-
-					AddSequential(new DriveAuto(8, 60, 0.3));
-					AddParallel(new GearCloseAuto());
-					AddSequential(new DriveAuto(8, -89, 0.3));
-				}else{
-					AddSequential(new WaitTime(30.0));
-				}
-
-			}else{
-				AddSequential(new DriveAuto(5.2, 0, 0.8));
-				AddSequential(new DriveAuto(2.5, 0, 0.3));
-				AddParallel(new GearCloseAuto());
-			}
-
-	  }else{
-		  AddSequential(new WaitTime(30.0));
-	  }
+	// All of these cases bail early and do nothing
+	if(autonomousposition == 0 || // Nothing auto
+	   (DriverStation::GetInstance().GetAlliance() != DriverStation::Alliance::kBlue
+	   && DriverStation::GetInstance().GetAlliance() != DriverStation::Alliance::kRed
+	   && autonomousposition != 1 && autonomousposition != 4) // We don't know which alliance we're on (and need to)
+	) {
+		AddSequential(new WaitTime(30.0));
+		return;
 	}
 
+	switch(autonomousposition) {
+		default: // Shouldn't be possible
+		AddSequential(new WaitTime(30.0));
+		return;
+
+		case 1: // Deliver gear middle
+		AddSequential(new DriveAuto(4.2, 0, 0.3));
+		break;
+
+		case 2: // Deliver gear right
+		// I think we don't want to check for alliance colour here
+		AddSequential(new DriveAuto(6.55, 0, 0.3));
+		AddSequential(new DriveAuto(6.55, -60, 0.3));
+		AddSequential(new DriveAuto(9.95, -60, 0.3));
+		break;
+
+		case 3: // Deliver gear left
+		// I think we don't want to check for alliance colour here
+		AddSequential(new DriveAuto(6.55, 0, 0.3));
+		AddSequential(new DriveAuto(6.55, 60, 0.3));
+		AddSequential(new DriveAuto(9.95, 60, 0.3));
+		break;
+
+		case 4: // Just drive forward
+		AddSequential(new DriveAuto(6, 0, 0.3));
+		AddSequential(new WaitTime(1.0));
+		return; // This auto stops here. Don't deliver gear.
+	}
+
+	if(autonomousultrasonic == 1) {
+		// Yes ultrasonic
+		AddSequential(new GearAutoUltrasonic());
+	} else {
+		// No ultrasonic
+		switch(autonomousposition) {
+			case 1: // Deliver gear middle
+			AddSequential(new DriveAuto(7.2, 0, 0.3));
+			break;
+
+			case 2: // Deliver gear right
+			AddSequential(new DriveAuto(12.95, -60, 0.3));
+			break;
+
+			case 3: // Deliver gear left
+			AddSequential(new DriveAuto(12.95, 60, 0.3));
+			break;
+		}
+	}
+
+	// If we get here, we (should be) at the peg.
+	AddSequential(new GearAuto());
+
+	switch(autonomousbackup) {
+	default: // No back up
+		AddSequential(new WaitTime(30.0));
+		break;
+		case 1: // Back up and hit hopper
+		// TODO: hopper
+		break;
+		case 2: // Back up part way
+		switch(autonomousposition) {
+			case 1: // Deliver gear middle
+			AddSequential(new DriveAuto(5.2, 0, 0.8));
+			AddSequential(new DriveAuto(2.5, 0, 0.3));
+			AddSequential(new GearCloseAuto());
+			break;
+			
+			case 2: // Deliver gear right
+			AddSequential(new DriveAuto(8, -60, 0.3));
+			AddSequential(new GearCloseAuto());
+			break;
+
+			case 3: // Deliver gear left
+			AddSequential(new DriveAuto(8, 60, 0.3));
+			AddSequential(new GearCloseAuto());
+			break;
+		}
+	}
 }
-
-

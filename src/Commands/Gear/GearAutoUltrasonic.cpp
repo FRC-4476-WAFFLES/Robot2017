@@ -24,13 +24,13 @@ void GearAutoUltrasonic::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void GearAutoUltrasonic::Execute() {
 	drive->DriveToGearWall(pos);
-	gear->is_open = true;
+	gear->is_open = false;
 	gear->Persist();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool GearAutoUltrasonic::IsFinished() {
-	return t.HasPeriodPassed(0.4);
+	return drive->IsAtWall();
 }
 
 // Called once after isFinished returns true
