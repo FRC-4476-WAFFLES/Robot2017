@@ -1,6 +1,8 @@
 [submodule "vision/cscore"]
 	path = vision/cscore
 	url = https://github.com/wpilibsuite/cscore
+	ignore = dirty
 [submodule "vision/ntcore"]
 	path = vision/ntcore
 	url = https://github.com/wpilibsuite/ntcore
+	ignore = dirty
