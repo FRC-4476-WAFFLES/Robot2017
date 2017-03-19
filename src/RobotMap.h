@@ -21,7 +21,7 @@ constexpr int GEAR_RIGHT = 9;
 constexpr int DRAWER = 1;
 constexpr int TOP_CLIMBER_ROLLER = 3;
 constexpr int TOP_CLIMBER_SLAVE= 4;
-constexpr int GEAR = 5;
+constexpr int GEAR = 2;
 // Analog Inputs
 
 /////////DIGITAL I/O PORTS/////////

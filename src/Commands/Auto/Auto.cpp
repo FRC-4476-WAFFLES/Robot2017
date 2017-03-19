@@ -51,21 +51,21 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 		return;
 
 		case 1: // Deliver gear middle
-		AddSequential(new DriveAuto(7.2, 0, 0.3));
+		AddSequential(new DriveAuto(4.2, 0, 0.3));
 		break;
 
 		case 2: // Deliver gear right
 		// I think we don't want to check for alliance colour here
 		AddSequential(new DriveAuto(6.55, 0, 0.3));
 		AddSequential(new DriveAuto(6.55, -60, 0.3));
-		AddSequential(new DriveAuto(12.95, -60, 0.3));
+		AddSequential(new DriveAuto(9.95, -60, 0.3));
 		break;
 
 		case 3: // Deliver gear left
 		// I think we don't want to check for alliance colour here
 		AddSequential(new DriveAuto(6.55, 0, 0.3));
 		AddSequential(new DriveAuto(6.55, 60, 0.3));
-		AddSequential(new DriveAuto(12.95, 60, 0.3));
+		AddSequential(new DriveAuto(9.95, 60, 0.3));
 		break;
 
 		case 4: // Just drive forward
@@ -74,7 +74,7 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 		return; // This auto stops here. Don't deliver gear.
 	}
 
-	if(autonomousultrasonic == 2) {
+	if(autonomousultrasonic == 1) {
 		// Yes ultrasonic
 		AddSequential(new GearAutoUltrasonic());
 	} else {
@@ -96,7 +96,6 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 
 	// If we get here, we (should be) at the peg.
 	AddSequential(new GearAuto());
-	AddParallel(new GearCloseAuto());
 
 	switch(autonomousbackup) {
 	default: // No back up

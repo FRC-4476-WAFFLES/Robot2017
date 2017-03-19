@@ -5,12 +5,12 @@ Stuff to do tomorrow:
     - Gear
     - Climber
 - Get setpoints
-    - Drawer In, Out, Bumber
+    - Drawer In, Out, Bumper
     - Gear Open, Closed
 - Calibrate PIDS
     - Drawer PID
     - Gear PID
-    - Climber PID?
+    - Climber PID
 - Figure out how far from the wall to drop off the gear.
 - Test auto selector
 - Test autos (if we have time)
