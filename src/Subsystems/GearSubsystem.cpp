@@ -26,7 +26,6 @@ GearSubsystem::GearSubsystem():
 
 void GearSubsystem::InitDefaultCommand()
 {
-	starting_angle = Gear->GetPosition();
 	// When no other commands are running, we do operator control
 	SetDefaultCommand(new GearDefault());
 }
@@ -34,13 +33,15 @@ void GearSubsystem::InitDefaultCommand()
 void GearSubsystem::Open(){
 	// TODO get actual numbers
 	UpdatePID("Gear", Gear);
-	Gear->SetPosition(starting_angle + 45);
+	Gear->SetControlMode(CANSpeedController::kPosition);
+	Gear->Set(starting_angle + 45);
 }
 
 void GearSubsystem::Closed(){
 	// TODO get actual numbers
 	UpdatePID("Gear", Gear);
-	Gear->SetPosition(starting_angle);
+	Gear->SetControlMode(CANSpeedController::kPosition);
+	Gear->Set(starting_angle);
 }
 
 void GearSubsystem::Toggle(){
