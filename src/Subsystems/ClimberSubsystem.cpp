@@ -6,12 +6,16 @@
 #include "ClimberSubsystem.h"
 #include "../RobotMap.h"
 #include "Helpers/PIDPreferences.h"
+#include "oi.h"
 
 ClimberSubsystem::ClimberSubsystem():
 		Subsystem("ClimberSubsystem")
 {
 	 Climber = new CANTalon(TOP_CLIMBER_ROLLER);
 	 Climber_Slave = new CANTalon(TOP_CLIMBER_SLAVE);
+
+	 Climber->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
+	 Climber->SetSensorDirection(false);
 
 	 //peak outputs
      Climber->ConfigNominalOutputVoltage(+0.0f, -0.0f);
@@ -50,5 +54,6 @@ void ClimberSubsystem::SetPower(double power) {
 }
 
 void ClimberSubsystem::prints() {
-	SmartDashboard::PutNumber("Climber Encoder", Climber->GetPosition());
+	SmartDashboard::PutNumber("Climber Encoder", Climber->GetEncPosition());
+	SmartDashboard::PutNumber("climber joystick axis", CommandBase::oi->operatorController->GetY());
 }
