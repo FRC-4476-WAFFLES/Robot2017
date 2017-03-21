@@ -32,7 +32,7 @@ void DrawerSubsystem::InitDefaultCommand()
 void DrawerSubsystem::SetSetpoint(double point) {
 	UpdatePID("Drawer", Drawer);
 	Drawer->SetControlMode(CANTalon::kPosition);
-	Drawer->SetSetpoint(point);
+	Drawer->Set(point);
 }
 
 double DrawerSubsystem::GetSetpoint() {
