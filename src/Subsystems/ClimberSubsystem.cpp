@@ -37,7 +37,7 @@ void ClimberSubsystem::InitDefaultCommand()
 void ClimberSubsystem::SetPosition(double position) {
 	UpdatePID("Climber", Climber);
 	Climber->SetControlMode(CANTalon::kPosition);
-	Climber->SetSetpoint(position);
+	Climber->Set(position);
 }
 
 double ClimberSubsystem::GetPosition() {
@@ -45,7 +45,7 @@ double ClimberSubsystem::GetPosition() {
 }
 
 double ClimberSubsystem::GetSetpoint() {
-	return Climber->GetSetpoint();
+	return Climber->Get();
 }
 
 void ClimberSubsystem::SetPower(double power) {
@@ -55,5 +55,4 @@ void ClimberSubsystem::SetPower(double power) {
 
 void ClimberSubsystem::prints() {
 	SmartDashboard::PutNumber("Climber Encoder", Climber->GetEncPosition());
-	SmartDashboard::PutNumber("climber joystick axis", CommandBase::oi->operatorController->GetY());
 }
