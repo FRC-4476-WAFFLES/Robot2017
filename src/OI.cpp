@@ -71,15 +71,15 @@ OI::OI()
 //	Button* Outtake = new JoystickButton(operatorController, OperatorButton::Y);
 //	Outtake->WhileHeld(new IntakeOut());
 
-	Button* ToggleGear = new JoystickButton(operatorController, OperatorButton::Start);
+	Button* ToggleGear = new JoystickButton(operatorController, OperatorButton::X);
 	ToggleGear->WhenReleased(new GearCloseAuto());
 	ToggleGear->WhenPressed(new GearOpenAuto());
 
 	Button* DrawerFullOut = new JoystickButton(operatorController, OperatorButton::Y);
 	DrawerFullOut->WhenReleased(new DrawerOut());
-	Button* DrawerFullIn = new JoystickButton(operatorController, OperatorButton::X);
+	Button* DrawerFullIn = new JoystickButton(operatorController, OperatorButton::A);
 	DrawerFullIn->WhenReleased(new DrawerIn());
-	Button* DrawerToBumper = new JoystickButton(operatorController, OperatorButton::A);
+	Button* DrawerToBumper = new JoystickButton(operatorController, OperatorButton::B);
 	DrawerToBumper->WhenReleased(new DrawerBumper());
 
 	Button* GrabRope = new JoystickButton(operatorController, OperatorButton::BumperTopLeft);

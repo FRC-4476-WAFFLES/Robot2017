@@ -31,17 +31,15 @@ void GearSubsystem::InitDefaultCommand()
 }
 
 void GearSubsystem::Open(){
-	// TODO get actual numbers
 	UpdatePID("Gear", Gear);
 	Gear->SetControlMode(CANSpeedController::kPosition);
-	Gear->Set(starting_angle + 45);
+	Gear->Set(0.7615);
 }
 
 void GearSubsystem::Closed(){
-	// TODO get actual numbers
 	UpdatePID("Gear", Gear);
 	Gear->SetControlMode(CANSpeedController::kPosition);
-	Gear->Set(starting_angle);
+	Gear->Set(0.849);
 }
 
 void GearSubsystem::Toggle(){

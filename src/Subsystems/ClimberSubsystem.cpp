@@ -15,7 +15,7 @@ ClimberSubsystem::ClimberSubsystem():
 	 Climber_Slave = new CANTalon(TOP_CLIMBER_SLAVE);
 
 	 Climber->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-	 Climber->SetSensorDirection(false);
+	 Climber->SetSensorDirection(true);
 
 	 //peak outputs
      Climber->ConfigNominalOutputVoltage(+0.0f, -0.0f);
@@ -54,5 +54,5 @@ void ClimberSubsystem::SetPower(double power) {
 }
 
 void ClimberSubsystem::prints() {
-	SmartDashboard::PutNumber("Climber Encoder", Climber->GetEncPosition());
+	SmartDashboard::PutNumber("Climber Encoder", Climber->GetPosition());
 }

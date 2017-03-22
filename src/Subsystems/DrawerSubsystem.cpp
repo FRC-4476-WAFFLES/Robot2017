@@ -12,13 +12,13 @@ DrawerSubsystem::DrawerSubsystem():
 {
 	 Drawer = new CANTalon(DRAWER);
 
-	 Drawer->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
+	 Drawer->SetFeedbackDevice(CANTalon::CtreMagEncoder_Absolute);
 	 Drawer->SetSensorDirection(false);
 
 	 Drawer->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	 Drawer->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 
-	 Drawer->EnableZeroSensorPositionOnReverseLimit(true);
+	 Drawer->EnableZeroSensorPositionOnReverseLimit(false);
 
 	 UpdatePID("Drawer", Drawer);
 }

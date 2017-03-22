@@ -18,10 +18,10 @@ constexpr int GEAR_LEFT = 8;
 constexpr int GEAR_RIGHT = 9;
 
 // CAN Motors
-constexpr int DRAWER = 1;
+constexpr int DRAWER = 2;
 constexpr int TOP_CLIMBER_ROLLER = 3;
 constexpr int TOP_CLIMBER_SLAVE= 4;
-constexpr int GEAR = 2;
+constexpr int GEAR = 1;
 // Analog Inputs
 
 /////////DIGITAL I/O PORTS/////////
