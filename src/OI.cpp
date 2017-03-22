@@ -31,6 +31,7 @@
 #include "Commands/Drawer/DrawerBumper.h"
 #include "Commands/Climber/ClimberFudge.h"
 #include "Commands/Climber/ClimberGrab.h"
+#include "Commands/Climber/ClimberGrabReverse.h"
 
 OI::OI()
 {
@@ -84,6 +85,8 @@ OI::OI()
 
 	Button* GrabRope = new JoystickButton(operatorController, OperatorButton::BumperTopLeft);
 	GrabRope->WhileHeld(new ClimberGrab());
+	Button* GrabRopeInside = new JoystickButton(operatorController, OperatorButton::BumperTopRight);
+	GrabRopeInside->WhileHeld(new ClimberGrabReverse());
 	// GrabRope->WhenReleased(new ClimberStop());
 	// Button* climb = new JoystickButton(operatorController, OperatorButton::BumperTopRight);
 	// climb->WhenReleased(new ClimberClimb());

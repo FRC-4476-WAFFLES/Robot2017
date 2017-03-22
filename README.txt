@@ -17,26 +17,26 @@ Stuff to do tomorrow:
 
 --------Robot Controls By Button-------
 >>>>>>bumpers and triggers<<<<<<
-R1,BumperTopRight(Right Bumper) = nothing
+R1,BumperTopRight(Right Bumper) = slow spin climber reverse
 
 R2,BumperBottomRight(Right Trigger) = nothing
 
-L1,BumperTopLeft(Left Bumper) = auto drive test: align to 90* @ full speed
+L1,BumperTopLeft(Left Bumper) = slow spin climber for grab
 
-L2,BumperBottomLeft(Left Trigger) = print last_dip
+L2,BumperBottomLeft(Left Trigger) = nothing
 
 >>>>>>center buttons<<<<<<
 Start:
 when pressed = open gear manipulator
 when released = close gear manipulator
 
-Back = turret vision while held
+Back = nothing
 mode = switch joystick and d-pad
 
 >>>>>>right buttons<<<<<<
-Y = nothing
-B = nothing
-A = nothing
+Y = drawer fully out
+B = drawer to bumper
+A = drawer fully in
 X = nothing
 
 >>>>>>D-Pad<<<<<<
@@ -52,5 +52,5 @@ left joystick horizontal axis(0) = nothing
 left joystick vertical axis(1) = Climber fudge
 left joystick center button(11?) = nothing
 right joystick horizontal axis(2) = nothing
-right joystick vertical axis(3) = nothing
+right joystick vertical axis(3) = climber fudge slow.
 right joystick center button(12?) = nothing
