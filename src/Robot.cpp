@@ -101,6 +101,8 @@ private:
 	}
 	void DisabledPeriodic()
 	{
+		// Most commands will cancel themselves when run in disabled mode.
+		frc::Scheduler::GetInstance()->Run();
 		CommandBase::prints();
 		CommandBase::drawer->Drawer->SetPosition(0.0);
 //		CommandBase::turret->TurretHome();

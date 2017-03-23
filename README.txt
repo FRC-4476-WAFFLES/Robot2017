@@ -1,19 +1,8 @@
-Stuff to do tomorrow:
-- Check all systems
-    - Drive
-    - Drawer
-    - Gear
-    - Climber
-- Get setpoints
-    - Drawer In, Out, Bumper
-    - Gear Open, Closed
-- Calibrate PIDS
-    - Drawer PID
-    - Gear PID
-    - Climber PID
-- Figure out how far from the wall to drop off the gear.
-- Test auto selector
-- Test autos (if we have time)
+- Button for reverse climber grab? (read further)
+- Climber deadzone too big.
+- Drawer not calibrated
+- Climber encoder doesn't reset on disable
+- Other stick is for grab: 20% power on climb.
 
 --------Robot Controls By Button-------
 >>>>>>bumpers and triggers<<<<<<

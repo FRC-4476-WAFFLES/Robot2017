@@ -18,7 +18,9 @@ DrawerSubsystem::DrawerSubsystem():
 	 Drawer->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	 Drawer->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 
+	 Drawer->EnableZeroSensorPositionOnForwardLimit(false);
 	 Drawer->EnableZeroSensorPositionOnReverseLimit(false);
+	 Drawer->EnableZeroSensorPositionOnIndex(false, false);
 
 	 UpdatePID("Drawer", Drawer);
 }
