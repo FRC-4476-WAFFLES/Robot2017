@@ -15,7 +15,7 @@ void DrawerBumper::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DrawerBumper::Execute() {
 	//TODO real numbers
-	drawer->Drawer->SetSetpoint(1140.0);
+	drawer->Drawer->SetSetpoint(1.15);
 }
 
 // Make this return true when this Command no longer needs to run execute()

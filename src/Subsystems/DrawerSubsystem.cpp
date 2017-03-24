@@ -12,8 +12,9 @@ DrawerSubsystem::DrawerSubsystem():
 {
 	 Drawer = new CANTalon(DRAWER);
 
-	 Drawer->SetFeedbackDevice(CANTalon::CtreMagEncoder_Absolute);
-	 Drawer->SetSensorDirection(false);
+	 Drawer->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
+	 Drawer->SetSensorDirection(true);
+	 Drawer->SetClosedLoopOutputDirection(true);
 
 	 Drawer->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	 Drawer->ConfigPeakOutputVoltage(+12.0f, -12.0f);
@@ -42,6 +43,9 @@ double DrawerSubsystem::GetSetpoint() {
 }
 
 void DrawerSubsystem::prints() {
+	Drawer->EnableZeroSensorPositionOnForwardLimit(false);
+	Drawer->EnableZeroSensorPositionOnReverseLimit(false);
+	Drawer->EnableZeroSensorPositionOnIndex(false, false);
 	SmartDashboard::PutNumber("Drawer Encoder", Drawer->GetPosition());
 }
 

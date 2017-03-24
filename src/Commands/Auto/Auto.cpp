@@ -10,6 +10,9 @@
 #include "Commands/Gear/GearAuto.h"
 #include "Commands/Gear/GearAutoUltrasonic.h"
 #include "Commands/Turret/TurretVision.h"
+#include "Commands/Drawer/DrawerOut.h"
+#include <Commands/StartCommand.h>
+#include "Commands/Drive/DriveHalfRelative.h"
 
 Auto::Auto():
 	// Default values for each number
@@ -34,6 +37,7 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 
 	SetTimeout(15.0);
 	AddParallel(new GearCloseAuto());
+	AddParallel(new StartCommand(new DrawerOut()));
 
 	// All of these cases bail early and do nothing
 	if(autonomousposition == 0 || // Nothing auto
@@ -51,25 +55,25 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 		return;
 
 		case 1: // Deliver gear middle
-		AddSequential(new DriveAuto(4.2, 0, 0.3));
+		AddSequential(new DriveAuto(4.2, 0, 0.5));
 		break;
 
 		case 2: // Deliver gear right
 		// I think we don't want to check for alliance colour here
-		AddSequential(new DriveAuto(6.55, 0, 0.3));
-		AddSequential(new DriveAuto(6.55, -60, 0.3));
-		AddSequential(new DriveAuto(9.95, -60, 0.3));
+		AddSequential(new DriveAuto(6.55, 0, 0.5));
+		AddSequential(new DriveAuto(6.55, -60, 0.5));
+		AddSequential(new DriveAuto(9.95, -60, 0.5));
 		break;
 
 		case 3: // Deliver gear left
 		// I think we don't want to check for alliance colour here
-		AddSequential(new DriveAuto(6.55, 0, 0.3));
-		AddSequential(new DriveAuto(6.55, 60, 0.3));
-		AddSequential(new DriveAuto(9.95, 60, 0.3));
+		AddSequential(new DriveAuto(6.55, 0, 0.5));
+		AddSequential(new DriveAuto(6.55, 60, 0.5));
+		AddSequential(new DriveAuto(9.95, 60, 0.5));
 		break;
 
 		case 4: // Just drive forward
-		AddSequential(new DriveAuto(6, 0, 0.3));
+		AddSequential(new DriveAuto(6, 0, 0.5));
 		AddSequential(new WaitTime(1.0));
 		return; // This auto stops here. Don't deliver gear.
 	}
@@ -81,15 +85,15 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 		// No ultrasonic
 		switch(autonomousposition) {
 			case 1: // Deliver gear middle
-			AddSequential(new DriveAuto(7.2, 0, 0.3));
+			AddSequential(new DriveAuto(6.2, 0, 0.6));
 			break;
 
 			case 2: // Deliver gear right
-			AddSequential(new DriveAuto(12.95, -60, 0.3));
+			AddSequential(new DriveAuto(11.85, -60, 0.6));
 			break;
 
 			case 3: // Deliver gear left
-			AddSequential(new DriveAuto(12.95, 60, 0.3));
+			AddSequential(new DriveAuto(11.85, 60, 0.6));
 			break;
 		}
 	}
@@ -107,19 +111,42 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 		case 2: // Back up part way
 		switch(autonomousposition) {
 			case 1: // Deliver gear middle
-			AddSequential(new DriveAuto(5.2, 0, 0.8));
-			AddSequential(new DriveAuto(2.5, 0, 0.3));
+			AddSequential(new DriveAuto(5.2, 0, 0.5));
+			AddSequential(new DriveAuto(2.5, 0, 0.5));
 			AddSequential(new GearCloseAuto());
 			break;
 			
 			case 2: // Deliver gear right
-			AddSequential(new DriveAuto(8, -60, 0.3));
+			AddSequential(new DriveAuto(8, -60, 0.5));
 			AddSequential(new GearCloseAuto());
 			break;
 
 			case 3: // Deliver gear left
-			AddSequential(new DriveAuto(8, 60, 0.3));
+			AddSequential(new DriveAuto(8, 60, 0.5));
 			AddSequential(new GearCloseAuto());
+			break;
+		}
+		break;
+		case 4://backup and drive down the field
+		switch(autonomousposition) {
+			case 1: // Deliver gear middle
+			AddSequential(new DriveAuto(5.2, 0, 0.5));
+			AddSequential(new DriveAuto(2.5, 0, 0.5));
+			AddSequential(new GearCloseAuto());
+			break;
+
+			case 2: // Deliver gear right
+			AddSequential(new DriveAuto(8, -60, 0.5));
+			AddSequential(new GearCloseAuto());
+			AddSequential(new DriveAuto(8, 0, 0.5));
+			AddSequential(new DriveAuto(13.85, 0, 0.5));
+			break;
+
+			case 3: // Deliver gear left
+			AddSequential(new DriveAuto(8, 60, 0.5));
+			AddSequential(new GearCloseAuto());
+			AddSequential(new DriveAuto(8, 0, 0.5));
+			AddSequential(new DriveAuto(13.85, 0, 0.5));
 			break;
 		}
 	}

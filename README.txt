@@ -1,8 +1,12 @@
-- Button for reverse climber grab? (read further)
-- Climber deadzone too big.
-- Drawer not calibrated
 - Climber encoder doesn't reset on disable
-- Other stick is for grab: 20% power on climb.
+- auto modes->
+			  left auto->distances+backup
+			  center auto-> distances+backup
+			  right auto->distances+backup
+			  Backup to hopper
+			  Backup+turn+Drive foreward
+			  
+- Ultrasonic sensor.
 
 --------Robot Controls By Button-------
 >>>>>>bumpers and triggers<<<<<<

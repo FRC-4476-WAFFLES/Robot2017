@@ -21,7 +21,7 @@ void ClimberFudge::Initialize() {
 void ClimberFudge::Execute() {
 //	climber->SetPower(oi->operatorController->GetY());
 	if(!oi->DriveDeadzone(oi->operatorController->GetY())||!oi->DriveDeadzone(oi->operatorController->GetRawAxis(3))){
-		climber->SetPosition(climber->GetPosition() + (oi->operatorController->GetY() + oi->operatorController->GetRawAxis(3)*0.2) / climber->Climber->GetP());
+		climber->SetPosition(climber->GetPosition() + (oi->operatorController->GetY() + oi->operatorController->GetRawAxis(3)*0.1) / climber->Climber->GetP());
 		hold = climber->GetPosition();
 	} else {
 		climber->SetPosition(hold);
