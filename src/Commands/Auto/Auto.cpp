@@ -13,6 +13,8 @@
 #include "Commands/Drawer/DrawerOut.h"
 #include <Commands/StartCommand.h>
 #include "Commands/Drive/DriveHalfRelative.h"
+#include "Commands/Drawer/DrawerIn.h"
+#include "Commands/Climber/ClimberClimb.h"
 
 Auto::Auto():
 	// Default values for each number
@@ -76,6 +78,18 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 		AddSequential(new DriveAuto(6, 0, 0.5));
 		AddSequential(new WaitTime(1.0));
 		return; // This auto stops here. Don't deliver gear.
+
+		case 5: // test
+		AddSequential(new DriveAuto(3, 0, 0.3));
+		AddSequential(new GearAuto());
+		AddSequential(new WaitTime(2));
+		AddSequential(new GearCloseAuto());
+		AddSequential(new DriveAuto(3, 0, 0.3));
+		AddSequential(new DriveAuto(3, 0, 0.3));
+		AddParallel(new StartCommand(new DrawerIn()));
+		AddParallel(new StartCommand(new DrawerOut()));
+		AddSequential(new ClimberClimb());
+		return;
 	}
 
 	if(autonomousultrasonic == 1) {
@@ -94,6 +108,9 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 
 			case 3: // Deliver gear left
 			AddSequential(new DriveAuto(11.85, 60, 0.6));
+			break;
+
+			case 5: // Deliver gear left
 			break;
 		}
 	}
@@ -125,6 +142,9 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			AddSequential(new DriveAuto(8, 60, 0.5));
 			AddSequential(new GearCloseAuto());
 			break;
+
+			case 5: // Deliver gear left
+			break;
 		}
 		break;
 		case 4://backup and drive down the field
@@ -147,6 +167,9 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			AddSequential(new GearCloseAuto());
 			AddSequential(new DriveAuto(8, 0, 0.5));
 			AddSequential(new DriveAuto(13.85, 0, 0.5));
+			break;
+
+			case 5: // Deliver gear left
 			break;
 		}
 	}

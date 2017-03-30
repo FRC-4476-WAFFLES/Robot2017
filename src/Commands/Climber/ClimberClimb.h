@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CommandBase.h"
+#include <Timer.h>
 
 class ClimberClimb : public CommandBase {
 public:
@@ -12,4 +13,5 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+	Timer t;
 };
