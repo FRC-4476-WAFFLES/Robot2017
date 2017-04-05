@@ -171,6 +171,7 @@ bool DriveSubsystem::on_target(double distanceTarget, double distanceTolerence, 
 
 void DriveSubsystem::prints() {
 	SmartDashboard::PutNumber("drive.angle(degrees)", angle());
+	SmartDashboard::PutNumber("Drive Direction", fmod(fmod(angle()+135.0, 360.0)+360.0, 360.0));
 	SmartDashboard::PutNumber("drive.distance(feet)", distance());
 	SmartDashboard::PutNumber("drive.ultrasonic(feet)", distance_to_wall());
 	SmartDashboard::PutNumber("Drive Speed", ((DriveEncoder->GetRate() - DriveEncoder2->GetRate())/2.0)/76.83333333);
