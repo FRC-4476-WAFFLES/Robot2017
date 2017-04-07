@@ -30,6 +30,7 @@ private:
 		position->AddObject("Left", new int(3));
 		position->AddObject("DriveForeward", new int(4));
 		position->AddObject("Left Fast", new int(5));
+		position->AddObject("Test", new int(6));
 		SmartDashboard::PutData("Position", position);
 
 		backup = new SendableChooser<int*>();

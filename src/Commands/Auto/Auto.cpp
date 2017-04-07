@@ -13,6 +13,8 @@
 #include "Commands/Drawer/DrawerOut.h"
 #include <Commands/StartCommand.h>
 #include "Commands/Drive/DriveHalfRelative.h"
+#include "Commands/Drawer/DrawerIn.h"
+#include "Commands/Climber/ClimberClimb.h"
 
 Auto::Auto():
 	// Default values for each number
@@ -78,13 +80,25 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 		break;
 
 
-		case 5: // Deliver gear left
+		case 5: // Deliver gear left Fast
 		// I think we don't want to check for alliance colour here
 		AddSequential(new DriveAuto(6.2, 0, 0.6));
 		AddSequential(new DriveAuto(6.2, 62, 0.4));
 		AddSequential(new DriveAuto(8.95, 62, 0.7));
 		break;
 		return; // This auto stops here. Don't deliver gear.
+
+		case 6: // test
+		AddSequential(new DriveAuto(3, 0, 0.3));
+		AddSequential(new GearAuto());
+		AddSequential(new WaitTime(2));
+		AddSequential(new GearCloseAuto());
+		AddSequential(new DriveAuto(3, 0, 0.3));
+		AddSequential(new DriveAuto(3, 0, 0.3));
+		AddParallel(new StartCommand(new DrawerIn()));
+		AddParallel(new StartCommand(new DrawerOut()));
+		AddSequential(new ClimberClimb());
+		return;
 	}
 
 	if(autonomousultrasonic == 1) {
@@ -104,8 +118,11 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			case 3: // Deliver gear left
 			AddSequential(new DriveAuto(11.85, 62, 0.6));
 			break;
-			case 5: // Deliver gear left
+			case 5: // Deliver gear left Fast
 			AddSequential(new DriveAuto(11.85, 62, 0.6));
+			break;
+
+			case 6: // test
 			break;
 		}
 	}
@@ -138,9 +155,12 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			AddSequential(new GearCloseAuto());
 			break;
 
-			case 5: // Deliver gear left
+			case 5: // Deliver gear left Fast
 			AddSequential(new DriveAuto(8, 62, 0.5));
 			AddSequential(new GearCloseAuto());
+			break;
+
+			case 6: // test
 			break;
 		}
 		break;
@@ -166,11 +186,14 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			AddSequential(new DriveAuto(24, 0, 0.6));
 			break;
 
-			case 5: // Deliver gear left
+			case 5: // Deliver gear left Fast
 			AddSequential(new DriveAuto(8, 62, 0.6));
 			AddSequential(new GearCloseAuto());
 			AddSequential(new DriveAuto(8, 0, 0.6));
 			AddSequential(new DriveAuto(24, 0, 0.8));
+			break;
+
+			case 6: //test
 			break;
 		}
 	}
