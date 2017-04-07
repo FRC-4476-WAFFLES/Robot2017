@@ -57,13 +57,13 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 		return;
 
 		case 1: // Deliver gear middle
-		AddSequential(new DriveAuto(4.2, 0, 0.5));
+		AddSequential(new DriveAuto(3.9, 0, 0.5));
 		break;
 
 		case 2: // Deliver gear right
 		// I think we don't want to check for alliance colour here
-		AddSequential(new DriveAuto(6.55, 0, 0.5));
-		AddSequential(new DriveAuto(6.55, -62, 0.5));
+		AddSequential(new DriveAuto(6.25, 0, 0.5));
+		AddSequential(new DriveAuto(6.25, -62, 0.5));
 		AddSequential(new DriveAuto(8.95, -62, 0.5));
 		break;
 
