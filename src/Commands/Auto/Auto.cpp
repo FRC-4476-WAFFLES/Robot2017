@@ -131,7 +131,7 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 	AddSequential(new GearAuto());
 
 	switch(autonomousbackup) {
-	default: // No back up
+		default: // No back up
 		AddSequential(new WaitTime(30.0));
 		break;
 		case 1: // Back up and hit hopper
@@ -196,5 +196,65 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			case 6: //test
 			break;
 		}
+		break;
+		case 5: //backup and drive down the field with cross over
+		switch(autonomousposition) {
+			case 1: // Deliver gear middle
+			AddSequential(new DriveAuto(5.2, 0, 0.3));
+			AddSequential(new DriveAuto(2.5, 0, 0.3));
+			AddSequential(new GearCloseAuto());
+			break;
+
+			case 2: // Deliver gear right
+			AddSequential(new DriveAuto(8, -62, 0.3));
+			AddSequential(new GearCloseAuto());
+			AddSequential(new DriveAuto(8, 0, 0.3));
+			AddSequential(new DriveAuto(16, 0, 0.6));
+			AddSequential(new DriveAuto(16, -20, 0.3));
+			AddSequential(new DriveAuto(24, -20, 0.6));
+			break;
+
+			case 3: // Deliver gear left
+			AddSequential(new DriveAuto(8, 62, 0.3));
+			AddSequential(new GearCloseAuto());
+			AddSequential(new DriveAuto(8, 0, 0.3));
+			AddSequential(new DriveAuto(16, 0, 0.6));
+			AddSequential(new DriveAuto(16, 20, 0.3));
+			AddSequential(new DriveAuto(24, 20, 0.6));
+			break;
+
+			case 5: // Deliver gear left Fast
+			AddSequential(new DriveAuto(8, 62, 0.6));
+			AddSequential(new GearCloseAuto());
+			AddSequential(new DriveAuto(8, 0, 0.6));
+			AddSequential(new DriveAuto(16, 0, 0.6));
+			AddSequential(new DriveAuto(16, 20, 0.3));
+			AddSequential(new DriveAuto(24, 20, 0.6));
+			break;
+
+			case 6: //test
+			break;
+		}
+		break;
+		case 6: // Drive left around the airship after center auto
+		if(autonomousposition == 1) {
+			// Deliver gear middle
+			AddSequential(new DriveAutoRelative(-3, 0));
+			AddSequential(new DriveAutoRelative(0, -90));
+			AddSequential(new DriveAutoRelative(4, 0));
+			AddSequential(new DriveAutoRelative(0, 90));
+			AddSequential(new DriveAutoRelative(10, 0));
+		}
+		break;
+		case 7: // Drive right around the airship after center auto
+		if(autonomousposition == 1) {
+			// Deliver gear middle
+			AddSequential(new DriveAutoRelative(-3, 0));
+			AddSequential(new DriveAutoRelative(0, 90));
+			AddSequential(new DriveAutoRelative(4, 0));
+			AddSequential(new DriveAutoRelative(0, -90));
+			AddSequential(new DriveAutoRelative(10, 0));
+		}
+		break;
 	}
 }

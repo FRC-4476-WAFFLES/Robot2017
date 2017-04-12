@@ -37,6 +37,9 @@ private:
 		backup->AddObject("Hopper", new int(1));
 		backup->AddObject("Down The Field", new int(4));
 		backup->AddObject("part way", new int(2));
+		backup->AddObject("Crossover (only side autos)", new int(5));
+		backup->AddObject("Go left around (only center auto)", new int(6));
+		backup->AddObject("Go right around (only center auto)", new int(7));
 		backup->AddDefault("no", new int(3));
 		SmartDashboard::PutData("backup", backup);
 
