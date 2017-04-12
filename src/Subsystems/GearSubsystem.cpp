@@ -33,13 +33,13 @@ void GearSubsystem::InitDefaultCommand()
 void GearSubsystem::Open(){
 	UpdatePID("Gear", Gear);
 	Gear->SetControlMode(CANSpeedController::kPosition);
-	Gear->Set(0.2);
+	Gear->Set(0.164);
 }
 
 void GearSubsystem::Closed(){
 	UpdatePID("Gear", Gear);
 	Gear->SetControlMode(CANSpeedController::kPosition);
-	Gear->Set(0.3);
+	Gear->Set(0.28);
 }
 
 void GearSubsystem::Toggle(){

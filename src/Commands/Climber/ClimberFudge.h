@@ -12,5 +12,5 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
-	double hold;
+	double hold = 0.0;
 };

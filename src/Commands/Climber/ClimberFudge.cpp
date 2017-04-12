@@ -6,7 +6,6 @@ ClimberFudge::ClimberFudge():
 	CommandBase("ClimberFudge")
 {
 	Requires(climber.get());
-	hold = climber->Climber->GetPosition();
 }
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -21,7 +20,7 @@ void ClimberFudge::Initialize() {
 void ClimberFudge::Execute() {
 //	climber->SetPower(oi->operatorController->GetY());
 	if(!oi->DriveDeadzone(oi->operatorController->GetY())||!oi->DriveDeadzone(oi->operatorController->GetRawAxis(3))){
-		climber->SetPosition(climber->GetPosition() + (oi->operatorController->GetY() + oi->operatorController->GetRawAxis(3)*0.1) / climber->Climber->GetP());
+		climber->SetPosition(climber->GetPosition() + (oi->operatorController->GetY() + oi->operatorController->GetRawAxis(3)*0.075));
 		hold = climber->GetPosition();
 	} else {
 		climber->SetPosition(hold);
