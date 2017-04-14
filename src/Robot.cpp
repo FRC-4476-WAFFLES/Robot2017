@@ -23,6 +23,7 @@ private:
 	void RobotInit()
 	{
 		CommandBase::init();
+
 		position = new SendableChooser<int*>();
 		position->AddDefault("nothing", new int(0));
 		position->AddObject("Center", new int(1));
@@ -49,7 +50,7 @@ private:
 		SmartDashboard::PutData("ultrasonic", ultrasonic);
 
 		autoCommand = new Auto();
-		printf("running");
+		printf("running \n");
 	}
 
 

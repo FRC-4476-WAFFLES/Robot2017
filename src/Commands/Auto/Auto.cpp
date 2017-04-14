@@ -13,8 +13,10 @@
 #include "Commands/Drawer/DrawerOut.h"
 #include <Commands/StartCommand.h>
 #include "Commands/Drive/DriveHalfRelative.h"
+#include "Commands/Drive/DriveAutoRelative.h"
 #include "Commands/Drawer/DrawerIn.h"
 #include "Commands/Climber/ClimberClimb.h"
+#include "Commands/Drive/DriveAutoTolerant.h"
 
 Auto::Auto():
 	// Default values for each number
@@ -62,16 +64,16 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 
 		case 2: // Deliver gear right
 		// I think we don't want to check for alliance colour here
-		AddSequential(new DriveAuto(6.25, 0, 0.5));
-		AddSequential(new DriveAuto(6.25, -62, 0.5));
-		AddSequential(new DriveAuto(8.95, -62, 0.5));
+		AddSequential(new DriveAuto(6.55, 0, 0.5));
+		AddSequential(new DriveAuto(6.55, -62, 0.5));
+		AddSequential(new DriveAuto(8.65, -62, 0.5));
 		break;
 
 		case 3: // Deliver gear left
 		// I think we don't want to check for alliance colour here
 		AddSequential(new DriveAuto(6.55, 0, 0.5));
 		AddSequential(new DriveAuto(6.55, 62, 0.5));
-		AddSequential(new DriveAuto(8.95, 62, 0.5));
+		AddSequential(new DriveAuto(8.65, 62, 0.5));
 		break;
 
 		case 4: // Just drive forward
@@ -84,7 +86,7 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 		// I think we don't want to check for alliance colour here
 		AddSequential(new DriveAuto(6.2, 0, 0.6));
 		AddSequential(new DriveAuto(6.2, 62, 0.4));
-		AddSequential(new DriveAuto(8.95, 62, 0.7));
+		AddSequential(new DriveAuto(8.65, 62, 0.7));
 		break;
 		return; // This auto stops here. Don't deliver gear.
 
@@ -176,21 +178,21 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			AddSequential(new DriveAuto(8, -62, 0.3));
 			AddSequential(new GearCloseAuto());
 			AddSequential(new DriveAuto(8, 0, 0.3));
-			AddSequential(new DriveAuto(24, 0, 0.6));
+			AddSequential(new DriveAuto(30, 0, 0.6));
 			break;
 
 			case 3: // Deliver gear left
 			AddSequential(new DriveAuto(8, 62, 0.3));
 			AddSequential(new GearCloseAuto());
 			AddSequential(new DriveAuto(8, 0, 0.3));
-			AddSequential(new DriveAuto(24, 0, 0.6));
+			AddSequential(new DriveAuto(30, 0, 0.6));
 			break;
 
 			case 5: // Deliver gear left Fast
 			AddSequential(new DriveAuto(8, 62, 0.6));
 			AddSequential(new GearCloseAuto());
 			AddSequential(new DriveAuto(8, 0, 0.6));
-			AddSequential(new DriveAuto(24, 0, 0.8));
+			AddSequential(new DriveAuto(30, 0, 0.8));
 			break;
 
 			case 6: //test
@@ -206,30 +208,30 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			break;
 
 			case 2: // Deliver gear right
-			AddSequential(new DriveAuto(8, -62, 0.3));
+			AddSequential(new DriveAutoTolerant(8, -62, 0.8));
 			AddSequential(new GearCloseAuto());
-			AddSequential(new DriveAuto(8, 0, 0.3));
-			AddSequential(new DriveAuto(16, 0, 0.6));
-			AddSequential(new DriveAuto(16, -20, 0.3));
-			AddSequential(new DriveAuto(24, -20, 0.6));
+			AddSequential(new DriveAutoTolerant(8, 0, 0.8));
+			AddSequential(new DriveAutoTolerant(16, 0, 1.0));
+			AddSequential(new DriveAutoTolerant(16, -40, 0.5));
+			AddSequential(new DriveAuto(35, -40, 1.0));
 			break;
 
 			case 3: // Deliver gear left
-			AddSequential(new DriveAuto(8, 62, 0.3));
+			AddSequential(new DriveAutoTolerant(8, 62, 0.8));
 			AddSequential(new GearCloseAuto());
-			AddSequential(new DriveAuto(8, 0, 0.3));
-			AddSequential(new DriveAuto(16, 0, 0.6));
-			AddSequential(new DriveAuto(16, 20, 0.3));
-			AddSequential(new DriveAuto(24, 20, 0.6));
+			AddSequential(new DriveAutoTolerant(8, 0, 0.8));
+			AddSequential(new DriveAutoTolerant(16, 0, 1.0));
+			AddSequential(new DriveAutoTolerant(16, 40, 0.5));
+			AddSequential(new DriveAuto(35, 40, 1.0));
 			break;
 
 			case 5: // Deliver gear left Fast
-			AddSequential(new DriveAuto(8, 62, 0.6));
+			AddSequential(new DriveAutoTolerant(8, 62, 0.8));
 			AddSequential(new GearCloseAuto());
-			AddSequential(new DriveAuto(8, 0, 0.6));
-			AddSequential(new DriveAuto(16, 0, 0.6));
-			AddSequential(new DriveAuto(16, 20, 0.3));
-			AddSequential(new DriveAuto(24, 20, 0.6));
+			AddSequential(new DriveAutoTolerant(8, 0, 0.8));
+			AddSequential(new DriveAutoTolerant(16, 0, 1.0));
+			AddSequential(new DriveAutoTolerant(16, 40, 0.5));
+			AddSequential(new DriveAuto(35, 40, 1.0));
 			break;
 
 			case 6: //test

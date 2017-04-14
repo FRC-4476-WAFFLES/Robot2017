@@ -25,12 +25,12 @@ DriveSubsystem::DriveSubsystem():
 	DriveRight3 = new Victor(DRIVE_RIGHT_3);
 
 	//motor safety
-	DriveLeft1->SetSafetyEnabled(true);
-	DriveLeft2->SetSafetyEnabled(true);
-	DriveLeft3->SetSafetyEnabled(true);
-	DriveRight1->SetSafetyEnabled(true);
-	DriveRight2->SetSafetyEnabled(true);
-	DriveRight3->SetSafetyEnabled(true);
+	DriveLeft1->SetSafetyEnabled(false);
+	DriveLeft2->SetSafetyEnabled(false);
+	DriveLeft3->SetSafetyEnabled(false);
+	DriveRight1->SetSafetyEnabled(false);
+	DriveRight2->SetSafetyEnabled(false);
+	DriveRight3->SetSafetyEnabled(false);
 
 	gyro = new ADIS16448_IMU;
 	DriveEncoder = new Encoder(DRIVE_ENCODER_A , DRIVE_ENCODER_B);

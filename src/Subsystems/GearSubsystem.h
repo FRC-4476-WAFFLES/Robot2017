@@ -18,6 +18,7 @@ public:
 	CANTalon* Gear;
 	float starting_angle = 0;
 	bool is_open = false;
+	bool cancel = false;
 };
 
 

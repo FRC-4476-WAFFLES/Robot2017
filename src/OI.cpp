@@ -6,7 +6,7 @@
 #include <math.h>
 #include <Buttons/Button.h>
 #include <Buttons/JoystickButton.h>
-#include "Commands/Gear/GearOpenAutoUltrasonic.h"
+//#include "Commands/Gear/GearOpenAutoUltrasonic.h"
 //#include "Commands/SemiAuto/DriveBackAirship.h"
 //#include "Commands/SemiAuto/DriveBackLoadStation.h"
 //#include "Commands/Shooter/ShooterShoot.h"
@@ -17,6 +17,7 @@
 //#include "Commands/Gear/GearToggle.h"
 #include "Commands/Gear/GearCloseAuto.h"
 #include "Commands/Gear/GearOpenAuto.h"
+#include "Commands/Gear/CancelGearCommand.h"
 //#include "Commands/Gear/GearOpenAutoUltrasonic.h"
 //#include "Commands/Turret/TurretFullLeft.h"
 //#include "Commands/Turret/TurretFullRight.h"
@@ -72,6 +73,8 @@ OI::OI()
 //	Button* Outtake = new JoystickButton(operatorController, OperatorButton::Y);
 //	Outtake->WhileHeld(new IntakeOut());
 
+	Button* CancelGear = new JoystickButton(operatorController, OperatorButton::Start);
+	CancelGear->WhenPressed(new CancelGearCommand());
 	Button* ToggleGear = new JoystickButton(operatorController, OperatorButton::X);
 	ToggleGear->WhenReleased(new GearCloseAuto());
 	ToggleGear->WhenPressed(new GearOpenAuto());

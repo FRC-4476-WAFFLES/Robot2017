@@ -33,13 +33,13 @@ void GearSubsystem::InitDefaultCommand()
 void GearSubsystem::Open(){
 	UpdatePID("Gear", Gear);
 	Gear->SetControlMode(CANSpeedController::kPosition);
-	Gear->Set(0.164);
+	Gear->Set(0.575);
 }
 
 void GearSubsystem::Closed(){
 	UpdatePID("Gear", Gear);
 	Gear->SetControlMode(CANSpeedController::kPosition);
-	Gear->Set(0.28);
+	Gear->Set(0.688);
 }
 
 void GearSubsystem::Toggle(){
@@ -57,4 +57,5 @@ void GearSubsystem::Persist(){
 void GearSubsystem::prints() {
 	SmartDashboard::PutBoolean("Gear Open?", is_open);
 	SmartDashboard::PutNumber("Gear Encoder", Gear->GetPosition());
+	SmartDashboard::PutNumber("Gear encoder present?", Gear->IsSensorPresent(CANTalon::CtreMagEncoder_Absolute));
 }

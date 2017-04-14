@@ -19,8 +19,11 @@ void ClimberFudge::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ClimberFudge::Execute() {
 //	climber->SetPower(oi->operatorController->GetY());
-	if(!oi->DriveDeadzone(oi->operatorController->GetY())||!oi->DriveDeadzone(oi->operatorController->GetRawAxis(3))){
-		climber->SetPosition(climber->GetPosition() + (oi->operatorController->GetY() + oi->operatorController->GetRawAxis(3)*0.075));
+	if(!oi->DriveDeadzone(oi->operatorController->GetY())) {
+		climber->SetPosition(climber->GetPosition() + oi->operatorController->GetY());
+		hold = climber->GetPosition();
+	} else if(!oi->DriveDeadzone(oi->operatorController->GetRawAxis(3))) {
+		climber->SetPosition(climber->GetPosition() + oi->operatorController->GetRawAxis(3)*0.075);
 		hold = climber->GetPosition();
 	} else {
 		climber->SetPosition(hold);
