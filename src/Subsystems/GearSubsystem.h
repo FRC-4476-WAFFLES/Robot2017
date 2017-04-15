@@ -19,6 +19,8 @@ public:
 	float starting_angle = 0;
 	bool is_open = false;
 	bool cancel = false;
+	double vclosed = 0.686;
+	double vopen = 0.575;
 };
 
 

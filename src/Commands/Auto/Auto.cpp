@@ -71,9 +71,9 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 
 		case 3: // Deliver gear left
 		// I think we don't want to check for alliance colour here
-		AddSequential(new DriveAuto(6.55, 0, 0.5));
-		AddSequential(new DriveAuto(6.55, 62, 0.5));
-		AddSequential(new DriveAuto(8.65, 62, 0.5));
+		AddSequential(new DriveAuto(6.65, 0, 0.5));
+		AddSequential(new DriveAuto(6.65, 62, 0.5));
+		AddSequential(new DriveAuto(8.75, 62, 0.5));//.549
 		break;
 
 		case 4: // Just drive forward
