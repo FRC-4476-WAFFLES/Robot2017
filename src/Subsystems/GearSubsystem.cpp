@@ -16,7 +16,7 @@ GearSubsystem::GearSubsystem():
 	Gear->SetSensorDirection(false);
 
 	Gear->ConfigNominalOutputVoltage(+0.0f, -0.0f);
-	Gear->ConfigPeakOutputVoltage(+12.0f, -12.0f);
+	Gear->ConfigPeakOutputVoltage(+8.0f, -8.0f);
 
 	UpdatePID("Gear", Gear);
 
@@ -39,7 +39,7 @@ void GearSubsystem::Open(){
 void GearSubsystem::Closed(){
 	UpdatePID("Gear", Gear);
 	Gear->SetControlMode(CANSpeedController::kPosition);
-	Gear->Set(0.688);
+	Gear->Set(0.686);
 }
 
 void GearSubsystem::Toggle(){
@@ -47,6 +47,11 @@ void GearSubsystem::Toggle(){
 }
 
 void GearSubsystem::Persist(){
+	if(Gear->GetPosition()>1.0){
+		Gear->SetPosition(fmod(Gear->GetPosition(), 1.0));
+	}else if(Gear->GetPosition()<0.0){
+		Gear->SetPosition(fmod(Gear->GetPosition(), 1.0) + 1.0);
+	}
 	if(is_open){
 		Open();
 	}else{
