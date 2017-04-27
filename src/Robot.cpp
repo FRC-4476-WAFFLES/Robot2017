@@ -4,6 +4,7 @@
 #include "CommandBase.h"
 #include "Subsystems/DriveSubsystem.h"
 #include "Subsystems/DrawerSubsystem.h"
+#include "Subsystems/GearSubsystem.h"
 #include "Commands/Auto/Auto.h"
 #include "OI.h"
 
@@ -91,6 +92,8 @@ private:
 	{
 		if (autoCommand != NULL)
 			autoCommand->Cancel();
+
+		CommandBase::gear->is_open = false;
 	}
 
 	void TeleopPeriodic()
