@@ -43,10 +43,17 @@ double DrawerSubsystem::GetSetpoint() {
 }
 
 void DrawerSubsystem::prints() {
+	Command* current = GetCurrentCommand();
+	if(current != nullptr) {
+		SmartDashboard::PutString("Drawer Command", current->GetName());
+	} else {
+		SmartDashboard::PutString("Drawer Command", "None");
+	}
 	Drawer->EnableZeroSensorPositionOnForwardLimit(false);
 	Drawer->EnableZeroSensorPositionOnReverseLimit(false);
 	Drawer->EnableZeroSensorPositionOnIndex(false, false);
 	SmartDashboard::PutNumber("Drawer Encoder", Drawer->GetPosition());
+	SmartDashboard::PutNumber("Drawer Encoder Target", Drawer->Get());
 }
 
 

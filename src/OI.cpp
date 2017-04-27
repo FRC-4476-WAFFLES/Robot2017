@@ -33,6 +33,7 @@
 #include "Commands/Climber/ClimberFudge.h"
 #include "Commands/Climber/ClimberGrab.h"
 #include "Commands/Climber/ClimberGrabReverse.h"
+#include "SmartDashboard/SmartDashboard.h"
 
 OI::OI()
 {
@@ -117,4 +118,14 @@ bool OI::DriveDeadzone(double x){
 
 bool OI::DriveActive(){
 	return !(fabs(joystickLeft->GetRawAxis(1)) < 0.15) ||!(fabs(joystickRight->GetRawAxis(1) < 0.15));
+}
+
+void OI::prints() {
+	SmartDashboard::PutNumber("Operator (X)", operatorController->GetRawButton(OI::X));
+	SmartDashboard::PutNumber("Operator (Y)", operatorController->GetRawButton(OI::Y));
+	SmartDashboard::PutNumber("Operator (A)", operatorController->GetRawButton(OI::A));
+	SmartDashboard::PutNumber("Operator (B)", operatorController->GetRawButton(OI::B));
+
+	SmartDashboard::PutNumber("Operator Axis (Left Y)", operatorController->GetY(Joystick::kLeftHand));
+	SmartDashboard::PutNumber("Operator Axis (Right Y)", operatorController->GetY(Joystick::kRightHand));
 }

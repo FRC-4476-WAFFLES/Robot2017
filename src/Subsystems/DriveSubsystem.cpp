@@ -170,6 +170,12 @@ bool DriveSubsystem::on_target(double distanceTarget, double distanceTolerence, 
 }
 
 void DriveSubsystem::prints() {
+	Command* current = GetCurrentCommand();
+	if(current != nullptr) {
+		SmartDashboard::PutString("Drive Command", current->GetName());
+	} else {
+		SmartDashboard::PutString("Drive Command", "None");
+	}
 	SmartDashboard::PutNumber("drive.angle(degrees)", angle());
 	SmartDashboard::PutNumber("Drive Direction", fmod(fmod(angle()+135.0, 360.0)+360.0, 360.0));
 	SmartDashboard::PutNumber("drive.distance(feet)", distance());

@@ -60,7 +60,15 @@ void GearSubsystem::Persist(){
 }
 
 void GearSubsystem::prints() {
+	Command* current = GetCurrentCommand();
+	if(current != nullptr) {
+		SmartDashboard::PutString("Gear Command", current->GetName());
+	} else {
+		SmartDashboard::PutString("Gear Command", "None");
+	}
+
 	SmartDashboard::PutBoolean("Gear Open?", is_open);
 	SmartDashboard::PutNumber("Gear Encoder", Gear->GetPosition());
+	SmartDashboard::PutNumber("Gear Encoder Target", Gear->Get());
 	SmartDashboard::PutNumber("Gear encoder present?", Gear->IsSensorPresent(CANTalon::CtreMagEncoder_Absolute));
 }

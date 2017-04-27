@@ -5,6 +5,7 @@
 class OI
 {
 public:
+	void prints();
 	static bool DriveDeadzone(double x);
 	bool DriveActive();
 	enum OperatorButton {
