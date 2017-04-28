@@ -69,6 +69,12 @@ void ClimberSubsystem::SetPower(double power) {
 }
 
 void ClimberSubsystem::prints() {
+	Command* current = GetCurrentCommand();
+	if(current != nullptr) {
+		SmartDashboard::PutString("Climber Command", current->GetName());
+	} else {
+		SmartDashboard::PutString("Climber Command", "None");
+	}
 	SmartDashboard::PutNumber("Climber Encoder", Climber->GetPosition());
-	SmartDashboard::PutNumber("y axis slow", CommandBase::oi->operatorController->GetRawAxis(3));
+	SmartDashboard::PutNumber("Climber Encoder Target", Climber->Get());
 }

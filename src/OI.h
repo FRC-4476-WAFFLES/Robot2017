@@ -1,10 +1,12 @@
 #pragma once
 
 #include <Joystick.h>
+#include <PowerDistributionPanel.h>
 
 class OI
 {
 public:
+	void prints();
 	static bool DriveDeadzone(double x);
 	bool DriveActive();
 	enum OperatorButton {
@@ -24,4 +26,6 @@ public:
 	Joystick* joystickLeft;
 	Joystick* joystickRight;
 	Joystick* operatorController;
+
+	PowerDistributionPanel pdp;
 };

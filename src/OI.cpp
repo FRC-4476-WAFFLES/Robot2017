@@ -4,6 +4,7 @@
 
 #include "OI.h"
 #include <math.h>
+#include <DriverStation.h>
 #include <Buttons/Button.h>
 #include <Buttons/JoystickButton.h>
 //#include "Commands/Gear/GearOpenAutoUltrasonic.h"
@@ -33,6 +34,7 @@
 #include "Commands/Climber/ClimberFudge.h"
 #include "Commands/Climber/ClimberGrab.h"
 #include "Commands/Climber/ClimberGrabReverse.h"
+#include "SmartDashboard/SmartDashboard.h"
 
 OI::OI()
 {
@@ -117,4 +119,23 @@ bool OI::DriveDeadzone(double x){
 
 bool OI::DriveActive(){
 	return !(fabs(joystickLeft->GetRawAxis(1)) < 0.15) ||!(fabs(joystickRight->GetRawAxis(1) < 0.15));
+}
+
+void OI::prints() {
+	SmartDashboard::PutNumber("Operator (X)", operatorController->GetRawButton(OI::X));
+	SmartDashboard::PutNumber("Operator (Y)", operatorController->GetRawButton(OI::Y));
+	SmartDashboard::PutNumber("Operator (A)", operatorController->GetRawButton(OI::A));
+	SmartDashboard::PutNumber("Operator (B)", operatorController->GetRawButton(OI::B));
+
+	SmartDashboard::PutNumber("Operator Axis (Left Y)", operatorController->GetY(Joystick::kLeftHand));
+	SmartDashboard::PutNumber("Operator Axis (Right Y)", operatorController->GetY(Joystick::kRightHand));
+
+	SmartDashboard::PutNumber("Left Joystick Axis", joystickLeft->GetY());
+	SmartDashboard::PutNumber("Right Joystick Axis", joystickRight->GetY());
+
+	for(int i=0; i<16; i++)
+		SmartDashboard::PutNumber("PDP port " + i, pdp.GetCurrent(i));
+	
+	SmartDashboard::PutNumber("Battery Voltage", DriverStation::GetInstance().GetBatteryVoltage());
+	SmartDashboard::PutNumber("Match time", DriverStation::GetInstance().GetMatchTime());
 }
