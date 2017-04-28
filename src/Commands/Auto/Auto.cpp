@@ -17,6 +17,7 @@
 #include "Commands/Drawer/DrawerIn.h"
 #include "Commands/Climber/ClimberClimb.h"
 #include "Commands/Drive/DriveAutoTolerant.h"
+#include "Commands/Drawer/DrawerBumper.h"
 
 Auto::Auto():
 	// Default values for each number
@@ -144,21 +145,25 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			case 1: // Deliver gear middle
 			AddSequential(new DriveAuto(5.2, 0, 0.5));
 			AddSequential(new DriveAuto(2.5, 0, 0.5));
+			AddParallel(new StartCommand(new DrawerBumper()));
 			AddSequential(new GearCloseAuto());
 			break;
 			
 			case 2: // Deliver gear right
 			AddSequential(new DriveAuto(8, -62, 0.5));
+			AddParallel(new StartCommand(new DrawerBumper()));
 			AddSequential(new GearCloseAuto());
 			break;
 
 			case 3: // Deliver gear left
 			AddSequential(new DriveAuto(8, 62, 0.5));
+			AddParallel(new StartCommand(new DrawerBumper()));
 			AddSequential(new GearCloseAuto());
 			break;
 
 			case 5: // Deliver gear left Fast
 			AddSequential(new DriveAuto(8, 62, 0.5));
+			AddParallel(new StartCommand(new DrawerBumper()));
 			AddSequential(new GearCloseAuto());
 			break;
 
@@ -171,11 +176,13 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			case 1: // Deliver gear middle
 			AddSequential(new DriveAuto(5.2, 0, 0.3));
 			AddSequential(new DriveAuto(2.5, 0, 0.3));
+			AddParallel(new StartCommand(new DrawerBumper()));
 			AddSequential(new GearCloseAuto());
 			break;
 
 			case 2: // Deliver gear right
 			AddSequential(new DriveAuto(8, -62, 0.3));
+			AddParallel(new StartCommand(new DrawerBumper()));
 			AddSequential(new GearCloseAuto());
 			AddSequential(new DriveAuto(8, 0, 0.3));
 			AddSequential(new DriveAuto(30, 0, 0.6));
@@ -183,6 +190,7 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 
 			case 3: // Deliver gear left
 			AddSequential(new DriveAuto(8, 62, 0.3));
+			AddParallel(new StartCommand(new DrawerBumper()));
 			AddSequential(new GearCloseAuto());
 			AddSequential(new DriveAuto(8, 0, 0.3));
 			AddSequential(new DriveAuto(30, 0, 0.6));
@@ -190,6 +198,7 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 
 			case 5: // Deliver gear left Fast
 			AddSequential(new DriveAuto(8, 62, 0.6));
+			AddParallel(new StartCommand(new DrawerBumper()));
 			AddSequential(new GearCloseAuto());
 			AddSequential(new DriveAuto(8, 0, 0.6));
 			AddSequential(new DriveAuto(30, 0, 0.8));
@@ -204,11 +213,13 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			case 1: // Deliver gear middle
 			AddSequential(new DriveAuto(5.2, 0, 0.3));
 			AddSequential(new DriveAuto(2.5, 0, 0.3));
+			AddParallel(new StartCommand(new DrawerBumper()));
 			AddSequential(new GearCloseAuto());
 			break;
 
 			case 2: // Deliver gear right
 			AddSequential(new DriveAutoTolerant(8, -62, 0.8));
+			AddParallel(new StartCommand(new DrawerBumper()));
 			AddSequential(new GearCloseAuto());
 			AddSequential(new DriveAutoTolerant(8, 0, 0.8));
 			AddSequential(new DriveAutoTolerant(16, 0, 1.0));
@@ -218,6 +229,7 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 
 			case 3: // Deliver gear left
 			AddSequential(new DriveAutoTolerant(8, 62, 0.8));
+			AddParallel(new StartCommand(new DrawerBumper()));
 			AddSequential(new GearCloseAuto());
 			AddSequential(new DriveAutoTolerant(8, 0, 0.8));
 			AddSequential(new DriveAutoTolerant(16, 0, 1.0));
@@ -227,6 +239,7 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 
 			case 5: // Deliver gear left Fast
 			AddSequential(new DriveAutoTolerant(8, 62, 0.8));
+			AddParallel(new StartCommand(new DrawerBumper()));
 			AddSequential(new GearCloseAuto());
 			AddSequential(new DriveAutoTolerant(8, 0, 0.8));
 			AddSequential(new DriveAutoTolerant(16, 0, 1.0));
@@ -243,9 +256,10 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			// Deliver gear middle
 			AddSequential(new DriveAutoRelative(-3, 0));
 			AddSequential(new DriveAutoRelative(0, -90));
-			AddSequential(new DriveAutoRelative(4, 0));
-			AddSequential(new DriveAutoRelative(0, 90));
-			AddSequential(new DriveAutoRelative(10, 0));
+			AddSequential(new DriveAutoRelative(8, 0));
+			AddParallel(new StartCommand(new DrawerBumper()));
+			AddSequential(new DriveAutoRelative(0, 80));
+			AddSequential(new DriveAutoRelative(20, 0));
 		}
 		break;
 		case 7: // Drive right around the airship after center auto
@@ -253,9 +267,10 @@ Auto::Auto(int autonomousposition, int autonomousbackup, int autonomousultrasoni
 			// Deliver gear middle
 			AddSequential(new DriveAutoRelative(-3, 0));
 			AddSequential(new DriveAutoRelative(0, 90));
-			AddSequential(new DriveAutoRelative(4, 0));
-			AddSequential(new DriveAutoRelative(0, -90));
-			AddSequential(new DriveAutoRelative(10, 0));
+			AddSequential(new DriveAutoRelative(8, 0));
+			AddParallel(new StartCommand(new DrawerBumper()));
+			AddSequential(new DriveAutoRelative(0, -80));
+			AddSequential(new DriveAutoRelative(20, 0));
 		}
 		break;
 	}
