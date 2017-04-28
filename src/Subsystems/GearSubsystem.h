@@ -3,6 +3,7 @@
 #include "Commands/Subsystem.h"
 #include "Timer.h"
 #include "CANTalon.h"
+#include <PowerDistributionPanel.h>
 
 class GearSubsystem: public Subsystem
 {
@@ -26,6 +27,7 @@ public:
 	double vclosed = 0.686;
 	double vopen = 0.575;
 	double fmodGearEnc;
+	PowerDistributionPanel GearPowerDraw;
 };
 
 

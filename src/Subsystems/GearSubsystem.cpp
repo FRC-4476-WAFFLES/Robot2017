@@ -18,7 +18,7 @@ GearSubsystem::GearSubsystem():
 	Gear->SetSensorDirection(false);
 
 	Gear->ConfigNominalOutputVoltage(+0.0f, -0.0f);
-	Gear->ConfigPeakOutputVoltage(+6.0f, -6.0f);
+	Gear->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 
 	stuck_timer = new Timer();
 
@@ -35,11 +35,11 @@ void GearSubsystem::InitDefaultCommand()
 }
 
 void GearSubsystem::Open(){
-	SetAngle(vopen, -10);
+	SetAngle(vopen, -0.5);
 }
 
 void GearSubsystem::Closed(){
-	SetAngle(vclosed, 10);
+	SetAngle(vclosed, 0.5);
 }
 
 void GearSubsystem::SetAngle(double setpoint, double override_speed) {
@@ -48,10 +48,13 @@ void GearSubsystem::SetAngle(double setpoint, double override_speed) {
 		SmartDashboard::PutBoolean("Using PID?", true);
 		Gear->SetControlMode(CANSpeedController::kPosition);
 		Gear->Set(floor(Gear->GetPosition()) + setpoint);
+		SmartDashboard::PutNumber("Gear Target", floor(Gear->GetPosition()) + setpoint);
+		Gear->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 	} else {
 		SmartDashboard::PutBoolean("Using PID?", false);
 		Gear->SetControlMode(CANSpeedController::kPercentVbus);
 		Gear->Set(override_speed);
+		Gear->ConfigPeakOutputVoltage(+6.0f, -6.0f);
 	}
 }
 
@@ -68,21 +71,12 @@ bool GearSubsystem::IsSensorWorking(double setpoint) {
 		return false;
 	}
 
-//	//detect jump
-//	fmodGearEnc = Gear->GetPosition();
-//	fmodGearEnc -= floor(fmodGearEnc);
-//	if(fmodGearEnc > vclosed + 0.01 && fmodGearEnc < vopen - 0.01){
-//		stuck_timer->Reset();
-//		stuck_timer->Start();
-//		return false;
-//	}
 
 	// Detection for stuck_timer
-	double error = Gear->GetPosition() - setpoint;
-	if(fabs(error) < 0.05 || fabs(error - last_error) > 0.01) {
+
+	if(GearPowerDraw.GetCurrent(5) < 10){
 		stuck_timer->Reset();
 		stuck_timer->Start();
-		last_error = error;
 	}
 
 	// If none of the above have returned false, the sensor is good.

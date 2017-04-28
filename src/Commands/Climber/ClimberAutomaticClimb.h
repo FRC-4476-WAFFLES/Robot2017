@@ -2,9 +2,9 @@
 
 #include "CommandBase.h"
 
-class ClimberFudge : public CommandBase {
+class ClimberAutomaticClimb : public CommandBase {
 public:
-	ClimberFudge();
+	ClimberAutomaticClimb();
 	void drivet(double left);
 	void drive(double right);
 	void Initialize();

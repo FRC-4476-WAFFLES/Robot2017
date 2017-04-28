@@ -26,6 +26,8 @@ ClimberSubsystem::ClimberSubsystem():
 	 Climber_Slave->Set(TOP_CLIMBER_ROLLER);
 
 	 UpdatePID("Climber", Climber);
+
+
 }
 
 void ClimberSubsystem::InitDefaultCommand()
@@ -38,6 +40,19 @@ void ClimberSubsystem::SetPosition(double position) {
 	UpdatePID("Climber", Climber);
 	Climber->SetControlMode(CANTalon::kPosition);
 	Climber->Set(position);
+}
+void ClimberSubsystem::AutomaticClimb()
+{
+	//TODO: get real numbers here for climber power
+	if(ClimberPower.GetCurrent(3) < 4476){
+		Climber->SetControlMode(CANSpeedController::kPercentVbus);
+		Climber->Set(0.2);
+		hold = Climber->GetPosition();
+	} else {
+		Climber->SetControlMode(CANSpeedController::kPercentVbus);
+		Climber->Set(1.0);
+		hold = Climber->GetPosition();
+	}
 }
 
 double ClimberSubsystem::GetPosition() {
