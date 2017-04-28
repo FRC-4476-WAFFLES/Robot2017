@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Joystick.h>
+#include <PowerDistributionPanel.h>
 
 class OI
 {
@@ -25,4 +26,6 @@ public:
 	Joystick* joystickLeft;
 	Joystick* joystickRight;
 	Joystick* operatorController;
+
+	PowerDistributionPanel pdp;
 };

@@ -6,7 +6,6 @@
 class GearSubsystem: public Subsystem
 {
 private:
-
 public:
 	GearSubsystem();
 	void InitDefaultCommand();

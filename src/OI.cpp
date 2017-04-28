@@ -4,6 +4,7 @@
 
 #include "OI.h"
 #include <math.h>
+#include <DriverStation.h>
 #include <Buttons/Button.h>
 #include <Buttons/JoystickButton.h>
 //#include "Commands/Gear/GearOpenAutoUltrasonic.h"
@@ -128,4 +129,13 @@ void OI::prints() {
 
 	SmartDashboard::PutNumber("Operator Axis (Left Y)", operatorController->GetY(Joystick::kLeftHand));
 	SmartDashboard::PutNumber("Operator Axis (Right Y)", operatorController->GetY(Joystick::kRightHand));
+
+	SmartDashboard::PutNumber("Left Joystick Axis", joystickLeft->GetY());
+	SmartDashboard::PutNumber("Right Joystick Axis", joystickRight->GetY());
+
+	for(int i=0; i<16; i++)
+		SmartDashboard::PutNumber("PDP port " + i, pdp.GetCurrent(i));
+	
+	SmartDashboard::PutNumber("Battery Voltage", DriverStation::GetInstance().GetBatteryVoltage());
+	SmartDashboard::PutNumber("Match time", DriverStation::GetInstance().GetMatchTime());
 }

@@ -62,5 +62,4 @@ void ClimberSubsystem::prints() {
 	}
 	SmartDashboard::PutNumber("Climber Encoder", Climber->GetPosition());
 	SmartDashboard::PutNumber("Climber Encoder Target", Climber->Get());
-	SmartDashboard::PutNumber("y axis slow", CommandBase::oi->operatorController->GetRawAxis(3));
 }
