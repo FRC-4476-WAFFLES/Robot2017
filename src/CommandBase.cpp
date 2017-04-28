@@ -54,6 +54,7 @@ void CommandBase::prints() {
   if(gear != nullptr) gear->prints();
   if(climber != nullptr) climber->prints();
   if(drawer != nullptr) drawer->prints();
+  if(oi != nullptr) oi->prints();
 //  SmartDashboard::PutNumber("Voltage", DriverStation::GetInstance().GetBatteryVoltage());
 //  SmartDashboard::PutNumber("Current", PowerDistributionPanel().GetTotalCurrent());
   if(Scheduler::GetInstance() != nullptr) SmartDashboard::PutData(Scheduler::GetInstance());

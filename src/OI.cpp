@@ -34,6 +34,7 @@
 #include "Commands/Climber/ClimberFudge.h"
 #include "Commands/Climber/ClimberGrab.h"
 #include "Commands/Climber/ClimberGrabReverse.h"
+#include "Commands/Climber/ClimberAutomaticClimb.h"
 #include "SmartDashboard/SmartDashboard.h"
 
 OI::OI()
@@ -88,10 +89,13 @@ OI::OI()
 	Button* DrawerToBumper = new JoystickButton(operatorController, OperatorButton::B);
 	DrawerToBumper->WhenReleased(new DrawerBumper());
 
-	Button* GrabRope = new JoystickButton(operatorController, OperatorButton::BumperTopLeft);
-	GrabRope->WhileHeld(new ClimberGrab());
+//	Button* GrabRope = new JoystickButton(operatorController, OperatorButton::BumperTopLeft);
+	//GrabRope->WhileHeld(new ClimberGrab());
 	Button* GrabRopeInside = new JoystickButton(operatorController, OperatorButton::BumperTopRight);
 	GrabRopeInside->WhileHeld(new ClimberGrabReverse());
+
+	Button* AutoClimb = new JoystickButton(operatorController, OperatorButton::BumperTopLeft);
+	AutoClimb->WhileHeld(new ClimberAutomaticClimb());
 	// GrabRope->WhenReleased(new ClimberStop());
 	// Button* climb = new JoystickButton(operatorController, OperatorButton::BumperTopRight);
 	// climb->WhenReleased(new ClimberClimb());
@@ -133,9 +137,21 @@ void OI::prints() {
 	SmartDashboard::PutNumber("Left Joystick Axis", joystickLeft->GetY());
 	SmartDashboard::PutNumber("Right Joystick Axis", joystickRight->GetY());
 
-	for(int i=0; i<16; i++)
-		SmartDashboard::PutNumber("PDP port " + i, pdp.GetCurrent(i));
+	SmartDashboard::PutNumber("0 Drive",pdp.GetCurrent(0));
+	SmartDashboard::PutNumber("1 Drive",pdp.GetCurrent(1));
+	SmartDashboard::PutNumber("2 Drive",pdp.GetCurrent(2));
+
+	SmartDashboard::PutNumber("13 Drive",pdp.GetCurrent(13));
+	SmartDashboard::PutNumber("14 Drive",pdp.GetCurrent(14));
+	SmartDashboard::PutNumber("15 Drive",pdp.GetCurrent(15));
 	
+	SmartDashboard::PutNumber("3 Climb",pdp.GetCurrent(3));
+	SmartDashboard::PutNumber("12 Climb",pdp.GetCurrent(12));
+	SmartDashboard::PutNumber("5 Gear",pdp.GetCurrent(5));
+	SmartDashboard::PutNumber("7 Drawer",pdp.GetCurrent(7));
+	SmartDashboard::PutNumber("11 Lights",pdp.GetCurrent(11));
+
+
 	SmartDashboard::PutNumber("Battery Voltage", DriverStation::GetInstance().GetBatteryVoltage());
 	SmartDashboard::PutNumber("Match time", DriverStation::GetInstance().GetMatchTime());
 }

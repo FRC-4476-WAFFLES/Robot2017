@@ -1,0 +1,144 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="Gear Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="266"/>
+	</widget>
+	<widget field="Using PID?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="4" y="185"/>
+	</widget>
+	<widget field="Drive Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="30"/>
+	</widget>
+	<widget field="Operator Axis (Right Y)" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="887" y="175"/>
+	</widget>
+	<widget field="Drawer Encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="458"/>
+	</widget>
+	<widget field="backup" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="522" y="193"/>
+	</widget>
+	<widget field="drive.angle(degrees)" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1" y="118"/>
+	</widget>
+	<widget field="Climber Encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="359"/>
+	</widget>
+	<widget field="Drive Direction" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="52"/>
+	</widget>
+	<widget field="Scheduler" type="Scheduler" class="edu.wpi.first.smartdashboard.gui.elements.Scheduler">
+		<location x="270" y="27"/>
+	</widget>
+	<widget field="Left Joystick Axis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="887" y="102"/>
+	</widget>
+	<widget field="Gear Open?" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="223"/>
+	</widget>
+	<widget field="2 Drive" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="747" y="52"/>
+	</widget>
+	<widget field="0 Drive" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="747" y="2"/>
+	</widget>
+	<widget field="Drawer Encoder Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="478"/>
+	</widget>
+	<widget field="Right Joystick Axis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="888" y="127"/>
+	</widget>
+	<widget field="drive.ultrasonic(feet)" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="98"/>
+	</widget>
+	<widget field="15 Drive" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="745" y="244"/>
+	</widget>
+	<widget field="13 Drive" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="744" y="191"/>
+	</widget>
+	<widget field="Gear Command" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="290"/>
+	</widget>
+	<widget field="ultrasonic" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="521" y="381"/>
+	</widget>
+	<widget field="Battery Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="286" y="220"/>
+	</widget>
+	<widget field="drive.distance(feet)" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="8"/>
+	</widget>
+	<widget field="Gear Encoder Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1" y="245"/>
+	</widget>
+	<widget field="Climber Encoder Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="383"/>
+	</widget>
+	<widget field="Drawer Command" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="499"/>
+	</widget>
+	<widget field="Position" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="522" y="13"/>
+	</widget>
+	<widget field="Operator (B)" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="887" y="4"/>
+	</widget>
+	<widget field="Climber Command" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="4" y="406"/>
+	</widget>
+	<widget field="Match time" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="286" y="273"/>
+	</widget>
+	<widget field="3 Climb" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="747" y="76"/>
+	</widget>
+	<widget field="Auto Selector" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="286" y="248"/>
+	</widget>
+	<widget field="Drive Command" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="75"/>
+	</widget>
+	<widget field="Operator (Y)" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="887" y="75"/>
+	</widget>
+	<widget field="5 Gear" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="749" y="100"/>
+	</widget>
+	<widget field="14 Drive" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="743" y="219"/>
+	</widget>
+	<widget field="1 Drive" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="747" y="29"/>
+	</widget>
+	<widget field="12 Climb" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="742" y="167"/>
+	</widget>
+	<widget field="Gear encoder present?" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1" y="204"/>
+	</widget>
+	<widget field="Gear voltage output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="311"/>
+	</widget>
+	<widget field="Gear Encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="163"/>
+	</widget>
+	<widget field="Operator (A)" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="887" y="26"/>
+	</widget>
+	<widget field="7 Drawer" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="738" y="123"/>
+	</widget>
+	<widget field="Operator (X)" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="888" y="51"/>
+	</widget>
+	<widget field="Operator Axis (Left Y)" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="887" y="152"/>
+	</widget>
+	<widget field="11 Lights" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="738" y="145"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>

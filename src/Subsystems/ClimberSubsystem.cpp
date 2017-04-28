@@ -44,13 +44,13 @@ void ClimberSubsystem::SetPosition(double position) {
 void ClimberSubsystem::AutomaticClimb()
 {
 	//TODO: get real numbers here for climber power
-	if(ClimberPower.GetCurrent(3) < 4476){
+	if(ClimberPower.GetCurrent(3) < 1.5){
 		Climber->SetControlMode(CANSpeedController::kPercentVbus);
-		Climber->Set(0.2);
+		Climber->Set(-0.2);
 		hold = Climber->GetPosition();
 	} else {
 		Climber->SetControlMode(CANSpeedController::kPercentVbus);
-		Climber->Set(1.0);
+		Climber->Set(-1.0);
 		hold = Climber->GetPosition();
 	}
 }
