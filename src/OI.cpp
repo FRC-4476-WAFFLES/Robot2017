@@ -19,6 +19,7 @@
 #include "Commands/Gear/GearCloseAuto.h"
 #include "Commands/Gear/GearOpenAuto.h"
 #include "Commands/Gear/CancelGearCommand.h"
+#include "Commands/Gear/GearSafeMode.h"
 //#include "Commands/Gear/GearOpenAutoUltrasonic.h"
 //#include "Commands/Turret/TurretFullLeft.h"
 //#include "Commands/Turret/TurretFullRight.h"
@@ -91,8 +92,8 @@ OI::OI()
 
 //	Button* GrabRope = new JoystickButton(operatorController, OperatorButton::BumperTopLeft);
 	//GrabRope->WhileHeld(new ClimberGrab());
-	Button* GrabRopeInside = new JoystickButton(operatorController, OperatorButton::BumperTopRight);
-	GrabRopeInside->WhileHeld(new ClimberGrabReverse());
+	Button* saftyfirst = new JoystickButton(operatorController, OperatorButton::BumperTopRight);
+	saftyfirst->WhenPressed(new GearSafeMode());
 
 	Button* AutoClimb = new JoystickButton(operatorController, OperatorButton::BumperTopLeft);
 	AutoClimb->WhileHeld(new ClimberAutomaticClimb());

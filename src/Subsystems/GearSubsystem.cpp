@@ -71,6 +71,11 @@ bool GearSubsystem::IsSensorWorking(double setpoint) {
 		return false;
 	}
 
+	if(SafeMode == true){
+		stuck_timer->Reset();
+		stuck_timer->Start();
+		return false;
+	}
 
 	// Detection for stuck_timer
 
