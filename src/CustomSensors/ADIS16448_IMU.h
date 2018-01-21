@@ -7,12 +7,11 @@
 
 #pragma once
 
+#include "DigitalOutput.h"
 #include "DigitalSource.h"
 #include "GyroBase.h"
 #include "InterruptableSensorBase.h"
 #include "SPI.h"
-#include "HAL/cpp/priority_condition_variable.h"
-#include "HAL/cpp/priority_mutex.h"
 
 #include <atomic>
 #include <condition_variable>
@@ -60,7 +59,7 @@ class ADIS16448_IMU : public frc::GyroBase {
   double GetQuaternionZ() const;
   void SetTiltCompYaw(bool enabled);
 
-  void UpdateTable();
+  void InitSendable(SendableBuilder& builder) override;
 
  private:
   // Sample from the IMU
@@ -157,15 +156,15 @@ class ADIS16448_IMU : public frc::GyroBase {
   std::thread m_acquire_task;
   std::thread m_calculate_task;
 
-  mutable priority_mutex m_mutex;
+  mutable std::mutex m_mutex;
 
   // Samples FIFO.  We make the FIFO 2 longer than it needs
   // to be so the input and output never overlap (we hold a reference
   // to the output while the lock is released).
   static constexpr int kSamplesDepth = 10;
   Sample m_samples[kSamplesDepth + 2];
-  priority_mutex m_samples_mutex;
-  priority_condition_variable m_samples_not_empty;
+  std::mutex m_samples_mutex;
+  std::condition_variable m_samples_not_empty;
   int m_samples_count = 0;
   int m_samples_take_index = 0;
   int m_samples_put_index = 0;

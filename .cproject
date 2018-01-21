@@ -65,9 +65,6 @@
 						</toolChain>
 					</folderInfo>
 					<fileInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.1104744751.52918417" name="TurretTrigger.h" rcbsApplicability="disable" resourcePath="src/Triggers/TurretTrigger.h" toolsToInvoke=""/>
-					<fileInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.1104744751.847567420" name="TurretTrigger.cpp" rcbsApplicability="disable" resourcePath="src/Triggers/TurretTrigger.cpp" toolsToInvoke="cdt.managedbuild.tool.gnu.cross.cpp.compiler.1505235107.1372383945">
-						<tool id="cdt.managedbuild.tool.gnu.cross.cpp.compiler.1505235107.1372383945" name="Cross G++ Compiler" superClass="cdt.managedbuild.tool.gnu.cross.cpp.compiler.1505235107"/>
-					</fileInfo>
 					<sourceEntries>
 						<entry excluding="src/refrence/Robot.cpp|src/vision/ntcore|src/vision/run_result.hpp|src/vision/run_result.cpp|src/vision/libx86_64|src/vision/libarm|src/vision/include|src/vision/build|src/vision/vision.hpp|src/vision/vision.cpp|src/vision/main.cpp|src/vision/Client|vision" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
