@@ -2,7 +2,8 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-#include "CANTalon.h"
+#include <ctre/Phoenix.h>
+#include <ctre/phoenix/MotorControl/CAN/TalonSRX.h>
 
 class IntakeSubsystem: public Subsystem
 {
@@ -13,7 +14,7 @@ public:
 	void InitDefaultCommand();
 	void ContinuosIntake();
 	VictorSP* IntakeRollers;
-	CANTalon* BallConveyor;
+	TalonSRX* BallConveyor;
 };
 
 

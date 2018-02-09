@@ -25,10 +25,8 @@ public:
 	// Create a single static instance of all of your subsystems
 	static std::unique_ptr<DriveSubsystem> drive;
 	static std::unique_ptr<OI> oi;
-	static std::unique_ptr<ShooterSubsystem> shooter;
 	static std::unique_ptr<IntakeSubsystem> intake;
 	static std::unique_ptr<GearSubsystem> gear;
-	static std::unique_ptr<TurretSubsystem> turret;
 
 };
 
