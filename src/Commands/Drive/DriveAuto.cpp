@@ -2,7 +2,8 @@
  * Drives in a direction for a certain number of encoder tick
  */
 
-#include "DriveAuto.h"
+#include "Commands/Drive/DriveAuto.h"
+#include "Subsystems/DriveSubsystem.h"
 
 DriveAuto::DriveAuto(double distance, double angle):
 	CommandBase("DriveAuto")

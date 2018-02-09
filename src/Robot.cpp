@@ -1,29 +1,57 @@
-#include <Commands/Auto/AutoLeftGearDeliveryBlue.h>
-#include "WPILib.h"
+#include <IterativeRobot.h>
+#include <SmartDashboard/SendableChooser.h>
+#include <LiveWindow/LiveWindow.h>
 #include "CommandBase.h"
-#include "Commands/Auto/AutoDoNothing.h"
-#include "Commands/Auto/AutoGearDelivery.h"
-#include "Subsystems/TurretSubsystem.h"
-#include "Commands/Auto/AutoLeftGearDeliveryRed.h"
-#include "Commands/Auto/AutoDriveForward.h"
+#include "Subsystems/DriveSubsystem.h"
+#include "Subsystems/DrawerSubsystem.h"
+#include "Subsystems/GearSubsystem.h"
+#include "Commands/Auto/Auto.h"
+#include "OI.h"
+
+
 class Robot: public IterativeRobot
 {
 private:
 	LiveWindow *lw = LiveWindow::GetInstance();
-	Command* autonomousCommand;
-	SendableChooser<Command*>* chooser;
+	int autonomousposition;
+	int autonomousbackup;
+	int autonomousultrasonic;
+	SendableChooser<int*>* position;
+	SendableChooser<int*>* backup;
+	SendableChooser<int*>* ultrasonic;
+	Auto* autoCommand;
 
 	void RobotInit()
 	{
 		CommandBase::init();
-		chooser = new SendableChooser<Command*>();
-		chooser->AddDefault("Nothing Auto", new AutoDoNothing());
-		chooser->AddObject("Gear Delivery Auto", new AutoGearDelivery());
-		chooser->AddObject("RED Gear Delivery Right ", new AutoLeftGearDeliveryRed());
-		chooser->AddObject("BLUE Gear Delivery Left ", new AutoLeftGearDeliveryBlue());
-		chooser->AddDefault("drive forward Auto", new AutoDriveForward());
-		SmartDashboard::PutData("Auto Modes", chooser);
-		printf("running");
+
+		position = new SendableChooser<int*>();
+		position->AddDefault("nothing", new int(0));
+		position->AddObject("Center", new int(1));
+		position->AddObject("Right", new int(2));
+		position->AddObject("Left", new int(3));
+		position->AddObject("DriveForeward", new int(4));
+		position->AddObject("Left Fast", new int(5));
+		position->AddObject("Test", new int(6));
+		SmartDashboard::PutData("Position", position);
+
+		backup = new SendableChooser<int*>();
+		backup->AddObject("Hopper", new int(1));
+		backup->AddObject("Down The Field", new int(4));
+		backup->AddObject("part way", new int(2));
+		backup->AddObject("Crossover (only side autos)", new int(5));
+		backup->AddObject("Go left around (only center auto)", new int(6));
+		backup->AddObject("Go right around (only center auto)", new int(7));
+		backup->AddDefault("no", new int(3));
+		SmartDashboard::PutData("backup", backup);
+
+		ultrasonic = new SendableChooser<int*>();
+		ultrasonic->AddObject("Yes", new int(1));
+		ultrasonic->AddDefault("no", new int(2));
+		SmartDashboard::PutData("ultrasonic", ultrasonic);
+
+		autoCommand = new Auto();
+		printf("running \n");
 	}
 
 
@@ -40,40 +68,55 @@ private:
 	{
 		if(CommandBase::drive != nullptr)
 			CommandBase::drive->zero_sensors();
-		autonomousCommand = (Command*) chooser->GetSelected();
-		//starts the selected command
-		autonomousCommand->Start();
+		autonomousposition = *position->GetSelected();
+		autonomousbackup = *backup->GetSelected();
+		autonomousultrasonic = *ultrasonic->GetSelected();
+
+		// Remove the previous autonomous command
+		frc::Scheduler::GetInstance()->Remove(autoCommand);
+		delete autoCommand;
+		// Create a new autonomous command
+		autoCommand = new Auto(autonomousposition, autonomousbackup, autonomousultrasonic);
+		// Run it.
+		autoCommand->Start();
 	}
 
 	void AutonomousPeriodic()
 	{
 		frc::Scheduler::GetInstance()->Run();
 		CommandBase::prints();
-		CommandBase::turret->TurretHome();
+//		CommandBase::turret->TurretHome();
 	}
 
 	void TeleopInit()
 	{
-		if (autonomousCommand != NULL)
-			autonomousCommand->Cancel();
+		if (autoCommand != NULL)
+			autoCommand->Cancel();
+
+		CommandBase::gear->is_open = false;
 	}
 
 	void TeleopPeriodic()
 	{
 		frc::Scheduler::GetInstance()->Run();
 		CommandBase::prints();
-		CommandBase::turret->TurretHome();
+//		CommandBase::turret->TurretHome();
 	}
 
 	void TestPeriodic()
 	{
 		lw->Run();
-		CommandBase::turret->TurretHome();
+//		CommandBase::turret->TurretHome();
 	}
 	void DisabledPeriodic()
 	{
+		if(CommandBase::oi->joystickLeft->GetRawButton(11)){
+			CommandBase::drawer->Drawer->SetPosition(0.0);
+		}
+		// Most commands will cancel themselves when run in disabled mode.
+		frc::Scheduler::GetInstance()->Run();
 		CommandBase::prints();
-		CommandBase::turret->TurretHome();
+//		CommandBase::turret->TurretHome();
 	}
 };
 

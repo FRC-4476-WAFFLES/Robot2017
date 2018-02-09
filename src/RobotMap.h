@@ -1,7 +1,4 @@
-#ifndef ROBOTMAP_H
-#define ROBOTMAP_H
-
-#include "WPILib.h"
+#pragma once
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -11,35 +8,31 @@
  */
  
 // PWM Motors
-
 constexpr int DRIVE_RIGHT_1 = 0;
 constexpr int DRIVE_RIGHT_2 = 1;
 constexpr int DRIVE_RIGHT_3 = 2;
 constexpr int DRIVE_LEFT_1 = 3;
 constexpr int DRIVE_LEFT_2 = 4;
 constexpr int DRIVE_LEFT_3 = 5;
-
-constexpr int INTAKE_ROLLER = 7;
-constexpr int SHOOTER_LOAD = 6;
-
 constexpr int GEAR_LEFT = 8;
 constexpr int GEAR_RIGHT = 9;
 
 // CAN Motors
-constexpr int SHOOTER_ROLLER = 3;
-constexpr int SHOOTER_ROLLER_SLAVE = 4;
-constexpr int SHOOTER_TURRET = 2;
-constexpr int BALL_CONVEYOR = 1;
+constexpr int GEAR = 1;
+constexpr int DRAWER = 2;
+constexpr int TOP_CLIMBER_ROLLER = 3;
+constexpr int TOP_CLIMBER_SLAVE= 4;
 // Analog Inputs
 
+/////////DIGITAL I/O PORTS/////////
 // Digital Inputs
-constexpr int DRIVE_ENCODER_A = 8;//
+constexpr int DRIVE_ENCODER_A = 8;//left
 constexpr int DRIVE_ENCODER_B = 9;//
-constexpr int DRIVE_ENCODER_C = 2;//
+constexpr int DRIVE_ENCODER_C = 2;//right
 constexpr int DRIVE_ENCODER_D = 3;
+constexpr int CLIMBER_ENCODER_A = 4;
+constexpr int CLIMBER_ENCODER_B = 5;
+constexpr int SONAR_IN = 6;
 
-
-
-#endif
-
-
+//Digital Outputs
+constexpr int SONAR_OUT = 7;

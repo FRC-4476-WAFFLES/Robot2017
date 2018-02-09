@@ -1,4 +1,5 @@
-#include <Commands/Gear/GearAuto.h>
+#include "Commands/Gear/GearAuto.h"
+#include "Subsystems/GearSubsystem.h"
 
 GearAuto::GearAuto() :
 	// Use Requires() here to declare subsystem dependencies
@@ -22,7 +23,7 @@ void GearAuto::Execute() {
 	gear->Persist();
 }
 
-// Make this return true when this Command no longer needs to run execute()
+// Make this return true when this Command no longer need s to run execute()
 bool GearAuto::IsFinished() {
 	return t.HasPeriodPassed(0.4);
 

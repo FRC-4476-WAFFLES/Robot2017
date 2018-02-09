@@ -1,8 +1,6 @@
-#ifndef WAIT_TRIGGER_H_
-#define WAIT_TRIGGER_H_
+#pragma once
 
 #include <CommandBase.h>
-#include "WPILib.h"
 
 class WaitTrigger: public CommandBase {
 private:
@@ -15,5 +13,3 @@ public:
 	void End();
 	void Interrupted();
 };
-
-#endif

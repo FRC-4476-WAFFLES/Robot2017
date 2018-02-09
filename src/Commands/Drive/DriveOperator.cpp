@@ -1,7 +1,8 @@
-#include "DriveOperator.h"
-
-
 // Allows the driver to drive the robot by making the speed of the robot = the Y axis value
+
+#include "Commands/Drive/DriveOperator.h"
+#include "Subsystems/DriveSubsystem.h"
+#include "OI.h"
 
 // needs the undivided attention of the drive subsystem
 DriveOperator::DriveOperator():

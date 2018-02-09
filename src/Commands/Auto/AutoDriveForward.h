@@ -1,7 +1,6 @@
 #pragma once
 
-#include "CommandBase.h"
-#include "WPILib.h"
+#include <Commands/CommandGroup.h>
 
 class AutoDriveForward: public CommandGroup
 {

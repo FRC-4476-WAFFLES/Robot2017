@@ -4,13 +4,15 @@
  */
 
 
-#include <Commands/Drive/DriveOperator.h>
-#include "Commands/Drive/DriveAuto.h"
 #include "DriveSubsystem.h"
-#include "../RobotMap.h"
 #include <math.h>
+#include <SmartDashboard/SmartDashboard.h>
+#include <Preferences.h>
+#include "Commands/Drive/DriveOperator.h"
+#include "Commands/Drive/DriveAuto.h"
 #include "CustomSensors/ADIS16448_IMU.h"
 #include "OI.h"
+#include "RobotMap.h"
 
 DriveSubsystem::DriveSubsystem():
 		Subsystem("DriveSubsystem")
@@ -23,21 +25,37 @@ DriveSubsystem::DriveSubsystem():
 	DriveRight3 = new Victor(DRIVE_RIGHT_3);
 
 	//motor safety
-	DriveLeft1->SetSafetyEnabled(true);
-	DriveLeft2->SetSafetyEnabled(true);
-	DriveLeft3->SetSafetyEnabled(true);
-	DriveRight1->SetSafetyEnabled(true);
-	DriveRight2->SetSafetyEnabled(true);
-	DriveRight3->SetSafetyEnabled(true);
+	DriveLeft1->SetSafetyEnabled(false);
+	DriveLeft2->SetSafetyEnabled(false);
+	DriveLeft3->SetSafetyEnabled(false);
+	DriveRight1->SetSafetyEnabled(false);
+	DriveRight2->SetSafetyEnabled(false);
+	DriveRight3->SetSafetyEnabled(false);
 
 	gyro = new ADIS16448_IMU;
 	DriveEncoder = new Encoder(DRIVE_ENCODER_A , DRIVE_ENCODER_B);
 	DriveEncoder2 = new Encoder(DRIVE_ENCODER_C, DRIVE_ENCODER_D);
+
+	ultrasonic_sensor = new Ultrasonic(SONAR_OUT, SONAR_IN);
+	ultrasonic_sensor->SetAutomaticMode(true);
 }
 
 void DriveSubsystem::InitDefaultCommand() {
 	// When no other commands are running, we do operator control
 	SetDefaultCommand(new DriveOperator());
+}
+
+double DriveSubsystem::distance_to_wall() {
+	return (ultrasonic_sensor->GetRangeInches())/12;
+}
+
+void DriveSubsystem::DriveToGearWall(double InputAngle)
+{
+	auto_drive(distance() + distance_to_wall() - 0.3, InputAngle,0.3);
+}
+
+bool DriveSubsystem::IsAtWall() {
+	return distance_to_wall() - 0.35 < 0.0;
 }
 
 double DriveSubsystem::distance() {
@@ -72,7 +90,7 @@ void DriveSubsystem::drive(Joystick* left, Joystick* right) {
 }
 
 double ramp(double last, double target) {
-	const double step = 0.1;
+//	const double step = 0.1;
 	if(last < 0 && target < 0 && target > last)
 		return target;
 	if(last > 0 && target > 0 && target < last)
@@ -152,8 +170,16 @@ bool DriveSubsystem::on_target(double distanceTarget, double distanceTolerence, 
 }
 
 void DriveSubsystem::prints() {
+	Command* current = GetCurrentCommand();
+	if(current != nullptr) {
+		SmartDashboard::PutString("Drive Command", current->GetName());
+	} else {
+		SmartDashboard::PutString("Drive Command", "None");
+	}
 	SmartDashboard::PutNumber("drive.angle(degrees)", angle());
+	SmartDashboard::PutNumber("Drive Direction", fmod(fmod(angle()+135.0, 360.0)+360.0, 360.0));
 	SmartDashboard::PutNumber("drive.distance(feet)", distance());
+	SmartDashboard::PutNumber("drive.ultrasonic(feet)", distance_to_wall());
 	SmartDashboard::PutNumber("Drive Speed", ((DriveEncoder->GetRate() - DriveEncoder2->GetRate())/2.0)/76.83333333);
 }
 

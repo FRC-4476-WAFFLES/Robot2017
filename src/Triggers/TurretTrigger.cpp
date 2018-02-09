@@ -1,5 +1,6 @@
 #include "TurretTrigger.h"
 #include "OI.h"
+
 TurretTrigger::TurretTrigger(Joystick *joystick):
 	joystick(joystick)
 {

@@ -1,8 +1,11 @@
-#ifndef DRIVE_SUBSYSTEM_H
-#define DRIVE_SUBSYSTEM_H
+#pragma once
 
 #include "Commands/Subsystem.h"
-#include "WPILib.h"
+#include "Joystick.h"
+#include "Encoder.h"
+#include "Timer.h"
+#include "Victor.h"
+#include "Ultrasonic.h"
 #include "CustomSensors/ADIS16448_IMU.h"
 
 class DriveSubsystem: public Subsystem
@@ -17,16 +20,20 @@ private:
 	Victor* DriveLeft1;
 	Victor* DriveLeft2;
 	Victor* DriveLeft3;
+	Ultrasonic* ultrasonic_sensor;
 
 	double last_left = 0;
 	double last_right = 0;
 
-	double last_distance_error;
-	double last_angle_error;
+	double last_distance_error = 0;
+	double last_angle_error = 0;
 	Timer last_pid_time;
 public:
 	DriveSubsystem();
 	void InitDefaultCommand();
+	void DriveToGearWall(double InputAngle);
+	bool IsAtWall();
+	double distance_to_wall();
 	double distance();
 	double angle();
 	double angle_rate();
@@ -46,5 +53,3 @@ namespace drive_curves {
 	double cheesy_curve(double x);
 	double bezier_1114(double x);
 }
-
-#endif
