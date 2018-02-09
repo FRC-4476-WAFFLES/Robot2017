@@ -13,7 +13,7 @@ ClimberFudge::ClimberFudge():
 
 // Called just before this Command runs the first time
 void ClimberFudge::Initialize() {
-	climber->hold = climber->Climber->GetPosition();
+	climber->hold = climber->Climber->getSelectedSensorPosition();
 }
 
 // Called repeatedly when this Command is scheduled to run

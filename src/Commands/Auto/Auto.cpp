@@ -2,14 +2,10 @@
 #include <DriverStation.h>
 #include "Commands/Misc/WaitTime.h"
 #include "Commands/Drive/DriveAuto.h"
-#include "Commands/Shooter/ShooterPrepAuto.h"
-#include "Commands/Shooter/ShootAutoUntil.h"
 #include "Commands/Intake/ConveyorAuto.h"
-#include "Commands/Turret/TurretCenterShot.h"
 #include "Commands/Gear/GearCloseAuto.h"
 #include "Commands/Gear/GearAuto.h"
 #include "Commands/Gear/GearAutoUltrasonic.h"
-#include "Commands/Turret/TurretVision.h"
 #include "Commands/Drawer/DrawerOut.h"
 #include <Commands/StartCommand.h>
 #include "Commands/Drive/DriveHalfRelative.h"

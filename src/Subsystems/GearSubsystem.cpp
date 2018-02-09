@@ -8,17 +8,16 @@
 #include "Helpers/PIDPreferences.h"
 #include "DriverStation.h"
 #include "OI.h"
+#include "WPILib.h"
 
 GearSubsystem::GearSubsystem():
 		Subsystem("GearSubsystem")
 {
-	Gear = new CANTalon(GEAR);
+	Gear = new TalonSRX(GEAR);
 
-	Gear->SetFeedbackDevice(CANTalon::CtreMagEncoder_Absolute);
-	Gear->SetSensorDirection(false);
+	Gear->ConfigSelectedFeedbackSensor(FeedbackDevice::PulseWidthEncodedPosition,0,0);
+	Gear->SetSensorPhase(false);
 
-	Gear->ConfigNominalOutputVoltage(+0.0f, -0.0f);
-	Gear->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 
 	stuck_timer = new Timer();
 
@@ -44,7 +43,7 @@ void GearSubsystem::Closed(){
 
 void GearSubsystem::SetAngle(double setpoint, double override_speed) {
 	UpdatePID("Gear", Gear);
-	if(IsSensorWorking(floor(Gear->GetPosition()) + setpoint)) {
+	if(IsSensorWorking(floor(Gear->getSelectedSensorPosition()) + setpoint)) {
 		SmartDashboard::PutBoolean("Using PID?", true);
 		Gear->SetControlMode(CANSpeedController::kPosition);
 		Gear->Set(floor(Gear->GetPosition()) + setpoint);

@@ -2,7 +2,8 @@
 
 #include <Commands/Subsystem.h>
 #include <Encoder.h>
-#include <CANTalon.h>
+#include <ctre/phoenix/MotorControl/CAN/TalonSRX.h>
+#include <ctre/Phoenix.h>
 #include <PowerDistributionPanel.h>
 
 class ClimberSubsystem: public Subsystem
@@ -19,8 +20,8 @@ public:
 	double GetPosition();
 	void prints();
 	double hold = 0.0;
-	CANTalon* Climber;
-	CANTalon* Climber_Slave;
+	TalonSRX* Climber;
+	TalonSRX* Climber_Slave;
 	Encoder* ClimbEncoder;
 	PowerDistributionPanel ClimberPower;
 };

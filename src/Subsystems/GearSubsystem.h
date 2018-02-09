@@ -2,7 +2,8 @@
 
 #include "Commands/Subsystem.h"
 #include "Timer.h"
-#include "CANTalon.h"
+#include <ctre/phoenix/MotorControl/CAN/TalonSRX.h>
+#include <ctre/Phoenix.h>
 #include <PowerDistributionPanel.h>
 
 class GearSubsystem: public Subsystem
@@ -20,7 +21,7 @@ public:
 	void Toggle();
 	void Persist();
 	void prints();
-	CANTalon* Gear;
+	TalonSRX* Gear;
 	float starting_angle = 0;
 	bool is_open = false;
 	bool cancel = false;

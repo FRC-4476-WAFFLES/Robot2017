@@ -11,19 +11,15 @@
 ClimberSubsystem::ClimberSubsystem():
 		Subsystem("ClimberSubsystem")
 {
-	 Climber = new CANTalon(TOP_CLIMBER_ROLLER);
-	 Climber_Slave = new CANTalon(TOP_CLIMBER_SLAVE);
+	 Climber = new TalonSRX(TOP_CLIMBER_ROLLER);
+	 Climber_Slave = new TalonSRX(TOP_CLIMBER_SLAVE);
 
-	 Climber->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-	 Climber->SetSensorDirection(true);
+	 Climber->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder,0,0);
+	 Climber->SetSensorPhase(true);
 
-	 //peak outputs
-     Climber->ConfigNominalOutputVoltage(+0.0f, -0.0f);
-     Climber->ConfigPeakOutputVoltage(+12.0f, -12.0f);
 
      //PID things
-     Climber_Slave->SetControlMode(CANSpeedController::kFollower);
-	 Climber_Slave->Set(TOP_CLIMBER_ROLLER);
+     Climber_Slave->Set(ControlMode::Follower,TOP_CLIMBER_ROLLER);
 
 	 UpdatePID("Climber", Climber);
 
@@ -38,7 +34,7 @@ void ClimberSubsystem::InitDefaultCommand()
 
 void ClimberSubsystem::SetPosition(double position) {
 	UpdatePID("Climber", Climber);
-	Climber->SetControlMode(CANTalon::kPosition);
+	Climber->SetControlMode(TalonSRX::PositionMode);
 	Climber->Set(position);
 }
 void ClimberSubsystem::AutomaticClimb()
@@ -75,6 +71,6 @@ void ClimberSubsystem::prints() {
 	} else {
 		SmartDashboard::PutString("Climber Command", "None");
 	}
-	SmartDashboard::PutNumber("Climber Encoder", Climber->GetPosition());
-	SmartDashboard::PutNumber("Climber Encoder Target", Climber->Get());
+	SmartDashboard::PutNumber("Climber Encoder", Climber->getSelectedSensorPosition());
+	SmartDashboard::PutNumber("Climber Encoder Target", Climber->GetClosedLoopTarget());
 }
