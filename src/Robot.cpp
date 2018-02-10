@@ -7,6 +7,7 @@
 #include "Subsystems/GearSubsystem.h"
 #include "Commands/Auto/Auto.h"
 #include "OI.h"
+#include "WPILib.h"
 
 
 class Robot: public IterativeRobot
@@ -111,7 +112,7 @@ private:
 	void DisabledPeriodic()
 	{
 		if(CommandBase::oi->joystickLeft->GetRawButton(11)){
-			CommandBase::drawer->Drawer->SetPosition(0.0);
+			CommandBase::drawer->Drawer->SetSelectedSensorPosition(0.0,0,0);
 		}
 		// Most commands will cancel themselves when run in disabled mode.
 		frc::Scheduler::GetInstance()->Run();

@@ -7,6 +7,7 @@
 #include "../RobotMap.h"
 #include "Helpers/PIDPreferences.h"
 #include "oi.h"
+#include "SmartDashboard/SmartDashboard.h"
 
 ClimberSubsystem::ClimberSubsystem():
 		Subsystem("ClimberSubsystem")
@@ -34,34 +35,30 @@ void ClimberSubsystem::InitDefaultCommand()
 
 void ClimberSubsystem::SetPosition(double position) {
 	UpdatePID("Climber", Climber);
-	Climber->SetControlMode(TalonSRX::PositionMode);
-	Climber->Set(position);
+	Climber->Set(ControlMode::Position, position);
 }
 void ClimberSubsystem::AutomaticClimb()
 {
 	//TODO: get real numbers here for climber power
 	if(ClimberPower.GetCurrent(3) < 1.5){
-		Climber->SetControlMode(CANSpeedController::kPercentVbus);
-		Climber->Set(-0.2);
-		hold = Climber->GetPosition();
+		Climber->Set(ControlMode::PercentOutput, -0.2);
+		hold = Climber->GetSelectedSensorPosition(0);
 	} else {
-		Climber->SetControlMode(CANSpeedController::kPercentVbus);
-		Climber->Set(-1.0);
-		hold = Climber->GetPosition();
+		Climber->Set(ControlMode::PercentOutput, -1.0);
+		hold = Climber->GetSelectedSensorPosition(0);
 	}
 }
 
 double ClimberSubsystem::GetPosition() {
-	return Climber->GetPosition();
+	return Climber->GetSelectedSensorPosition(0);
 }
 
 double ClimberSubsystem::GetSetpoint() {
-	return Climber->Get();
+	return Climber->GetClosedLoopTarget(0);
 }
 
 void ClimberSubsystem::SetPower(double power) {
-	Climber->SetControlMode(CANTalon::kPercentVbus);
-	Climber->Set(power);
+	Climber->Set(ControlMode::PercentOutput, power);
 }
 
 void ClimberSubsystem::prints() {
@@ -71,6 +68,6 @@ void ClimberSubsystem::prints() {
 	} else {
 		SmartDashboard::PutString("Climber Command", "None");
 	}
-	SmartDashboard::PutNumber("Climber Encoder", Climber->getSelectedSensorPosition());
-	SmartDashboard::PutNumber("Climber Encoder Target", Climber->GetClosedLoopTarget());
+	SmartDashboard::PutNumber("Climber Encoder", Climber->GetSelectedSensorPosition(0));
+	SmartDashboard::PutNumber("Climber Encoder Target", Climber->GetClosedLoopTarget(0));
 }

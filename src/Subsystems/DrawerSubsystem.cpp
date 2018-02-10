@@ -7,6 +7,8 @@
 #include "../RobotMap.h"
 #include "Helpers/PIDPreferences.h"
 #include "WPILib.h"
+#include <ctre/phoenix/MotorControl/CAN/TalonSRX.h>
+#include <ctre/Phoenix.h>
 
 DrawerSubsystem::DrawerSubsystem():
 		Subsystem("DrawerSubsytem")
@@ -35,7 +37,7 @@ void DrawerSubsystem::SetSetpoint(double point) {
 }
 
 double DrawerSubsystem::GetSetpoint() {
-	return Drawer->getClosedLoopTarget();
+	return Drawer->GetClosedLoopTarget(0);
 }
 
 void DrawerSubsystem::prints() {
@@ -45,8 +47,8 @@ void DrawerSubsystem::prints() {
 	} else {
 		SmartDashboard::PutString("Drawer Command", "None");
 	}
-	SmartDashboard::PutNumber("Drawer Encoder", Drawer->GetSelectedSensorPosition());
-	SmartDashboard::PutNumber("Drawer Encoder Target", Drawer->GetClosedLoopTarget());
+	SmartDashboard::PutNumber("Drawer Encoder", Drawer->GetSelectedSensorPosition(0));
+	SmartDashboard::PutNumber("Drawer Encoder Target", Drawer->GetClosedLoopTarget(0));
 }
 
 

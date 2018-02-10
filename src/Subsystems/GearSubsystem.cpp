@@ -9,6 +9,10 @@
 #include "DriverStation.h"
 #include "OI.h"
 #include "WPILib.h"
+#include <ctre/phoenix/MotorControl/CAN/TalonSRX.h>
+#include <ctre/Phoenix.h>
+#include <ctre/phoenix/MotorControl/ControlMode.h>
+
 
 GearSubsystem::GearSubsystem():
 		Subsystem("GearSubsystem")
@@ -43,17 +47,14 @@ void GearSubsystem::Closed(){
 
 void GearSubsystem::SetAngle(double setpoint, double override_speed) {
 	UpdatePID("Gear", Gear);
-	if(IsSensorWorking(floor(Gear->getSelectedSensorPosition()) + setpoint)) {
+	if(IsSensorWorking(floor(Gear->GetSelectedSensorPosition(0)) + setpoint)) {
 		SmartDashboard::PutBoolean("Using PID?", true);
-		Gear->SetControlMode(CANSpeedController::kPosition);
-		Gear->Set(floor(Gear->GetPosition()) + setpoint);
-		SmartDashboard::PutNumber("Gear Target", floor(Gear->GetPosition()) + setpoint);
-		Gear->ConfigPeakOutputVoltage(+12.0f, -12.0f);
+		Gear->Set(ControlMode::Position, floor(Gear->GetSelectedSensorPosition(0)) + setpoint);
+		SmartDashboard::PutNumber("Gear Target", floor(Gear->GetSelectedSensorPosition(0)) + setpoint);
 	} else {
 		SmartDashboard::PutBoolean("Using PID?", false);
-		Gear->SetControlMode(CANSpeedController::kPercentVbus);
-		Gear->Set(override_speed);
-		Gear->ConfigPeakOutputVoltage(+6.0f, -6.0f);
+		Gear->Set(ControlMode::PercentOutput,override_speed);
+
 	}
 }
 
@@ -64,7 +65,7 @@ bool GearSubsystem::IsSensorWorking(double setpoint) {
 	}
 
 	// If sensor isn't present, sensor isn't working
-	if(Gear->IsSensorPresent(CANTalon::CtreMagEncoder_Absolute) != 1) {
+	if(Gear->GetSensorCollection(). GetPulseWidthRiseToRiseUs() != 1) {
 		stuck_timer->Reset();
 		stuck_timer->Start();
 		return false;
@@ -113,9 +114,9 @@ void GearSubsystem::prints() {
 		stuck_timer->Start();
 	}
 
-	SmartDashboard::PutNumber("Gear voltage output", Gear->GetOutputVoltage());
+	SmartDashboard::PutNumber("Gear voltage output", Gear->GetMotorOutputVoltage());
 	SmartDashboard::PutBoolean("Gear Open?", is_open);
-	SmartDashboard::PutNumber("Gear Encoder", Gear->GetPosition());
-	SmartDashboard::PutNumber("Gear Encoder Target", Gear->Get());
-	SmartDashboard::PutNumber("Gear encoder present?", Gear->IsSensorPresent(CANTalon::CtreMagEncoder_Absolute));
+	SmartDashboard::PutNumber("Gear Encoder", Gear->GetSelectedSensorPosition(0));
+	SmartDashboard::PutNumber("Gear Encoder Target", Gear->GetClosedLoopTarget(0));
+	SmartDashboard::PutNumber("Gear encoder present?", Gear->GetSensorCollection(). GetPulseWidthRiseToRiseUs());
 }
