@@ -106,7 +106,7 @@ private:
 
 	void TestPeriodic()
 	{
-		lw->Run();
+
 //		CommandBase::turret->TurretHome();
 	}
 	void DisabledPeriodic()
