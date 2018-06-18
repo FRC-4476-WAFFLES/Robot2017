@@ -4,10 +4,8 @@
 #include "Joystick.h"
 #include "Encoder.h"
 #include "Timer.h"
-#include "Victor.h"
 #include "Ultrasonic.h"
 #include "CustomSensors/ADIS16448_IMU.h"
-#include "PWMSpeedController.h"
 #include "Talon.h"
 class DriveSubsystem: public Subsystem
 {

@@ -9,11 +9,9 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <Preferences.h>
 #include "Commands/Drive/DriveOperator.h"
-#include "Commands/Drive/DriveAuto.h"
 #include "CustomSensors/ADIS16448_IMU.h"
 #include "OI.h"
 #include "RobotMap.h"
-#include <PWMSpeedController.h>
 
 DriveSubsystem::DriveSubsystem():
 		Subsystem("DriveSubsystem")
@@ -38,7 +36,7 @@ DriveSubsystem::DriveSubsystem():
 	DriveEncoder = new Encoder(DRIVE_ENCODER_A , DRIVE_ENCODER_B);
 	DriveEncoder2 = new Encoder(DRIVE_ENCODER_C, DRIVE_ENCODER_D);
 
-	ultrasonic_sensor = new Ultrasonic(SONAR_OUT, SONAR_IN);
+	ultrasonic_sensor = new Ultrasonic(1, 0);
 	ultrasonic_sensor->SetAutomaticMode(true);
 }
 

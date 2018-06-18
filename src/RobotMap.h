@@ -16,12 +16,6 @@ constexpr int DRIVE_LEFT_2 = 4;
 constexpr int DRIVE_LEFT_3 = 5;
 constexpr int GEAR_LEFT = 8;
 constexpr int GEAR_RIGHT = 9;
-
-// CAN Motors
-constexpr int GEAR = 1;
-constexpr int DRAWER = 2;
-constexpr int TOP_CLIMBER_ROLLER = 3;
-constexpr int TOP_CLIMBER_SLAVE= 4;
 // Analog Inputs
 
 /////////DIGITAL I/O PORTS/////////
@@ -30,9 +24,4 @@ constexpr int DRIVE_ENCODER_A = 8;//left
 constexpr int DRIVE_ENCODER_B = 9;//
 constexpr int DRIVE_ENCODER_C = 2;//right
 constexpr int DRIVE_ENCODER_D = 3;
-constexpr int CLIMBER_ENCODER_A = 4;
-constexpr int CLIMBER_ENCODER_B = 5;
-constexpr int SONAR_IN = 6;
 
-//Digital Outputs
-constexpr int SONAR_OUT = 7;
