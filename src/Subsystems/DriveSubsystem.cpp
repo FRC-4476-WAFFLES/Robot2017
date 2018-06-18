@@ -13,16 +13,18 @@
 #include "CustomSensors/ADIS16448_IMU.h"
 #include "OI.h"
 #include "RobotMap.h"
+#include <PWMSpeedController.h>
 
 DriveSubsystem::DriveSubsystem():
 		Subsystem("DriveSubsystem")
 {
-	DriveLeft1 = new Victor(DRIVE_LEFT_1);
-	DriveLeft2 = new Victor(DRIVE_LEFT_2);
-	DriveLeft3 = new Victor(DRIVE_LEFT_3);
-	DriveRight1 = new Victor(DRIVE_RIGHT_1);
-	DriveRight2 = new Victor(DRIVE_RIGHT_2);
-	DriveRight3 = new Victor(DRIVE_RIGHT_3);
+
+	DriveLeft1 = new Talon(DRIVE_LEFT_1);
+	DriveLeft2 = new Talon(DRIVE_LEFT_2);
+	DriveLeft3 = new Talon(DRIVE_LEFT_3);
+	DriveRight1 = new Talon(DRIVE_RIGHT_1);
+	DriveRight2 = new Talon(DRIVE_RIGHT_2);
+	DriveRight3 = new Talon(DRIVE_RIGHT_3);
 
 	//motor safety
 	DriveLeft1->SetSafetyEnabled(false);

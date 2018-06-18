@@ -7,19 +7,20 @@
 #include "Victor.h"
 #include "Ultrasonic.h"
 #include "CustomSensors/ADIS16448_IMU.h"
-
+#include "PWMSpeedController.h"
+#include "Talon.h"
 class DriveSubsystem: public Subsystem
 {
 private:
 	Encoder* DriveEncoder;
 	Encoder* DriveEncoder2;
 	ADIS16448_IMU* gyro;
-	Victor* DriveRight1;
-	Victor* DriveRight2;
-	Victor* DriveRight3;
-	Victor* DriveLeft1;
-	Victor* DriveLeft2;
-	Victor* DriveLeft3;
+	Talon* DriveRight1;
+	Talon* DriveRight2;
+	Talon* DriveRight3;
+	Talon* DriveLeft1;
+	Talon* DriveLeft2;
+	Talon* DriveLeft3;
 	Ultrasonic* ultrasonic_sensor;
 
 	double last_left = 0;
